@@ -427,11 +427,9 @@ function setupContactForm() {
                 body: encoded.toString()
             });
 
-            // Netlify Forms returns HTML, so we check if it contains success indicators
-            const text = await response.text();
-            
-            // Check for success (Netlify Forms typically redirects or shows success)
-            if (response.ok || response.redirected || text.includes('Thank you') || text.includes('success')) {
+            // Netlify Forms returns 200 on success, even if it's HTML
+            // Check response status and content
+            if (response.status === 200) {
                 // Show success message
                 if (formMessage) {
                     formMessage.style.display = 'block';
@@ -441,7 +439,7 @@ function setupContactForm() {
                 form.reset();
                 form.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
-                throw new Error('Form submission failed');
+                throw new Error(`Form submission failed with status: ${response.status}`);
             }
         } catch (error) {
             console.error('Form submission error:', error);
