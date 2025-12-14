@@ -3,18 +3,18 @@
 
 export const experienceData = [
   {
-    title: "Data Engineer Intern",
+    title: "Business Data Analyst Intern",
     company: "Waste Management",
     location: "Hartford, CT",
     period: "May 2025 – Aug 2025",
     tags: ["Data Engineering", "Data Analysis", "Business Analytics"],
     bullets: [
+      "Led $1M post-acquisition data integration with C-suite collaboration",
       "Migrated 500K+ records from GotJunk acquisition into Snowflake, ensuring data integrity across source systems",
       "Validated Snowflake ETL pipelines, resolving API mismatches, improving downstream analytics reliability by 25%",
       "Built automated data quality and validation checks, reducing errors in production pipelines by 25%",
       "Optimized SQL transformations and joins in Snowflake to improve pipeline performance by 30%",
       "Built reporting solutions for multiple WM vendors, enhancing dashboard speed by 30%",
-      "Led $1M post-acquisition data integration with C-suite collaboration"
     ]
   },
   {
@@ -33,7 +33,7 @@ export const experienceData = [
     ]
   },
   {
-    title: "Data Engineer",
+    title: "Data Analytics Engineer",
     company: "Cognizant",
     location: "India",
     period: "Oct 2021 – Nov 2022",
