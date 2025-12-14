@@ -1,0 +1,15 @@
+﻿{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Personal Portfolio Website",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
