@@ -1,42 +1,42 @@
 /* Professional Portfolio Styles */
 /* Design System: Corporate Professional */
 
-/* CSS Variables - Rich & Aesthetic Professional Palette */
+/* CSS Variables - Warm & Elegant Professional Palette */
 :root {
-    /* Primary Colors - Aesthetic & Professional */
-    --bg-primary: #FFFFFF;
-    --bg-secondary: #F8FAFC;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --text-tertiary: #64748B;
+    /* Primary Colors - Warm & Elegant */
+    --bg-primary: #FDFBF8;
+    --bg-secondary: #FAF7F2;
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-tertiary: #78716C;
     
-    /* Accent Colors - Professional & Vibrant */
-    --accent-primary: #2563EB;
-    --accent-primary-light: #3B82F6;
-    --accent-primary-dark: #1E3A8A;
-    --accent-secondary: #7C3AED;
-    --accent-success: #047857;
-    --accent-warning: #B45309;
-    --accent-error: #B91C1C;
+    /* Accent Colors - Warm Gold & Amber */
+    --accent-primary: #D97706;
+    --accent-primary-light: #F59E0B;
+    --accent-primary-dark: #B45309;
+    --accent-secondary: #C2410C;
+    --accent-success: #059669;
+    --accent-warning: #D97706;
+    --accent-error: #DC2626;
     
-    /* Category Badge Colors - Richer, more saturated */
-    --badge-data-analysis: #2563EB;
-    --badge-data-science: #7C3AED;
+    /* Category Badge Colors - Warm Palette */
+    --badge-data-analysis: #D97706;
+    --badge-data-science: #C2410C;
     --badge-data-engineering: #059669;
     --badge-llm: #EA580C;
-    --badge-business-analytics: #0D9488;
+    --badge-business-analytics: #B45309;
     
-    /* Neutral Palette - Warmer tones */
-    --border-color: #CBD5E1;
-    --bg-alt: #F1F5F9;
-    --bg-hover: #E2E8F0;
-    --bg-card: #FFFFFF;
+    /* Neutral Palette - Warm Tones */
+    --border-color: #D6D3D1;
+    --bg-alt: #F5F5F4;
+    --bg-hover: #E7E5E4;
+    --bg-card: #FFFBF7;
     
-    /* Gradient Colors - Professional & Aesthetic */
-    --gradient-primary: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
-    --gradient-hero: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 50%, #F1F5F9 100%);
-    --gradient-accent: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-    --gradient-section: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    /* Gradient Colors - Warm & Elegant */
+    --gradient-primary: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+    --gradient-hero: linear-gradient(135deg, #FDFBF8 0%, #FAF7F2 50%, #F5F5F4 100%);
+    --gradient-accent: linear-gradient(135deg, #D97706 0%, #C2410C 100%);
+    --gradient-section: linear-gradient(180deg, #FDFBF8 0%, #FAF7F2 100%);
     
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -54,11 +54,11 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     
-    /* Shadows - Deeper, more defined */
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.12);
-    --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.15);
-    --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.2);
+    /* Shadows - Warm brown tones */
+    --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.08);
+    --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.12);
+    --shadow-lg: 0 10px 25px rgba(28, 25, 23, 0.15);
+    --shadow-xl: 0 20px 40px rgba(28, 25, 23, 0.2);
     
     /* Border Radius */
     --radius-sm: 0.25rem;
@@ -84,8 +84,8 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-primary);
     background-image: 
-        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.04) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.04) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(194, 65, 12, 0.04) 0px, transparent 50%);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -184,8 +184,8 @@ body {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.06) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(194, 65, 12, 0.06) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -196,7 +196,7 @@ body {
     right: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -228,9 +228,9 @@ body {
     font-size: 4rem;
     font-weight: var(--font-weight-bold);
     box-shadow: 
-        0 20px 40px rgba(37, 99, 235, 0.2),
-        0 0 0 8px rgba(255, 255, 255, 0.8),
-        0 0 0 12px rgba(37, 99, 235, 0.1);
+        0 20px 40px rgba(217, 119, 6, 0.25),
+        0 0 0 8px rgba(255, 251, 247, 0.9),
+        0 0 0 12px rgba(217, 119, 6, 0.1);
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease;
@@ -309,7 +309,7 @@ body {
     background: var(--gradient-primary);
     color: white;
     box-shadow: 
-        0 4px 12px rgba(37, 99, 235, 0.3),
+        0 4px 12px rgba(217, 119, 6, 0.3),
         var(--shadow-md);
     position: relative;
     overflow: hidden;
@@ -330,7 +330,7 @@ body {
     background: var(--gradient-accent);
     transform: translateY(-2px);
     box-shadow: 
-        0 8px 20px rgba(37, 99, 235, 0.4),
+        0 8px 20px rgba(217, 119, 6, 0.4),
         var(--shadow-lg);
 }
 
@@ -520,7 +520,7 @@ section {
     height: 16px;
     border-radius: 50%;
     background-color: var(--accent-primary);
-    border: 3px solid white;
+    border: 3px solid var(--bg-card);
     box-shadow: 0 0 0 3px var(--border-color);
 }
 
@@ -551,7 +551,7 @@ section {
     box-shadow: var(--shadow-lg);
     border-color: var(--accent-primary-light);
     transform: translateX(4px);
-    background: linear-gradient(to right, #FFFFFF, #FAFBFC);
+    background: linear-gradient(to right, var(--bg-card), var(--bg-secondary));
 }
 
 .timeline-card:hover::before {
@@ -645,7 +645,7 @@ section {
 .filter-btn {
     padding: 0.625rem 1.25rem;
     border: 1px solid var(--border-color);
-    background-color: white;
+    background-color: var(--bg-card);
     color: var(--text-secondary);
     border-radius: var(--radius-md);
     font-size: 0.9375rem;
@@ -663,7 +663,7 @@ section {
     background: var(--gradient-primary);
     color: white;
     border-color: transparent;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
     font-weight: var(--font-weight-semibold);
 }
 
@@ -705,7 +705,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.02) 0%, rgba(124, 58, 237, 0.02) 100%);
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.02) 0%, rgba(194, 65, 12, 0.02) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
@@ -1026,7 +1026,7 @@ section {
     font-family: var(--font-family);
     font-size: 1rem;
     color: var(--text-primary);
-    background-color: white;
+    background-color: var(--bg-card);
     transition: border-color 0.2s ease;
 }
 
@@ -1034,7 +1034,7 @@ section {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
 }
 
 .form-group textarea {
