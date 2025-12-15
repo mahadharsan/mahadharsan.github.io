@@ -11,6 +11,7 @@ export const experienceData = [
     bullets: [
       "Conducted mock interviews and provided personalized career guidance to graduate students, helping them prepare for technical interviews and job applications",
       "Facilitated regular office hours to support students in navigating master's program requirements and co-op search strategies",
+      "Hosted and organized podcasts for data careers with industry guests to provide students with insights and networking opportunities",
       "Contributed to campus outreach initiatives to enhance student engagement and career readiness",
       "Developed and delivered presentation materials for incoming student orientation programs"
     ]

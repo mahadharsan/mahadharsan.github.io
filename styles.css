@@ -689,6 +689,18 @@ section {
     background-color: var(--badge-business-analytics);
 }
 
+.timeline-tag[data-category="Leadership"] {
+    background-color: #7C3AED;
+}
+
+.timeline-tag[data-category="Mentorship"] {
+    background-color: #059669;
+}
+
+.timeline-tag[data-category="Career Development"] {
+    background-color: #DC2626;
+}
+
 .timeline-bullets {
     list-style: none;
 }
