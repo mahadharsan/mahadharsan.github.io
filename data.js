@@ -3,6 +3,19 @@
 
 export const experienceData = [
   {
+    title: "Career Advisor",
+    company: "Khoury College of Computer Sciences, Northeastern University",
+    location: "Boston, MA",
+    period: "Sep 2025 – Dec 2025",
+    tags: ["Leadership", "Mentorship", "Career Development"],
+    bullets: [
+      "Conducted mock interviews and provided personalized career guidance to graduate students, helping them prepare for technical interviews and job applications",
+      "Facilitated regular office hours to support students in navigating master's program requirements and co-op search strategies",
+      "Contributed to campus outreach initiatives to enhance student engagement and career readiness",
+      "Developed and delivered presentation materials for incoming student orientation programs"
+    ]
+  },
+  {
     title: "Business Data Analyst Intern",
     company: "Waste Management",
     location: "Hartford, CT",
