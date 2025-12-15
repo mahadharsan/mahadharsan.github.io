@@ -236,3 +236,16 @@ export const blogData = [
     excerpt: "Understanding how your brain works when learning programming and why it might feel like you're forgetting things, when actually your brain is optimizing for efficiency."
   }
 ];
+
+export const publicationsData = [
+  // Add your publications here
+  // Example structure:
+  // {
+  //   title: "Publication Title",
+  //   authors: "Author 1, Author 2, Your Name",
+  //   venue: "Journal/Conference Name",
+  //   year: "2025",
+  //   url: "https://link-to-publication.com",
+  //   citations: 0
+  // }
+];
