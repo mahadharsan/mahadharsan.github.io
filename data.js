@@ -219,3 +219,20 @@ export const certificationsData = [
     year: "2024"
   }
 ];
+
+export const blogData = [
+  {
+    title: "Introduction to ARIMA: How I Gained Intuition Behind it",
+    url: "https://dev.to/maha_data/how-i-gained-the-intuition-behind-the-arima-model-36a0",
+    platform: "dev.to",
+    date: "Mar 27, 2025",
+    excerpt: "Exploring forecasting techniques with a focus on ARIMA, a powerful time series prediction model. Building a strong foundation by covering types of forecasting, stationarity, quantitative methods, and breaking down ARIMA components step by step."
+  },
+  {
+    title: "Your Programming Skills Aren't Disappearing, Your Brain Is Just Being Efficient",
+    url: "https://medium.com/@maha_dharsan/your-programming-skills-arent-disappearing-your-brain-is-just-being-efficient-e7f498aba52e",
+    platform: "Medium",
+    date: "2025",
+    excerpt: "Understanding how your brain works when learning programming and why it might feel like you're forgetting things, when actually your brain is optimizing for efficiency."
+  }
+];
