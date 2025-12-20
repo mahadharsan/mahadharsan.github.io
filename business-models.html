@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5MDS4PWZ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y5MDS4PWZ0');
+    </script>
+    
+    <!-- SEO Meta Tags -->
+    <title>Business Models Matrix | Mahadharsan Ravichandran</title>
+    <meta name="description" content="Comprehensive analysis of business models with US market data including revenue, workforce, and industry examples.">
+    <meta name="keywords" content="Business Models, Economics, Market Analysis, Revenue Models, Business Strategy">
+    <meta name="author" content="Mahadharsan Ravichandran">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Business Models Matrix | Mahadharsan Ravichandran">
+    <meta property="og:description" content="Comprehensive analysis of business models with US market data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadharsan.netlify.app/business-models">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">MR</div>
+                <a href="/" class="nav-home">Home</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#experience">Experience</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">Explore <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/publications">Publications</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">Learn <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-dropdown-sub">
+                            <a href="#" class="dropdown-sub-toggle">Business Models <span class="dropdown-arrow">▶</span></a>
+                            <ul class="dropdown-sub-menu">
+                                <li><a href="/business-models">Overview</a></li>
+                                <li><a href="/business-models/manufacturing">Manufacturing</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Business Models Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1 class="blog-hero-title">Business Models Matrix</h1>
+            <p class="blog-hero-description">Comprehensive analysis of core business models with US market data including revenue, workforce, and industry examples</p>
+        </div>
+    </section>
+
+    <!-- Business Models Content Section -->
+    <section class="blog-content">
+        <div class="container">
+            <div class="business-models-container">
+                <div class="business-models-header">
+                    <div class="progress-notice">
+                        <p><strong>Progress Update:</strong> Currently showing <span id="model-count">7</span> of ~50-70 planned business models. Data sourced from IAB, BLS, Census Bureau, and industry reports (2024).</p>
+                    </div>
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            id="search-input" 
+                            placeholder="Search business models or industries..." 
+                            class="search-input"
+                        />
+                    </div>
+                </div>
+                
+                <div class="business-models-table-container">
+                    <table class="business-models-table" id="business-models-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="model">
+                                    Business Model <span class="sort-indicator">↕</span>
+                                </th>
+                                <th>Industries & Examples</th>
+                                <th class="sortable" data-sort="revenue">
+                                    US Revenue <span class="sort-indicator">↕</span>
+                                </th>
+                                <th class="sortable" data-sort="workforce">
+                                    US Workforce <span class="sort-indicator">↕</span>
+                                </th>
+                                <th>Sources & Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="business-models-tbody">
+                            <!-- Data will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="business-models-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Business Models</div>
+                        <div class="stat-value" id="total-models">7</div>
+                        <div class="stat-note">of ~50-70 planned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Combined Revenue</div>
+                        <div class="stat-value" id="total-revenue">$4.5T</div>
+                        <div class="stat-note">across listed models</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Combined Workforce</div>
+                        <div class="stat-value" id="total-workforce">105.2M</div>
+                        <div class="stat-note">employees across models</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Mahadharsan Ravichandran. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/mahadharsan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/mahadharsan" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=oUNyeYMAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                    <a href="mailto:mahadharsanusa@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="business-models.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
