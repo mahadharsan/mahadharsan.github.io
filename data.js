@@ -59,6 +59,20 @@ export const experienceData = [
       "Built automated SQL scripts for extraction, transformation, and validation across multiple systems",
       "Analyzed 100K+ customer transactions to identify behavioral segments, demand patterns, and churn signals"
     ]
+  },
+  {
+    title: "Supply Chain Analyst Intern",
+    company: "Sundaram Fasteners Limited",
+    location: "India",
+    period: "Feb 2021 – Jun 2021",
+    tags: ["Supply Chain", "Data Analysis", "Simulation", "Research"],
+    bullets: [
+      "Conducted research on reverse supply chain optimization for remanufacturing operations, published in Environment, Development and Sustainability (Springer)",
+      "Built discrete-event simulation models using Arena analyzing 500K+ return scenarios and optimizing transportation modes for international logistics operations between Germany/USA and India",
+      "Performed statistical analysis, goodness-of-fit testing, and distribution analysis on transportation data",
+      "Developed process and cost optimization framework reducing per-container costs by ~$50K through bottleneck identification and transportation mode analysis",
+      "Read the publication <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
+    ]
   }
 ];
 

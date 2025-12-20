@@ -825,6 +825,18 @@ section {
     font-weight: var(--font-weight-bold);
 }
 
+.timeline-bullets li a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.timeline-bullets li a:hover {
+    color: var(--accent-primary-dark);
+    text-decoration: underline;
+}
+
 /* Projects Section */
 .filter-buttons {
     display: flex;

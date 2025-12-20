@@ -140,7 +140,7 @@ function loadExperience() {
 
         exp.bullets.forEach(bullet => {
             const li = document.createElement('li');
-            li.textContent = bullet;
+            li.innerHTML = bullet;
             bulletsList.appendChild(li);
         });
 
