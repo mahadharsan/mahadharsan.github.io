@@ -5,7 +5,7 @@ Professional portfolio website for Mahadharsan Ravichandran - Data Scientist, Da
 ## Features
 
 - **Professional Design**: Clean, corporate professional design system
-- **Filterable Projects**: Filter projects by category (Data Analysis, Data Science, Data Engineering, LLM/Gen AI, Business Analytics)
+- **Filterable Projects**: Filter projects by category (Business Data Analysis, Data Science, Data Engineering, LLM/Gen AI, Business Analytics)
 - **Responsive**: Fully responsive design for all devices
 - **Performance Optimized**: Fast loading times and smooth animations
 - **SEO Optimized**: Meta tags and Open Graph tags for social sharing

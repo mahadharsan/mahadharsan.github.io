@@ -84,51 +84,21 @@ export const projectsData = [
     technologies: ["Python", "LangChain", "Chroma", "OpenAI API", "Gradio"],
     categories: ["LLM/Gen AI"],
     metrics: "92% retrieval accuracy, 40% reduction in hallucinations, sub-3s responses",
-    github: "#",
+    github: "https://github.com/mahadharsan/Finance-RAG",
     demo: "#"
   },
   {
     id: 2,
-    title: "Multi-Modal Customer Support Agent",
-    description: "Developed airline support agent handling text, images, and audio with robust function-calling workflows. Integrated GPT-4 and Claude for dynamic tools (booking, cancellation, baggage tracking, flight status).",
-    technologies: ["Python", "LangChain", "OpenAI", "Claude", "Gradio"],
-    categories: ["LLM/Gen AI"],
-    metrics: "Reduced customer response time from 5 minutes to 15 seconds",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 3,
-    title: "Autonomous Multi-Agent Deal Notification System",
-    description: "Built multi-agent architecture (Scraper, Analyzer, Evaluator) collaborating to detect high-value deals. Achieved 95% deal validation accuracy with agent-to-agent communication monitoring 20+ e-commerce sites.",
-    technologies: ["Python", "LangChain", "Agents SDK", "FastAPI"],
-    categories: ["LLM/Gen AI"],
-    metrics: "95% deal validation accuracy, real-time SMS/email alerts within 2 minutes",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 4,
-    title: "Fine-Tuned E-commerce Price Prediction Model",
-    description: "Fine-tuned LLaMA 3.2 on 50K+ product descriptions using QLoRA achieving 88% accuracy. Reduced GPU memory needs by 75% through 4-bit quantization & LoRA adapters.",
-    technologies: ["HuggingFace", "LoRA/QLoRA", "LLaMA"],
-    categories: ["LLM/Gen AI"],
-    metrics: "88% accuracy, 75% GPU memory reduction, 95% lower inference cost",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 5,
     title: "Natural Language → SQL System",
     description: "Built NL2SQL system allowing users to query databases with English across 10+ file types and multiple SQL databases. Generated optimized SQL using semantic parsing (LangChain + LLaMA).",
     technologies: ["LangChain", "Llama 3.2", "Ollama", "Streamlit"],
     categories: ["LLM/Gen AI"],
     metrics: "100% elimination of manual SQL writing for non-technical users",
-    github: "#",
+    github: "https://github.com/mahadharsan/English-to-SQL-system-app",
     demo: "#"
   },
   {
-    id: 6,
+    id: 3,
     title: "Databricks SaaS ETL Pipeline",
     description: "Orchestrated batch ETL pipelines in PySpark Databricks to ingest data from SaaS platform using Airflow. Implemented dbt transformations, automated validation, and CI/CD pipelines.",
     technologies: ["PySpark", "Python", "Git", "Databricks", "dbt", "Airflow"],
@@ -138,17 +108,17 @@ export const projectsData = [
     demo: "#"
   },
   {
-    id: 7,
-    title: "Streaming Transactional Finance Event Pipeline",
-    description: "Developed real-time streaming pipeline processing 100K+/day finance transactions using Kafka and PySpark. Applied automated validation and transformation logic to enforce schema integrity.",
-    technologies: ["Kafka", "PySpark", "Delta Lake", "Databricks CE", "Git"],
+    id: 4,
+    title: "Streaming Transactional Finance Pipeline",
+    description: "Developed data pipeline processing 100K+/day finance transactions using Airbyte and PySpark. Applied automated validation and transformation logic to enforce schema integrity.",
+    technologies: [ "Airbyte", "PySpark", "Delta Lake", "Databricks CE", "Git"],
     categories: ["Data Engineering"],
     metrics: "Real-time processing of 100K+/day transactions, reliable querying with time-travel",
     github: "#",
     demo: "#"
   },
   {
-    id: 8,
+    id: 5,
     title: "SaaS Customer Churn Prediction & Retention Modeling",
     description: "Built a LightGBM churn model achieving 85% precision to identify high-risk users and enable proactive retention interventions. Deployed real-time prediction API using FastAPI and Docker.",
     technologies: ["Python", "LightGBM", "FastAPI", "Docker", "dbt", "Airflow", "Tableau"],
@@ -158,21 +128,21 @@ export const projectsData = [
     demo: "#"
   },
   {
-    id: 9,
+    id: 6,
     title: "Customer Behavior & Sales Insights Dashboard",
     description: "Performed customer segmentation analysis using purchase frequency, spend, and products across 50K+ transactions. Designed an interactive Tableau dashboard visualizing revenue, CLV, and churn risk.",
     technologies: ["SQL", "Excel", "Tableau"],
-    categories: ["Data Analysis"],
+    categories: ["Business Data Analysis"],
     metrics: "18% underperforming SKUs identified, 7% margin increase, 12% forecasting accuracy improvement",
     github: "#",
     demo: "#"
   },
   {
-    id: 10,
+    id: 7,
     title: "Marketing Campaign Performance Optimization",
     description: "Analyzed performance across email, paid ad, and referral campaigns, evaluating CAC, ROAS, funnel conversion/retention. Built a Power BI dashboard to provide real-time campaign insights.",
     technologies: ["SQL", "Python", "Power BI"],
-    categories: ["Business Analytics"],
+    categories: ["Business Data Analysis"],
     metrics: "11.4% conversion improvement, 15% marketing ROI increase",
     github: "#",
     demo: "#"
@@ -183,7 +153,7 @@ export const skillsData = {
   "Data Engineering": {
     languages: ["SQL", "Python"],
     tools: ["Airflow", "dbt", "Informatica", "Git", "CI/CD"],
-    platforms: ["Snowflake", "AWS (Redshift, S3)", "Databricks", "Kafka", "Delta Lake"],
+    platforms: ["Snowflake", "PostgreSQL","Google Cloud Platform", "AWS (Redshift, S3)", "Databricks", "Delta Lake"],
     databases: ["MySQL", "PostgreSQL", "MS SQL Server", "SQLite"]
   },
   "Data Science": {
