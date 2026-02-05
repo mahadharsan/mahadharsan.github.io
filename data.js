@@ -138,6 +138,11 @@ export const projectsData = [
 ];
 
 export const skillsData = {
+  "Data Analysis": {
+    languages: ["SQL", "Python", "R"],
+    analytics: ["A/B Testing", "Hypothesis Testing", "Cohort Analysis", "Time-Series"],
+    visualization: ["Tableau", "Power BI", "Looker Studio", "Spotfire", "Excel"]
+  },
   "Data Engineering": {
     languages: ["SQL", "Python"],
     tools: ["Airflow", "dbt", "Informatica", "Git", "CI/CD"],
@@ -156,11 +161,6 @@ export const skillsData = {
     vectorDBs: ["Chroma", "Pinecone", "FAISS"],
     techniques: ["LoRA/QLoRA", "Model Evaluation", "Embeddings", "NLP Pipelines"],
     tools: ["FastAPI", "Streamlit", "Gradio", "Docker"]
-  },
-  "Data Analysis": {
-    languages: ["SQL", "Python", "R"],
-    analytics: ["A/B Testing", "Hypothesis Testing", "Cohort Analysis", "Time-Series"],
-    visualization: ["Tableau", "Power BI", "Looker Studio", "Spotfire", "Excel"]
   },
   "Business Analytics": {
     tools: ["Tableau", "Power BI", "Looker Studio", "Spotfire", "Excel"],
