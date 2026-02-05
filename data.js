@@ -97,36 +97,6 @@ export const projectsData = [
   },
   {
     id: 3,
-    title: "Databricks SaaS ETL Pipeline",
-    description: "Orchestrated batch ETL pipelines in PySpark Databricks to ingest data from SaaS platform using Airflow. Implemented dbt transformations, automated validation, and CI/CD pipelines.",
-    technologies: ["PySpark", "Python", "Git", "Databricks", "dbt", "Airflow"],
-    categories: ["Data Engineering"],
-    metrics: "50% error reduction through automation, scalable pipeline modules",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 4,
-    title: "Streaming Transactional Finance Pipeline",
-    description: "Developed data pipeline processing 100K+/day finance transactions using Airbyte and PySpark. Applied automated validation and transformation logic to enforce schema integrity.",
-    technologies: [ "Airbyte", "PySpark", "Delta Lake", "Databricks CE", "Git"],
-    categories: ["Data Engineering"],
-    metrics: "Real-time processing of 100K+/day transactions, reliable querying with time-travel",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 5,
-    title: "SaaS Customer Churn Prediction & Retention Modeling",
-    description: "Built a LightGBM churn model achieving 85% precision to identify high-risk users and enable proactive retention interventions. Deployed real-time prediction API using FastAPI and Docker.",
-    technologies: ["Python", "LightGBM", "FastAPI", "Docker", "dbt", "Airflow", "Tableau"],
-    categories: ["Data Science"],
-    metrics: "85% precision churn model, real-time prediction API, automated retraining",
-    github: "#",
-    demo: "#"
-  },
-  {
-    id: 6,
     title: "Customer Behavior & Sales Insights Dashboard",
     description: "Performed customer segmentation analysis using purchase frequency, spend, and products across 50K+ transactions. Designed an interactive Tableau dashboard visualizing revenue, CLV, and churn risk.",
     technologies: ["SQL", "Excel", "Tableau"],
@@ -136,12 +106,32 @@ export const projectsData = [
     demo: "#"
   },
   {
-    id: 7,
+    id: 4,
     title: "Marketing Campaign Performance Optimization",
     description: "Analyzed performance across email, paid ad, and referral campaigns, evaluating CAC, ROAS, funnel conversion/retention. Built a Power BI dashboard to provide real-time campaign insights.",
     technologies: ["SQL", "Python", "Power BI"],
     categories: ["Business Data Analysis"],
     metrics: "11.4% conversion improvement, 15% marketing ROI increase",
+    github: "#",
+    demo: "#"
+  },
+  {
+    id: 5,
+    title: "Databricks SaaS ETL Pipeline",
+    description: "Orchestrated batch ETL pipelines in PySpark Databricks to ingest data from SaaS platform using Airflow. Implemented dbt transformations, automated validation, and CI/CD pipelines.",
+    technologies: ["PySpark", "Python", "Git", "Databricks", "dbt", "Airflow"],
+    categories: ["Data Engineering"],
+    metrics: "50% error reduction through automation, scalable pipeline modules",
+    github: "#",
+    demo: "#"
+  },
+  {
+    id: 6,
+    title: "SaaS Customer Churn Prediction & Retention Modeling",
+    description: "Built a LightGBM churn model achieving 85% precision to identify high-risk users and enable proactive retention interventions. Deployed real-time prediction API using FastAPI and Docker.",
+    technologies: ["Python", "LightGBM", "FastAPI", "Docker", "dbt", "Airflow", "Tableau"],
+    categories: ["Data Science"],
+    metrics: "85% precision churn model, real-time prediction API, automated retraining",
     github: "#",
     demo: "#"
   }
