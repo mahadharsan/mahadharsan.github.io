@@ -1,15 +1,15 @@
 /* Professional Portfolio Styles */
 /* Design System: Corporate Professional */
 
-/* CSS Variables - Warm & Elegant Professional Palette */
+/* CSS Variables - Dark Old Money Professional Palette */
 :root {
-    /* Primary Colors - Warm & Elegant */
-    --bg-primary: #FDFBF8;
-    --bg-secondary: #FAF7F2;
-    --text-primary: #1C1917;
-    --text-secondary: #57534E;
+    /* Primary Colors - Dark & Elegant */
+    --bg-primary: #0F0D0C;
+    --bg-secondary: #1C1917;
+    --text-primary: #F5F5F4;
+    --text-secondary: #A8A29E;
     --text-tertiary: #78716C;
-    
+
     /* Accent Colors - Warm Gold & Amber */
     --accent-primary: #D97706;
     --accent-primary-light: #F59E0B;
@@ -18,25 +18,25 @@
     --accent-success: #059669;
     --accent-warning: #D97706;
     --accent-error: #DC2626;
-    
+
     /* Category Badge Colors - Warm Palette */
     --badge-data-analysis: #D97706;
     --badge-data-science: #C2410C;
     --badge-data-engineering: #059669;
     --badge-llm: #EA580C;
     --badge-business-analytics: #B45309;
-    
-    /* Neutral Palette - Warm Tones */
-    --border-color: #D6D3D1;
-    --bg-alt: #F5F5F4;
-    --bg-hover: #E7E5E4;
-    --bg-card: #FFFBF7;
-    
-    /* Gradient Colors - Warm & Elegant */
+
+    /* Neutral Palette - Dark Tones */
+    --border-color: #3F3F46;
+    --bg-alt: #27272A;
+    --bg-hover: #3F3F46;
+    --bg-card: #1C1917;
+
+    /* Gradient Colors - Dark & Elegant */
     --gradient-primary: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
-    --gradient-hero: linear-gradient(135deg, #FDFBF8 0%, #FAF7F2 50%, #F5F5F4 100%);
+    --gradient-hero: linear-gradient(135deg, #0F0D0C 0%, #1C1917 50%, #27272A 100%);
     --gradient-accent: linear-gradient(135deg, #D97706 0%, #C2410C 100%);
-    --gradient-section: linear-gradient(180deg, #FDFBF8 0%, #FAF7F2 100%);
+    --gradient-section: linear-gradient(180deg, #0F0D0C 0%, #1C1917 100%);
     
     /* Spacing */
     --spacing-xs: 0.5rem;
@@ -54,11 +54,11 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     
-    /* Shadows - Warm brown tones */
-    --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.08);
-    --shadow-md: 0 4px 12px rgba(28, 25, 23, 0.12);
-    --shadow-lg: 0 10px 25px rgba(28, 25, 23, 0.15);
-    --shadow-xl: 0 20px 40px rgba(28, 25, 23, 0.2);
+    /* Shadows - Light tones for dark backgrounds */
+    --shadow-sm: 0 1px 3px rgba(255, 255, 255, 0.08);
+    --shadow-md: 0 4px 12px rgba(255, 255, 255, 0.12);
+    --shadow-lg: 0 10px 25px rgba(255, 255, 255, 0.15);
+    --shadow-xl: 0 20px 40px rgba(255, 255, 255, 0.2);
     
     /* Border Radius */
     --radius-sm: 0.25rem;
@@ -83,9 +83,9 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--bg-primary);
-    background-image: 
-        radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.04) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(194, 65, 12, 0.04) 0px, transparent 50%);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(194, 65, 12, 0.06) 0px, transparent 50%);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -101,7 +101,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(15, 13, 12, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
@@ -346,8 +346,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.06) 0%, transparent 50%),
+    background:
+        radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(194, 65, 12, 0.06) 0%, transparent 50%);
     pointer-events: none;
 }
@@ -359,7 +359,7 @@ body {
     right: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.08) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -390,9 +390,9 @@ body {
     color: white;
     font-size: 4rem;
     font-weight: var(--font-weight-bold);
-    box-shadow: 
+    box-shadow:
         0 20px 40px rgba(217, 119, 6, 0.25),
-        0 0 0 8px rgba(255, 251, 247, 0.9),
+        0 0 0 8px rgba(15, 13, 12, 0.9),
         0 0 0 12px rgba(217, 119, 6, 0.1);
     position: relative;
     z-index: 1;
@@ -420,9 +420,9 @@ body {
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
-    box-shadow: 
+    box-shadow:
         0 20px 40px rgba(217, 119, 6, 0.25),
-        0 0 0 8px rgba(255, 251, 247, 0.9),
+        0 0 0 8px rgba(15, 13, 12, 0.9),
         0 0 0 12px rgba(217, 119, 6, 0.1);
     position: relative;
     z-index: 1;
@@ -576,18 +576,18 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #2D3748;
-    border: 1px solid #4A5568;
+    background-color: #374151;
+    border: 1px solid #4B5563;
     transition: all 0.3s ease;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(45, 55, 72, 0.3);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 .social-btn:hover {
-    background-color: #1A202C;
-    border-color: #718096;
+    background-color: #1F2937;
+    border-color: #9CA3AF;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(45, 55, 72, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 .social-icon {
