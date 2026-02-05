@@ -1,16 +1,59 @@
 /* Professional Portfolio Styles */
 /* Design System: Corporate Professional */
 
-/* CSS Variables - Dark Old Money Professional Palette */
+/* CSS Variables - Theme System */
 :root {
-    /* Primary Colors - Dark & Elegant */
-    --bg-primary: #0F0D0C;
-    --bg-secondary: #1C1917;
-    --text-primary: #F5F5F4;
-    --text-secondary: #A8A29E;
-    --text-tertiary: #78716C;
+    /* Light Theme - Warm & Elegant Professional Palette */
+    --light-bg-primary: #FDFBF8;
+    --light-bg-secondary: #FAF7F2;
+    --light-text-primary: #1C1917;
+    --light-text-secondary: #57534E;
+    --light-text-tertiary: #78716C;
+    --light-border-color: #D6D3D1;
+    --light-bg-alt: #F5F5F4;
+    --light-bg-hover: #E7E5E4;
+    --light-bg-card: #FFFBF7;
+    --light-shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.08);
+    --light-shadow-md: 0 4px 12px rgba(28, 25, 23, 0.12);
+    --light-shadow-lg: 0 10px 25px rgba(28, 25, 23, 0.15);
+    --light-shadow-xl: 0 20px 40px rgba(28, 25, 23, 0.2);
+    --light-gradient-hero: linear-gradient(135deg, #FDFBF8 0%, #FAF7F2 50%, #F5F5F4 100%);
+    --light-gradient-section: linear-gradient(180deg, #FDFBF8 0%, #FAF7F2 100%);
+    --light-navbar-bg: rgba(255, 255, 255, 0.95);
+    --light-photo-border: rgba(255, 251, 247, 0.9);
+    --light-social-bg: #2D3748;
+    --light-social-border: #4A5568;
+    --light-social-hover-bg: #1A202C;
+    --light-social-hover-border: #718096;
+    --light-social-shadow: 0 2px 8px rgba(45, 55, 72, 0.3);
+    --light-social-hover-shadow: 0 4px 12px rgba(45, 55, 72, 0.5);
 
-    /* Accent Colors - Warm Gold & Amber */
+    /* Dark Theme - Dark Old Money Professional Palette */
+    --dark-bg-primary: #0F0D0C;
+    --dark-bg-secondary: #1C1917;
+    --dark-text-primary: #F5F5F4;
+    --dark-text-secondary: #A8A29E;
+    --dark-text-tertiary: #78716C;
+    --dark-border-color: #3F3F46;
+    --dark-bg-alt: #27272A;
+    --dark-bg-hover: #3F3F46;
+    --dark-bg-card: #1C1917;
+    --dark-shadow-sm: 0 1px 3px rgba(255, 255, 255, 0.08);
+    --dark-shadow-md: 0 4px 12px rgba(255, 255, 255, 0.12);
+    --dark-shadow-lg: 0 10px 25px rgba(255, 255, 255, 0.15);
+    --dark-shadow-xl: 0 20px 40px rgba(255, 255, 255, 0.2);
+    --dark-gradient-hero: linear-gradient(135deg, #0F0D0C 0%, #1C1917 50%, #27272A 100%);
+    --dark-gradient-section: linear-gradient(180deg, #0F0D0C 0%, #1C1917 100%);
+    --dark-navbar-bg: rgba(15, 13, 12, 0.95);
+    --dark-photo-border: rgba(15, 13, 12, 0.9);
+    --dark-social-bg: #374151;
+    --dark-social-border: #4B5563;
+    --dark-social-hover-bg: #1F2937;
+    --dark-social-hover-border: #9CA3AF;
+    --dark-social-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    --dark-social-hover-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+
+    /* Accent Colors - Warm Gold & Amber (Same for both themes) */
     --accent-primary: #D97706;
     --accent-primary-light: #F59E0B;
     --accent-primary-dark: #B45309;
@@ -19,26 +62,18 @@
     --accent-warning: #D97706;
     --accent-error: #DC2626;
 
-    /* Category Badge Colors - Warm Palette */
+    /* Category Badge Colors - Warm Palette (Same for both themes) */
     --badge-data-analysis: #D97706;
     --badge-data-science: #C2410C;
     --badge-data-engineering: #059669;
     --badge-llm: #EA580C;
     --badge-business-analytics: #B45309;
 
-    /* Neutral Palette - Dark Tones */
-    --border-color: #3F3F46;
-    --bg-alt: #27272A;
-    --bg-hover: #3F3F46;
-    --bg-card: #1C1917;
-
-    /* Gradient Colors - Dark & Elegant */
+    /* Gradient Colors - Warm & Elegant (Same for both themes) */
     --gradient-primary: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
-    --gradient-hero: linear-gradient(135deg, #0F0D0C 0%, #1C1917 50%, #27272A 100%);
     --gradient-accent: linear-gradient(135deg, #D97706 0%, #C2410C 100%);
-    --gradient-section: linear-gradient(180deg, #0F0D0C 0%, #1C1917 100%);
-    
-    /* Spacing */
+
+    /* Spacing (Same for both themes) */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
@@ -46,24 +81,70 @@
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
     --spacing-3xl: 6rem;
-    
-    /* Typography */
+
+    /* Typography (Same for both themes) */
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    
-    /* Shadows - Light tones for dark backgrounds */
-    --shadow-sm: 0 1px 3px rgba(255, 255, 255, 0.08);
-    --shadow-md: 0 4px 12px rgba(255, 255, 255, 0.12);
-    --shadow-lg: 0 10px 25px rgba(255, 255, 255, 0.15);
-    --shadow-xl: 0 20px 40px rgba(255, 255, 255, 0.2);
-    
-    /* Border Radius */
+
+    /* Border Radius (Same for both themes) */
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
+
+    /* Default to dark theme */
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --text-tertiary: var(--dark-text-tertiary);
+    --border-color: var(--dark-border-color);
+    --bg-alt: var(--dark-bg-alt);
+    --bg-hover: var(--dark-bg-hover);
+    --bg-card: var(--dark-bg-card);
+    --shadow-sm: var(--dark-shadow-sm);
+    --shadow-md: var(--dark-shadow-md);
+    --shadow-lg: var(--dark-shadow-lg);
+    --shadow-xl: var(--dark-shadow-xl);
+    --gradient-hero: var(--dark-gradient-hero);
+    --gradient-section: var(--dark-gradient-section);
+    --navbar-bg: var(--dark-navbar-bg);
+    --photo-border: var(--dark-photo-border);
+    --social-bg: var(--dark-social-bg);
+    --social-border: var(--dark-social-border);
+    --social-hover-bg: var(--dark-social-hover-bg);
+    --social-hover-border: var(--dark-social-hover-border);
+    --social-shadow: var(--dark-social-shadow);
+    --social-hover-shadow: var(--dark-social-hover-shadow);
+}
+
+/* Light theme variables */
+:root[data-theme="light"] {
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --text-tertiary: var(--light-text-tertiary);
+    --border-color: var(--light-border-color);
+    --bg-alt: var(--light-bg-alt);
+    --bg-hover: var(--light-bg-hover);
+    --bg-card: var(--light-bg-card);
+    --shadow-sm: var(--light-shadow-sm);
+    --shadow-md: var(--light-shadow-md);
+    --shadow-lg: var(--light-shadow-lg);
+    --shadow-xl: var(--light-shadow-xl);
+    --gradient-hero: var(--light-gradient-hero);
+    --gradient-section: var(--light-gradient-section);
+    --navbar-bg: var(--light-navbar-bg);
+    --photo-border: var(--light-photo-border);
+    --social-bg: var(--light-social-bg);
+    --social-border: var(--light-social-border);
+    --social-hover-bg: var(--light-social-hover-bg);
+    --social-hover-border: var(--light-social-hover-border);
+    --social-shadow: var(--light-social-shadow);
+    --social-hover-shadow: var(--light-social-hover-shadow);
 }
 
 /* Reset & Base Styles */
@@ -84,10 +165,11 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-primary);
     background-image:
-        radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(194, 65, 12, 0.06) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(194, 65, 12, 0.03) 0px, transparent 50%);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -101,12 +183,12 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(15, 13, 12, 0.95);
+    background: var(--navbar-bg);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
     padding: var(--spacing-md) 0;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .navbar.scrolled {
@@ -392,7 +474,7 @@ body {
     font-weight: var(--font-weight-bold);
     box-shadow:
         0 20px 40px rgba(217, 119, 6, 0.25),
-        0 0 0 8px rgba(15, 13, 12, 0.9),
+        0 0 0 8px var(--photo-border),
         0 0 0 12px rgba(217, 119, 6, 0.1);
     position: relative;
     z-index: 1;
@@ -422,7 +504,7 @@ body {
     object-position: center;
     box-shadow:
         0 20px 40px rgba(217, 119, 6, 0.25),
-        0 0 0 8px rgba(15, 13, 12, 0.9),
+        0 0 0 8px var(--photo-border),
         0 0 0 12px rgba(217, 119, 6, 0.1);
     position: relative;
     z-index: 1;
@@ -576,18 +658,18 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #374151;
-    border: 1px solid #4B5563;
+    background-color: var(--social-bg);
+    border: 1px solid var(--social-border);
     transition: all 0.3s ease;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    box-shadow: var(--social-shadow);
 }
 
 .social-btn:hover {
-    background-color: #1F2937;
-    border-color: #9CA3AF;
+    background-color: var(--social-hover-bg);
+    border-color: var(--social-hover-border);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    box-shadow: var(--social-hover-shadow);
 }
 
 .social-icon {
@@ -1405,9 +1487,10 @@ section {
 
 /* Footer */
 .footer {
-    background-color: var(--text-primary);
-    color: white;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
     padding: var(--spacing-xl) 0;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -1424,14 +1507,14 @@ section {
 }
 
 .footer-links a {
-    color: white;
+    color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.9375rem;
-    transition: opacity 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-    opacity: 0.8;
+    color: var(--accent-primary);
 }
 
 /* Animations */
@@ -2216,4 +2299,49 @@ section {
     .model-stats {
         grid-template-columns: 1fr;
     }
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--accent-primary);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Smooth transitions for theme changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Reduce transition duration for performance */
+.theme-toggle,
+.navbar,
+body,
+.social-btn {
+    transition-duration: 0.2s;
 }
