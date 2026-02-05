@@ -2110,7 +2110,7 @@ section {
 
 .achievements-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
     gap: var(--spacing-xl);
     max-width: 1600px;
     margin: 0 auto;
