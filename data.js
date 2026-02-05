@@ -26,7 +26,6 @@ export const experienceData = [
       "Led $1M post-acquisition data integration with C-suite collaboration",
       "Migrated 500K+ records from GotJunk acquisition into Snowflake, ensuring data integrity across source systems",
       "Validated Snowflake ETL pipelines, resolving API mismatches, improving downstream analytics reliability by 25%",
-      "Built automated data quality and validation checks, reducing errors in production pipelines by 25%",
       "Optimized SQL transformations and joins in Snowflake to improve pipeline performance by 30%",
       "Built reporting solutions for multiple WM vendors, enhancing dashboard speed by 30%",
     ]
@@ -42,7 +41,6 @@ export const experienceData = [
       "Built real-time dashboard in LookerStudio to track failures, enabling 20% yield increase through timely intervention",
       "Automated data ingestion and transformation pipelines using Python, SQL processing ~1M+ records",
       "Built reusable SQL scripts and Python validation routines to ensure data consistency across multiple systems",
-      "Optimized SQL transformations to improve pipeline performance by 25%, supporting reporting teams",
       "Conducted A/B test analysis and presented to C-suite, enabling elimination of 5-min test and saving $25K annually"
     ]
   },
