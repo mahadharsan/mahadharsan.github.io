@@ -2110,9 +2110,9 @@ section {
 
 .achievements-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: var(--spacing-xl);
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
 }
 
@@ -2122,7 +2122,7 @@ section {
 
 .achievement-image {
     width: 100%;
-    max-width: 350px;
+    max-width: 500px;
     height: auto;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -2465,7 +2465,7 @@ section {
     }
 
     .achievement-image {
-        max-width: 250px;
+        max-width: 400px;
     }
 }
 
