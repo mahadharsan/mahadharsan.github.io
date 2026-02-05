@@ -17,10 +17,10 @@ export const experienceData = [
     ]
   },
   {
-    title: "Business Data Analyst Intern",
+    title: "Business Data Analyst",
     company: "Waste Management",
     location: "Hartford, CT",
-    period: "May 2025 – Aug 2025",
+    period: "May 2025 – Aug 2025 (Internship)",
     tags: ["Data Engineering", "Data Analysis", "Business Analytics"],
     bullets: [
       "Led $1M post-acquisition data integration with C-suite collaboration",
@@ -32,10 +32,10 @@ export const experienceData = [
     ]
   },
   {
-    title: "Data Analyst Engineer Intern",
+    title: "Data Analyst Engineer",
     company: "Formlabs",
     location: "Boston, MA",
-    period: "Sep 2024 – Dec 2024",
+    period: "Sep 2024 – Dec 2024 (Co-op)",
     tags: ["Data Engineering", "Data Analysis", "Data Science", "Business Analytics"],
     bullets: [
       "Developed anomaly detection framework with SQL and Python, reduced operator work by 90%, cut costs 15%",
@@ -61,10 +61,10 @@ export const experienceData = [
     ]
   },
   {
-    title: "Supply Chain Analyst Intern",
+    title: "Supply Chain Analyst",
     company: "Sundaram Fasteners Limited",
     location: "India",
-    period: "Feb 2021 – Jun 2021",
+    period: "Feb 2021 – Jun 2021 (Internship)",
     tags: ["Supply Chain", "Data Analysis", "Simulation", "Research"],
     bullets: [
       "Conducted research on reverse supply chain optimization for remanufacturing operations, published in Environment, Development and Sustainability (Springer)",
