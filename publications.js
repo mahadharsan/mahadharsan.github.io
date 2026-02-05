@@ -113,12 +113,6 @@ function createPublicationItem(pub) {
         meta.appendChild(year);
     }
 
-    if (pub.citations !== undefined && pub.citations !== null) {
-        const citations = document.createElement('span');
-        citations.className = 'publication-citations';
-        citations.textContent = `${pub.citations} ${pub.citations === 1 ? 'citation' : 'citations'}`;
-        meta.appendChild(citations);
-    }
 
     content.appendChild(title);
     if (pub.authors) content.appendChild(authors);
