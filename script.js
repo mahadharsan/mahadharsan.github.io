@@ -406,20 +406,6 @@ function setupNavigation() {
         }
     });
 
-    // Podcast dropdown functionality
-    const podcastDropdown = document.querySelector('.nav-dropdown-podcast');
-    if (podcastDropdown) {
-        const podcastToggle = podcastDropdown.querySelector('.dropdown-podcast-toggle');
-
-        if (podcastToggle) {
-            podcastToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                podcastDropdown.classList.toggle('active');
-            });
-        }
-    }
-
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-dropdown')) {
@@ -431,11 +417,6 @@ function setupNavigation() {
             nestedDropdowns.forEach(nestedDropdown => {
                 nestedDropdown.classList.remove('active');
             });
-        }
-        if (!e.target.closest('.nav-dropdown-podcast')) {
-            if (podcastDropdown) {
-                podcastDropdown.classList.remove('active');
-            }
         }
     });
 
