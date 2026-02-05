@@ -494,7 +494,7 @@ body {
 .hero-description {
     font-size: 1.125rem;
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
     line-height: 1.7;
     text-align: justify;
 }
