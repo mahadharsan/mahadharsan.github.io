@@ -79,7 +79,7 @@ Replace the two separate blog links in the dropdown with a single "Blog" link th
 
 ## Result
 
-- Single "Blog" link in Explore dropdown
+- Single "Blog" link in Explore More dropdown
 - Clicking "Blog" navigates to `/blog` page
 - Blog page displays posts organized by platform (dev.to, Medium, etc.)
 - Easy to add new posts by updating `blogData` in `data.js`
