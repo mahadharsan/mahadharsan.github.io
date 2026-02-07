@@ -174,7 +174,7 @@ export const educationData = [
     school: "Northeastern University",
     location: "Boston, MA",
     period: "Jan 2023 – Dec 2025",
-    gpa: "3.96"
+    gpa: "3.97"
   },
   {
     degree: "Bachelor of Technology, Mechanical Engineering",
