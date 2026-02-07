@@ -9,11 +9,10 @@ export const experienceData = [
     period: "Sep 2025 – Dec 2025",
     tags: ["Leadership", "Mentorship", "Career Development"],
     bullets: [
-      "Conducted mock interviews and provided personalized career guidance to graduate students, helping them prepare for technical interviews and job applications",
-      "Facilitated regular office hours to support students in navigating master's program requirements and co-op search strategies",
-      "Hosted and organized podcasts for data careers with industry guests to provide students with insights and networking opportunities",
-      "Contributed to campus outreach initiatives to enhance student engagement and career readiness",
-      "Developed and delivered presentation materials for incoming student orientation programs"
+      "Conducted mock interviews and guided graduate students in technical interview and job preparation",
+      "Held regular office hours to support students with program requirements and co-op strategies",
+      "Hosted 5+ podcasts with industry guests, providing career insights and networking opportunities",
+      "Developed and delivered presentation materials for incoming student orientation"
     ]
   },
   {
@@ -24,10 +23,9 @@ export const experienceData = [
     tags: ["Data Engineering", "Data Analysis", "Business Analytics"],
     bullets: [
       "Led $1M post-acquisition data integration with C-suite collaboration",
-      "Migrated 500K+ records from GotJunk acquisition into Snowflake, ensuring data integrity across source systems",
-      "Validated Snowflake ETL pipelines, resolving API mismatches, improving downstream analytics reliability by 25%",
-      "Optimized SQL transformations and joins in Snowflake to improve pipeline performance by 30%",
-      "Built reporting solutions for multiple WM vendors, enhancing dashboard speed by 30%",
+      "Migrated 500K+ GotJunk records into Snowflake, ensuring data integrity across source systems",
+      "Validated ETL pipelines and resolved API mismatches, boosting analytics reliability by 25%",
+      "Optimized SQL transformations and joins in Snowflake, improving pipeline performance and dashboard usability by 30%"
     ]
   },
   {
@@ -37,11 +35,11 @@ export const experienceData = [
     period: "Sep 2024 – Dec 2024 (Co-op)",
     tags: ["Data Engineering", "Data Analysis", "Data Science", "Business Analytics"],
     bullets: [
-      "Developed anomaly detection framework with SQL and Python, reduced operator work by 90%, cut costs 15%",
-      "Built real-time dashboard in LookerStudio to track failures, enabling 20% yield increase through timely intervention",
-      "Automated data ingestion and transformation pipelines using Python, SQL processing ~1M+ records",
-      "Built reusable SQL scripts and Python validation routines to ensure data consistency across multiple systems",
-      "Conducted A/B test analysis and presented to C-suite, enabling elimination of 5-min test and saving $25K annually"
+      "Developed an anomaly detection framework with SQL and Python, cutting operator workload by 90% and costs by 15%",
+      "Built a real-time LookerStudio dashboard, boosting yield by 20% through timely failure tracking",
+      "Automated data pipelines with Python, SQL, and BigQuery, processing 1M+ records efficiently",
+      "Created reusable SQL scripts and Python routines to ensure data consistency across systems",
+      "Conducted A/B tests and presented results to C-suite, eliminating a 5-minute test and saving $25K"
     ]
   },
   {
@@ -51,10 +49,10 @@ export const experienceData = [
     period: "Oct 2021 – Nov 2022",
     tags: ["Data Engineering", "Data Analysis", "Business Analytics"],
     bullets: [
-      "Managed data migration of 1M+ insurance claims from Ironshore to Liberty Mutual using Informatica",
-      "Implemented validation checks achieving 100% data accuracy across migrated records using SQL Server",
-      "Optimized Informatica ETL workflows, reducing batch processing time by 40%",
-      "Built automated SQL scripts for extraction, transformation, and validation across multiple systems",
+      "Managed migration of 1M+ insurance claims from Ironshore to Liberty Mutual using Informatica, ensuring data integrity",
+      "Implemented SQL Server validation checks, achieving 100% accuracy across migrated records",
+      "Optimized Informatica ETL workflows, reducing batch processing time by 40% and improving downstream analytics",
+      "Built automated SQL scripts for ETL and validation across systems, streamlining recurring processes",
       "Analyzed 100K+ customer transactions to identify behavioral segments, demand patterns, and churn signals"
     ]
   },
@@ -66,9 +64,9 @@ export const experienceData = [
     tags: ["Supply Chain", "Data Analysis", "Simulation", "Research"],
     bullets: [
       "Conducted research on reverse supply chain optimization for remanufacturing operations, published in Environment, Development and Sustainability (Springer)",
-      "Built discrete-event simulation models using Arena analyzing 500K+ return scenarios and optimizing transportation modes for international logistics operations between Germany/USA and India",
+      "Built discrete-event simulation models using Arena to analyze 500K+ return scenarios and optimize international logistics between Germany/USA and India",
       "Performed statistical analysis, goodness-of-fit testing, and distribution analysis on transportation data",
-      "Developed process and cost optimization framework reducing per-container costs by ~$50K through bottleneck identification and transportation mode analysis",
+      "Developed process and cost optimization framework, reducing per-container costs by ~$50K",
       "Read the publication <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
     ]
   }
