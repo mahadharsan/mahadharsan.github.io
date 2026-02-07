@@ -792,6 +792,13 @@ section {
     gap: var(--spacing-sm);
 }
 
+.about-subsection-subtitle {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+
 .about-subsection-title::before {
     content: '';
     width: 4px;
