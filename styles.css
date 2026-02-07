@@ -843,7 +843,7 @@ section {
     box-shadow: var(--shadow-lg);
     transform: translateY(-6px);
     border-color: var(--accent-primary-light);
-    background: linear-gradient(to bottom, #FFFFFF, #FAFBFC);
+    background: var(--bg-alt);
 }
 
 .skill-category:hover::before {
