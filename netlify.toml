@@ -8,7 +8,7 @@
   to = "/index.html"
   status = 200
   force = false
-  except = ["/success.html", "/blog.html", "/publications.html", "/business-models.html", "/business-models/manufacturing.html", "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.svg", "/*.ico", "/*.pdf"]
+  except = ["/success.html", "/blog.html", "/publications.html", "/business-models.html", "/business-models/manufacturing.html", "/h1b-dashboard.html", "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.svg", "/*.ico", "/*.pdf"]
 
 [build.environment]
   NODE_VERSION = "18"
