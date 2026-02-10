@@ -240,17 +240,11 @@ function loadProjects() {
         description.className = 'project-description';
         description.textContent = project.description;
 
-        const metrics = document.createElement('div');
-        metrics.className = 'project-metrics';
-
-        // Special handling for H1B project: show architecture diagram instead of metrics text
-        if (project.id === 7 && project.image) {
-            const metricsImage = document.createElement('img');
-            metricsImage.src = project.image;
-            metricsImage.alt = `${project.title} Architecture`;
-            metricsImage.className = 'project-metrics-image';
-            metrics.appendChild(metricsImage);
-        } else {
+        // Skip metrics for H1B project (architecture diagram displayed separately)
+        let metrics = null;
+        if (project.id !== 7) {
+            metrics = document.createElement('div');
+            metrics.className = 'project-metrics';
             metrics.textContent = `📊 ${project.metrics}`;
         }
 
@@ -290,7 +284,9 @@ function loadProjects() {
 
 
         body.appendChild(description);
-        body.appendChild(metrics);
+        if (metrics) {
+            body.appendChild(metrics);
+        }
         body.appendChild(technologies);
         if (links.children.length > 0) {
             body.appendChild(links);
