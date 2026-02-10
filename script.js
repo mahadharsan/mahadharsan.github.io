@@ -273,27 +273,11 @@ function loadProjects() {
             demoLink.target = '_blank';
             demoLink.rel = 'noopener noreferrer';
             demoLink.className = 'project-link';
-            demoLink.textContent = 'Live Demo →';
+            // Special handling for H1B project to show "Dashboard" instead of "Live Demo"
+            demoLink.textContent = project.id === 7 ? 'Dashboard →' : 'Live Demo →';
             links.appendChild(demoLink);
         }
 
-        // Iframe (if available)
-        if (project.iframe) {
-            const iframeContainer = document.createElement('div');
-            iframeContainer.className = 'project-iframe-container';
-            iframeContainer.innerHTML = project.iframe;
-
-            // Make iframe responsive
-            const iframe = iframeContainer.querySelector('iframe');
-            if (iframe) {
-                iframe.style.width = '100%';
-                iframe.style.maxWidth = '100%';
-                iframe.style.height = 'auto';
-                iframe.style.aspectRatio = '600/443'; // Based on original dimensions
-            }
-
-            body.appendChild(iframeContainer);
-        }
 
         body.appendChild(description);
         body.appendChild(metrics);

@@ -141,9 +141,8 @@ export const projectsData = [
     categories: ["Data Engineering"],
     metrics: "200k records processed, 1k+ employer names consolidated",
     github: "https://github.com/mahadharsan/h1b-data-analytics-engineering-pipeline",
-    demo: "#",
-    image: "assets/architecture_diagram.png",
-    iframe: '<iframe width="600" height="443" src="https://lookerstudio.google.com/embed/reporting/c1a28f6a-c990-4c2b-995d-7e3c834f3d10/page/rLwnF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>'
+    demo: "h1b-dashboard.html",
+    image: "assets/architecture_diagram.png"
   }
 ];
 
