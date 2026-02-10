@@ -141,8 +141,7 @@ export const projectsData = [
     categories: ["Data Engineering", "Data Analysis"],
     metrics: "200k records processed, 1k+ employer names consolidated",
     github: "https://github.com/mahadharsan/h1b-data-analytics-engineering-pipeline",
-    demo: "h1b-dashboard.html",
-    image: "assets/architecture_diagram.png"
+    demo: "h1b-dashboard.html"
   }
 ];
 

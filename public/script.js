@@ -240,13 +240,9 @@ function loadProjects() {
         description.className = 'project-description';
         description.textContent = project.description;
 
-        // Skip metrics for H1B project (architecture diagram displayed separately)
-        let metrics = null;
-        if (project.id !== 7) {
-            metrics = document.createElement('div');
-            metrics.className = 'project-metrics';
-            metrics.textContent = `📊 ${project.metrics}`;
-        }
+        const metrics = document.createElement('div');
+        metrics.className = 'project-metrics';
+        metrics.textContent = `📊 ${project.metrics}`;
 
         const technologies = document.createElement('div');
         technologies.className = 'project-technologies';
@@ -284,9 +280,7 @@ function loadProjects() {
 
 
         body.appendChild(description);
-        if (metrics) {
-            body.appendChild(metrics);
-        }
+        body.appendChild(metrics);
         body.appendChild(technologies);
         if (links.children.length > 0) {
             body.appendChild(links);
