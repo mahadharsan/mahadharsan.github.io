@@ -242,7 +242,17 @@ function loadProjects() {
 
         const metrics = document.createElement('div');
         metrics.className = 'project-metrics';
-        metrics.textContent = `📊 ${project.metrics}`;
+
+        // Special handling for H1B project: show architecture diagram instead of metrics text
+        if (project.id === 7 && project.image) {
+            const metricsImage = document.createElement('img');
+            metricsImage.src = project.image;
+            metricsImage.alt = `${project.title} Architecture`;
+            metricsImage.className = 'project-metrics-image';
+            metrics.appendChild(metricsImage);
+        } else {
+            metrics.textContent = `📊 ${project.metrics}`;
+        }
 
         const technologies = document.createElement('div');
         technologies.className = 'project-technologies';
