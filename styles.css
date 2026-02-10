@@ -1271,6 +1271,30 @@ section {
     text-decoration: underline;
 }
 
+.project-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+    display: block;
+}
+
+.project-iframe-container {
+    margin: var(--spacing-md) 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.project-iframe-container iframe {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 300px;
+    border: none;
+    display: block;
+}
+
 /* Education Section */
 .education {
     background: var(--gradient-section);

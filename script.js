@@ -223,6 +223,15 @@ function loadProjects() {
         header.appendChild(title);
         header.appendChild(badges);
 
+        // Image (if available)
+        if (project.image) {
+            const image = document.createElement('img');
+            image.src = project.image;
+            image.alt = `${project.title} Architecture`;
+            image.className = 'project-image';
+            card.appendChild(image);
+        }
+
         // Body
         const body = document.createElement('div');
         body.className = 'project-body';
@@ -266,6 +275,24 @@ function loadProjects() {
             demoLink.className = 'project-link';
             demoLink.textContent = 'Live Demo →';
             links.appendChild(demoLink);
+        }
+
+        // Iframe (if available)
+        if (project.iframe) {
+            const iframeContainer = document.createElement('div');
+            iframeContainer.className = 'project-iframe-container';
+            iframeContainer.innerHTML = project.iframe;
+
+            // Make iframe responsive
+            const iframe = iframeContainer.querySelector('iframe');
+            if (iframe) {
+                iframe.style.width = '100%';
+                iframe.style.maxWidth = '100%';
+                iframe.style.height = 'auto';
+                iframe.style.aspectRatio = '600/443'; // Based on original dimensions
+            }
+
+            body.appendChild(iframeContainer);
         }
 
         body.appendChild(description);

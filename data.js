@@ -132,6 +132,18 @@ export const projectsData = [
     metrics: "85% precision churn model, real-time prediction API, automated retraining",
     github: "#",
     demo: "#"
+  },
+  {
+    id: 7,
+    title: "H1B Visa Sponsorship Analytics (2023-2025)",
+    description: "Engineered an end-to-end ELT pipeline processing 200k raw records (1.2M applications). Implemented regex-based Entity Resolution via dbt to consolidate 1k+ fragmented employer names.",
+    technologies: ["Postgres", "Airbyte", "BigQuery", "PySpark", "dbt", "Looker Studio"],
+    categories: ["Data Engineering"],
+    metrics: "200k records processed, 1k+ employer names consolidated",
+    github: "https://github.com/mahadharsan/h1b-data-analytics-engineering-pipeline",
+    demo: "#",
+    image: "assets/architecture_diagram.png",
+    iframe: '<iframe width="600" height="443" src="https://lookerstudio.google.com/embed/reporting/c1a28f6a-c990-4c2b-995d-7e3c834f3d10/page/rLwnF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>'
   }
 ];
 
