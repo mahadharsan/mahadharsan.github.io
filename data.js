@@ -138,7 +138,7 @@ export const projectsData = [
     title: "H1B Visa Sponsorship Analytics (2023-2025)",
     description: "Engineered an end-to-end ELT pipeline processing 200k raw records (1.2M applications). Implemented regex-based Entity Resolution via dbt to consolidate 1k+ fragmented employer names.",
     technologies: ["Postgres", "Airbyte", "BigQuery", "PySpark", "dbt", "Looker Studio"],
-    categories: ["Data Engineering"],
+    categories: ["Data Engineering", "Data Analysis"],
     metrics: "200k records processed, 1k+ employer names consolidated",
     github: "https://github.com/mahadharsan/h1b-data-analytics-engineering-pipeline",
     demo: "h1b-dashboard.html",
