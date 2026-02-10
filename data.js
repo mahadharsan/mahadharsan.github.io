@@ -98,7 +98,7 @@ export const projectsData = [
     title: "Customer Behavior & Sales Insights Dashboard",
     description: "Performed customer segmentation analysis using purchase frequency, spend, and products across 50K+ transactions. Designed an interactive Tableau dashboard visualizing revenue, CLV, and churn risk.",
     technologies: ["SQL", "Excel", "Tableau"],
-    categories: ["Business Data Analysis"],
+    categories: ["Data Analysis"],
     metrics: "18% underperforming SKUs identified, 7% margin increase, 12% forecasting accuracy improvement",
     github: "#",
     demo: "#"
@@ -108,7 +108,7 @@ export const projectsData = [
     title: "Marketing Campaign Performance Optimization",
     description: "Analyzed performance across email, paid ad, and referral campaigns, evaluating CAC, ROAS, funnel conversion/retention. Built a Power BI dashboard to provide real-time campaign insights.",
     technologies: ["SQL", "Python", "Power BI"],
-    categories: ["Business Data Analysis"],
+    categories: ["Data Analysis"],
     metrics: "11.4% conversion improvement, 15% marketing ROI increase",
     github: "#",
     demo: "#"
