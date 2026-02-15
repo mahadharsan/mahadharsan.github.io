@@ -214,6 +214,13 @@ export const blogData = [
     platform: "Medium",
     date: "2025",
     excerpt: "Understanding how your brain works when learning programming and why it might feel like you're forgetting things, when actually your brain is optimizing for efficiency."
+  },
+  {
+    title: "The Interview Question That Stuck With Me For Years And How Entity Resolution Finally Clicked",
+    url: "https://medium.com/@mahadharsan/the-interview-question-that-stuck-with-me-for-years-and-how-entity-resolution-finally-clicked-dee9faa6e63a",
+    platform: "Medium",
+    date: "Feb 2026",
+    excerpt: "A personal story about struggling with an interview question for years and finally understanding entity resolution through hands-on data engineering work."
   }
 ];
 
