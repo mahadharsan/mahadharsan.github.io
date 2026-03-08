@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5MDS4PWZ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y5MDS4PWZ0');
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>Learn | Mahadharsan Ravichandran</title>
+    <meta name="description" content="Explore learning resources and educational content about business models, data science, and technology.">
+    <meta name="keywords" content="Learning, Business Models, Data Science, Technology, Education">
+    <meta name="author" content="Mahadharsan Ravichandran">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Learn | Mahadharsan Ravichandran">
+    <meta property="og:description" content="Explore learning resources and educational content">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadharsan.netlify.app/learn">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Learn | Mahadharsan Ravichandran">
+    <meta name="twitter:description" content="Explore learning resources and educational content">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .learn-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .learn-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .learn-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .learn-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .learn-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .learn-category {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .learn-category:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 1rem 0;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .category-toggle {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .category-toggle.rotated {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .category-content.open {
+            max-height: 500px;
+        }
+
+        .learn-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .learn-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .item-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .item-link:hover {
+            color: var(--accent-primary-dark);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .learn-title {
+                font-size: 2rem;
+            }
+
+            .learn-grid {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">MR</div>
+                <a href="/" class="nav-home">Home</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#experience">Experience</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">My stories <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/publications">Publications</a></li>
+                        <li><a href="/podcast">DDD Podcast</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Learn Content -->
+    <main class="learn-container">
+        <a href="/" class="back-link">
+            ← Back to Portfolio
+        </a>
+
+        <div class="learn-header">
+            <h1 class="learn-title">Learn</h1>
+            <p class="learn-subtitle">Explore educational content and resources to enhance your knowledge in business, technology, and data science.</p>
+        </div>
+
+        <div class="learn-grid">
+            <div class="learn-category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h3 class="category-title">Business Models</h3>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="learn-item">
+                        <h4 class="item-title">Overview</h4>
+                        <p class="item-description">Comprehensive analysis of core business models with US market data including revenue, workforce, and industry examples.</p>
+                        <a href="/business-models" class="item-link">Explore Business Models →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future categories can be added here -->
+            <!--
+            <div class="learn-category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <h3 class="category-title">Data Science</h3>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div class="category-content">
+                    <div class="learn-item">
+                        <h4 class="item-title">Machine Learning Fundamentals</h4>
+                        <p class="item-description">Learn the basics of machine learning algorithms and their applications.</p>
+                        <a href="#" class="item-link">Start Learning →</a>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Mahadharsan Ravichandran. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/mahadharsan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/mahadharsan" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=oUNyeYMAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                    <a href="mailto:mahadharsanusa@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
+    <script>
+        function toggleCategory(header) {
+            const content = header.parentElement.querySelector('.category-content');
+            const toggle = header.querySelector('.category-toggle');
+
+            content.classList.toggle('open');
+            toggle.classList.toggle('rotated');
+        }
+    </script>
+</body>
+</html>
