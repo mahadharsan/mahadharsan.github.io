@@ -64,8 +64,90 @@
 
         .learn-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+        }
+
+        .learn-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .category-subheading {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .interview-link {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .interview-link:hover {
+            color: var(--accent-primary-dark);
+            text-decoration: underline;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-primary);
         }
 
         .learn-category {
@@ -216,36 +298,40 @@
         </div>
 
         <div class="learn-grid">
-            <div class="learn-category">
-                <div class="category-header" onclick="toggleCategory(this)">
-                    <h3 class="category-title">Business Models</h3>
-                    <span class="category-toggle">▼</span>
+            <!-- Column 1: Interview Preparation -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-subheading">Interview Preparation</div>
+                    <ul style="padding-left: 1.5rem; margin: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <a href="#" class="interview-link" onclick="showInterviewImage()">Hiring Manager Interview</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="category-content">
-                    <div class="learn-item">
-                        <h4 class="item-title">Overview</h4>
-                        <p class="item-description">Comprehensive analysis of core business models with US market data including revenue, workforce, and industry examples.</p>
-                        <a href="/business-models" class="item-link">Explore Business Models →</a>
+            </div>
+
+            <!-- Column 2: Miscellaneous -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Miscellaneous</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="category-subheading" style="margin-top: 1rem;">Business Models</div>
+                        <div class="learn-item">
+                            <h4 class="item-title">Overview</h4>
+                            <p class="item-description">Comprehensive analysis of core business models with US market data including revenue, workforce, and industry examples.</p>
+                            <a href="/business-models" class="item-link">Explore Business Models →</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Future categories can be added here -->
-            <!--
-            <div class="learn-category">
-                <div class="category-header" onclick="toggleCategory(this)">
-                    <h3 class="category-title">Data Science</h3>
-                    <span class="category-toggle">▼</span>
-                </div>
-                <div class="category-content">
-                    <div class="learn-item">
-                        <h4 class="item-title">Machine Learning Fundamentals</h4>
-                        <p class="item-description">Learn the basics of machine learning algorithms and their applications.</p>
-                        <a href="#" class="item-link">Start Learning →</a>
-                    </div>
-                </div>
+            <!-- Column 3: Future content -->
+            <div class="learn-column">
+                <!-- Future categories can be added here -->
             </div>
-            -->
         </div>
     </main>
 
@@ -264,6 +350,14 @@
         </div>
     </footer>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" src="" alt="Interview Guide">
+        </div>
+    </div>
+
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark mode">
         <span id="theme-icon">🌙</span>
@@ -279,6 +373,32 @@
             content.classList.toggle('open');
             toggle.classList.toggle('rotated');
         }
+
+        function showInterviewImage() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = 'assets/hiring manager interview/Hiring Manger Round.jpg';
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('imageModal').classList.contains('show')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
