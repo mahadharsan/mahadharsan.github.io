@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Data Analytics Master Guide | Mahadharsan Ravichandran</title>
+    <meta name="description" content="Comprehensive guide to data analytics covering fundamentals, tools, SQL, Python, visualization, statistics, and machine learning.">
+    <meta name="keywords" content="Data Analytics, SQL, Python, Data Visualization, Statistics, Machine Learning, Business Intelligence">
+    <meta name="author" content="Mahadharsan Ravichandran">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Data Analytics Master Guide | Mahadharsan Ravichandran">
+    <meta property="og:description" content="Comprehensive guide to data analytics covering fundamentals, tools, SQL, Python, visualization, statistics, and machine learning.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadharsan.netlify.app/data-analytics-master">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Data Analytics Master Guide | Mahadharsan Ravichandran">
+    <meta name="twitter:description" content="Comprehensive guide to data analytics covering fundamentals, tools, SQL, Python, visualization, statistics, and machine learning.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .master-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        .master-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .master-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .master-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .toc-container {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .toc-item:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .toc-number {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            min-width: 2rem;
+        }
+
+        .toc-content h4 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .toc-content p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+
+        .section-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            min-width: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin: 0.5rem 0 2rem 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .highlight-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .highlight-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .highlight-desc {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .master-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">MR</div>
+                <a href="/" class="nav-home">Home</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#experience">Experience</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">My stories <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/publications">Publications</a></li>
+                        <li><a href="/podcast">DDD Podcast</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Master Guide Content -->
+    <main class="master-container">
+        <a href="learn.html" class="back-link">
+            ← Back to Learn
+        </a>
+
+        <div class="master-header">
+            <h1 class="master-title">Data Analytics Master Guide</h1>
+            <p class="master-subtitle">Your comprehensive roadmap to mastering data analytics - from fundamentals to advanced techniques, all in one unified guide.</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc-container">
+            <h2 class="toc-title">Table of Contents</h2>
+            <div class="toc-grid">
+                <a href="#fundamentals" class="toc-item">
+                    <div class="toc-number">01</div>
+                    <div class="toc-content">
+                        <h4>Fundamentals</h4>
+                        <p>Data analytics concepts & process</p>
+                    </div>
+                </a>
+                <a href="#tools" class="toc-item">
+                    <div class="toc-number">02</div>
+                    <div class="toc-content">
+                        <h4>Tools & Technologies</h4>
+                        <p>Essential and advanced tools</p>
+                    </div>
+                </a>
+                <a href="#sql" class="toc-item">
+                    <div class="toc-number">03</div>
+                    <div class="toc-content">
+                        <h4>SQL Mastery</h4>
+                        <p>Database querying skills</p>
+                    </div>
+                </a>
+                <a href="#python" class="toc-item">
+                    <div class="toc-number">04</div>
+                    <div class="toc-content">
+                        <h4>Python for Data</h4>
+                        <p>Programming for analytics</p>
+                    </div>
+                </a>
+                <a href="#visualization" class="toc-item">
+                    <div class="toc-number">05</div>
+                    <div class="toc-content">
+                        <h4>Data Visualization</h4>
+                        <p>Chart types & best practices</p>
+                    </div>
+                </a>
+                <a href="#statistics" class="toc-item">
+                    <div class="toc-number">06</div>
+                    <div class="toc-content">
+                        <h4>Statistics & Math</h4>
+                        <p>Statistical foundations</p>
+                    </div>
+                </a>
+                <a href="#ml" class="toc-item">
+                    <div class="toc-number">07</div>
+                    <div class="toc-content">
+                        <h4>ML Basics</h4>
+                        <p>Introduction to machine learning</p>
+                    </div>
+                </a>
+                <a href="#projects" class="toc-item">
+                    <div class="toc-number">08</div>
+                    <div class="toc-content">
+                        <h4>Real Projects</h4>
+                        <p>Practical project ideas</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="fundamentals" class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <h2 class="section-title">Fundamentals</h2>
+            </div>
+            <p class="section-subtitle">Understanding the core concepts and process of data analytics</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">What is Data Analytics?</h3>
+                    <div class="card-content">
+                        <p>Data analytics is the science of analyzing raw data to make conclusions about that information. It involves examining data sets to draw insights, identify patterns, and support decision-making.</p>
+                        <p><strong>Key Components:</strong></p>
+                        <ul>
+                            <li>Data Collection & Cleaning</li>
+                            <li>Data Exploration & Analysis</li>
+                            <li>Data Visualization</li>
+                            <li>Insight Generation & Reporting</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">The Data Analytics Process</h3>
+                    <div class="card-content">
+                        <p>A structured approach ensures consistent and reliable results:</p>
+                        <ol>
+                            <li><strong>Ask:</strong> Define the business question</li>
+                            <li><strong>Prepare:</strong> Collect and clean the data</li>
+                            <li><strong>Process:</strong> Transform and organize data</li>
+                            <li><strong>Analyze:</strong> Apply statistical methods</li>
+                            <li><strong>Share:</strong> Communicate insights effectively</li>
+                            <li><strong>Act:</strong> Implement findings</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Types of Data Analytics</h3>
+                    <div class="card-content">
+                        <ul class="highlight-list">
+                            <li class="highlight-item">
+                                <div class="highlight-title">Descriptive Analytics</div>
+                                <div class="highlight-desc">What happened? (Historical data analysis)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Diagnostic Analytics</div>
+                                <div class="highlight-desc">Why did it happen? (Root cause analysis)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Predictive Analytics</div>
+                                <div class="highlight-desc">What will happen? (Forecasting)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Prescriptive Analytics</div>
+                                <div class="highlight-desc">What should we do? (Optimization)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Tools & Technologies -->
+        <section id="tools" class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <h2 class="section-title">Tools & Technologies</h2>
+            </div>
+            <p class="section-subtitle">Essential tools every data analyst should master</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Spreadsheet Tools</h3>
+                    <div class="card-content">
+                        <p><strong>Microsoft Excel & Google Sheets:</strong></p>
+                        <ul>
+                            <li>Data cleaning and transformation</li>
+                            <li>Pivot tables and charts</li>
+                            <li>Basic statistical functions</li>
+                            <li>Data validation and conditional formatting</li>
+                        </ul>
+                        <p><em>Best for: Quick analysis, small datasets, business reporting</em></p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Business Intelligence Tools</h3>
+                    <div class="card-content">
+                        <p><strong>Tableau, Power BI, Looker:</strong></p>
+                        <ul>
+                            <li>Interactive dashboards</li>
+                            <li>Advanced visualizations</li>
+                            <li>Real-time data connections</li>
+                            <li>Self-service analytics</li>
+                        </ul>
+                        <p><em>Best for: Data visualization, executive reporting, stakeholder communication</em></p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Programming Languages</h3>
+                    <div class="card-content">
+                        <p><strong>Python & R:</strong></p>
+                        <ul>
+                            <li>Statistical analysis</li>
+                            <li>Machine learning</li>
+                            <li>Automation and scripting</li>
+                            <li>Custom visualizations</li>
+                        </ul>
+                        <p><em>Best for: Complex analysis, automation, advanced statistics</em></p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Database Technologies</h3>
+                    <div class="card-content">
+                        <p><strong>SQL Databases:</strong></p>
+                        <ul>
+                            <li>MySQL, PostgreSQL, SQL Server</li>
+                            <li>Data querying and manipulation</li>
+                            <li>Database design</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                        <p><em>Best for: Structured data storage, complex queries, data warehousing</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: SQL Mastery -->
+        <section id="sql" class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <h2 class="section-title">SQL Mastery</h2>
+            </div>
+            <p class="section-subtitle">Master database querying for data extraction and analysis</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Basic SQL Queries</h3>
+                    <div class="card-content">
+                        <p>Essential SELECT statements for data retrieval:</p>
+                        <div class="code-block">
+SELECT column1, column2, column3<br>
+FROM table_name<br>
+WHERE condition<br>
+ORDER BY column_name DESC<br>
+LIMIT 10;
+                        </div>
+                        <p><strong>Key Commands:</strong> SELECT, FROM, WHERE, ORDER BY, LIMIT, DISTINCT</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Data Aggregation</h3>
+                    <div class="card-content">
+                        <p>Group and summarize data using aggregate functions:</p>
+                        <div class="code-block">
+SELECT department, AVG(salary) as avg_salary,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) as employee_count,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MAX(salary) as max_salary<br>
+FROM employees<br>
+GROUP BY department<br>
+HAVING AVG(salary) > 50000<br>
+ORDER BY avg_salary DESC;
+                        </div>
+                        <p><strong>Functions:</strong> COUNT, SUM, AVG, MIN, MAX, GROUP BY, HAVING</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Joins & Relationships</h3>
+                    <div class="card-content">
+                        <p>Combine data from multiple tables:</p>
+                        <div class="code-block">
+SELECT e.name, d.department_name, e.salary<br>
+FROM employees e<br>
+INNER JOIN departments d ON e.dept_id = d.id<br>
+WHERE d.location = 'New York'<br>
+ORDER BY e.salary DESC;
+                        </div>
+                        <p><strong>Join Types:</strong> INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Advanced SQL Techniques</h3>
+                    <div class="card-content">
+                        <p>Window functions and subqueries for complex analysis:</p>
+                        <div class="code-block">
+SELECT name, salary, department,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RANK() OVER (PARTITION BY department ORDER BY salary DESC) as salary_rank<br>
+FROM employees<br>
+WHERE salary > (SELECT AVG(salary) FROM employees);
+                        </div>
+                        <p><strong>Advanced Topics:</strong> Window functions, CTEs, Subqueries, Indexing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Python for Data -->
+        <section id="python" class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <h2 class="section-title">Python for Data</h2>
+            </div>
+            <p class="section-subtitle">Programming fundamentals for data analysis and automation</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Essential Libraries</h3>
+                    <div class="card-content">
+                        <p><strong>Pandas:</strong> Data manipulation and analysis</p>
+                        <div class="code-block">
+import pandas as pd<br><br>
+df = pd.read_csv('data.csv')<br>
+df.head()<br>
+df.describe()<br>
+df.groupby('category')['sales'].mean()
+                        </div>
+
+                        <p><strong>NumPy:</strong> Numerical computing</p>
+                        <div class="code-block">
+import numpy as np<br><br>
+arr = np.array([1, 2, 3, 4, 5])<br>
+np.mean(arr)<br>
+np.std(arr)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Data Cleaning & Preparation</h3>
+                    <div class="card-content">
+                        <p>Handle missing values, duplicates, and data types:</p>
+                        <div class="code-block">
+# Handle missing values<br>
+df.dropna()  # Remove rows with NaN<br>
+df.fillna(df.mean())  # Fill with mean<br><br>
+# Remove duplicates<br>
+df.drop_duplicates()<br><br>
+# Convert data types<br>
+df['date'] = pd.to_datetime(df['date'])<br>
+df['category'] = df['category'].astype('category')
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Data Analysis & Statistics</h3>
+                    <div class="card-content">
+                        <p>Perform statistical analysis with pandas and scipy:</p>
+                        <div class="code-block">
+# Descriptive statistics<br>
+df.describe()<br><br>
+# Correlation analysis<br>
+correlation = df.corr()<br><br>
+# Statistical tests<br>
+from scipy import stats<br>
+stats.ttest_ind(group1, group2)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Data Visualization</h3>
+                    <div class="card-content">
+                        <p>Create charts and graphs with matplotlib and seaborn:</p>
+                        <div class="code-block">
+import matplotlib.pyplot as plt<br>
+import seaborn as sns<br><br>
+# Simple plot<br>
+plt.plot(df['x'], df['y'])<br>plt.show()<br><br>
+# Seaborn visualization<br>
+sns.scatterplot(data=df, x='x', y='y', hue='category')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Data Visualization -->
+        <section id="visualization" class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <h2 class="section-title">Data Visualization</h2>
+            </div>
+            <p class="section-subtitle">Creating compelling visual stories from data</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Chart Types & When to Use Them</h3>
+                    <div class="card-content">
+                        <ul class="highlight-list">
+                            <li class="highlight-item">
+                                <div class="highlight-title">Bar Charts</div>
+                                <div class="highlight-desc">Compare categories, show distributions</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Line Charts</div>
+                                <div class="highlight-desc">Show trends over time</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Scatter Plots</div>
+                                <div class="highlight-desc">Show relationships between variables</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Pie Charts</div>
+                                <div class="highlight-desc">Show parts of a whole (avoid when >5 categories)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Heatmaps</div>
+                                <div class="highlight-desc">Show correlations and patterns in matrices</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Histograms</div>
+                                <div class="highlight-desc">Show data distribution and frequency</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Design Principles</h3>
+                    <div class="card-content">
+                        <p><strong>Color Theory:</strong></p>
+                        <ul>
+                            <li>Use color purposefully, not decoratively</li>
+                            <li>Consider colorblind users</li>
+                            <li>Maintain consistency across charts</li>
+                        </ul>
+
+                        <p><strong>Data-Ink Ratio:</strong></p>
+                        <ul>
+                            <li>Remove unnecessary elements</li>
+                            <li>Maximize data-to-ink ratio</li>
+                            <li>Simplify without losing meaning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Dashboard Best Practices</h3>
+                    <div class="card-content">
+                        <p><strong>Layout & Organization:</strong></p>
+                        <ul>
+                            <li>Logical flow (top-left to bottom-right)</li>
+                            <li>Group related metrics together</li>
+                            <li>Use consistent spacing and alignment</li>
+                        </ul>
+
+                        <p><strong>Interactivity:</strong></p>
+                        <ul>
+                            <li>Filters and drill-down capabilities</li>
+                            <li>Tooltips for detailed information</li>
+                            <li>Responsive design for all devices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Tools for Visualization</h3>
+                    <div class="card-content">
+                        <ul class="highlight-list">
+                            <li class="highlight-item">
+                                <div class="highlight-title">Tableau</div>
+                                <div class="highlight-desc">Drag-and-drop interface, powerful analytics</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Power BI</div>
+                                <div class="highlight-desc">Microsoft ecosystem integration, AI features</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Python (Matplotlib/Seaborn)</div>
+                                <div class="highlight-desc">Custom visualizations, reproducible code</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">R (ggplot2)</div>
+                                <div class="highlight-desc">Statistical graphics, publication-quality charts</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Statistics & Math -->
+        <section id="statistics" class="section">
+            <div class="section-header">
+                <div class="section-number">06</div>
+                <h2 class="section-title">Statistics & Math</h2>
+            </div>
+            <p class="section-subtitle">Mathematical foundations for data analysis</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Descriptive Statistics</h3>
+                    <div class="card-content">
+                        <p><strong>Measures of Central Tendency:</strong></p>
+                        <ul>
+                            <li><strong>Mean:</strong> Average value</li>
+                            <li><strong>Median:</strong> Middle value</li>
+                            <li><strong>Mode:</strong> Most frequent value</li>
+                        </ul>
+
+                        <p><strong>Measures of Spread:</strong></p>
+                        <ul>
+                            <li><strong>Range:</strong> Max - Min</li>
+                            <li><strong>Variance:</strong> Average squared deviation</li>
+                            <li><strong>Standard Deviation:</strong> Square root of variance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Probability Distributions</h3>
+                    <div class="card-content">
+                        <p><strong>Common Distributions:</strong></p>
+                        <ul>
+                            <li><strong>Normal Distribution:</strong> Bell-shaped curve, many natural phenomena</li>
+                            <li><strong>Binomial Distribution:</strong> Success/failure outcomes</li>
+                            <li><strong>Poisson Distribution:</strong> Events in fixed time/space</li>
+                            <li><strong>Exponential Distribution:</strong> Time between events</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Hypothesis Testing</h3>
+                    <div class="card-content">
+                        <p><strong>Steps in Hypothesis Testing:</strong></p>
+                        <ol>
+                            <li>State null (H₀) and alternative (H₁) hypotheses</li>
+                            <li>Choose significance level (α)</li>
+                            <li>Calculate test statistic</li>
+                            <li>Determine p-value</li>
+                            <li>Make decision (reject/fail to reject H₀)</li>
+                        </ol>
+
+                        <p><strong>Common Tests:</strong> t-test, ANOVA, Chi-square, Correlation tests</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Correlation & Regression</h3>
+                    <div class="card-content">
+                        <p><strong>Correlation:</strong> Measures relationship strength between variables</p>
+                        <ul>
+                            <li>Pearson correlation: Linear relationships</li>
+                            <li>Spearman correlation: Monotonic relationships</li>
+                        </ul>
+
+                        <p><strong>Linear Regression:</strong> Predicts dependent variable from independent variables</p>
+                        <div class="code-block">
+y = β₀ + β₁x₁ + β₂x₂ + ... + ε<br><br>
+R² = Explained variation / Total variation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: ML Basics -->
+        <section id="ml" class="section">
+            <div class="section-header">
+                <div class="section-number">07</div>
+                <h2 class="section-title">ML Basics</h2>
+            </div>
+            <p class="section-subtitle">Introduction to machine learning concepts and algorithms</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Types of Machine Learning</h3>
+                    <div class="card-content">
+                        <ul class="highlight-list">
+                            <li class="highlight-item">
+                                <div class="highlight-title">Supervised Learning</div>
+                                <div class="highlight-desc">Learn from labeled data (classification, regression)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Unsupervised Learning</div>
+                                <div class="highlight-desc">Find patterns in unlabeled data (clustering, dimensionality reduction)</div>
+                            </li>
+                            <li class="highlight-item">
+                                <div class="highlight-title">Reinforcement Learning</div>
+                                <div class="highlight-desc">Learn through interaction and rewards</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Common Algorithms</h3>
+                    <div class="card-content">
+                        <p><strong>Classification:</strong></p>
+                        <ul>
+                            <li>Logistic Regression</li>
+                            <li>Decision Trees</li>
+                            <li>Random Forest</li>
+                            <li>Support Vector Machines</li>
+                            <li>Naive Bayes</li>
+                        </ul>
+
+                        <p><strong>Regression:</strong></p>
+                        <ul>
+                            <li>Linear Regression</li>
+                            <li>Polynomial Regression</li>
+                            <li>Ridge/Lasso Regression</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Model Evaluation</h3>
+                    <div class="card-content">
+                        <p><strong>Classification Metrics:</strong></p>
+                        <ul>
+                            <li>Accuracy, Precision, Recall, F1-Score</li>
+                            <li>ROC Curve, AUC</li>
+                            <li>Confusion Matrix</li>
+                        </ul>
+
+                        <p><strong>Regression Metrics:</strong></p>
+                        <ul>
+                            <li>Mean Absolute Error (MAE)</li>
+                            <li>Mean Squared Error (MSE)</li>
+                            <li>Root Mean Squared Error (RMSE)</li>
+                            <li>R² Score</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Model Training Process</h3>
+                    <div class="card-content">
+                        <p><strong>Steps:</strong></p>
+                        <ol>
+                            <li>Data collection and preprocessing</li>
+                            <li>Feature engineering and selection</li>
+                            <li>Model selection and training</li>
+                            <li>Hyperparameter tuning</li>
+                            <li>Model evaluation and validation</li>
+                            <li>Model deployment and monitoring</li>
+                        </ol>
+
+                        <p><strong>Best Practices:</strong> Train/Validation/Test splits, Cross-validation, Regularization</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Real Projects -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <div class="section-number">08</div>
+                <h2 class="section-title">Real Projects</h2>
+            </div>
+            <p class="section-subtitle">Practical project ideas to build your data analytics portfolio</p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Sales & Revenue Analysis</h3>
+                    <div class="card-content">
+                        <p>Analyze sales data to identify trends, top products, and revenue opportunities.</p>
+                        <p><strong>Skills Covered:</strong> Data cleaning, time series analysis, visualization</p>
+                        <p><strong>Tools:</strong> Excel/SQL, Python (pandas), Tableau</p>
+                        <p><strong>Deliverables:</strong> Sales dashboard, trend analysis report</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Customer Segmentation</h3>
+                    <div class="card-content">
+                        <p>Group customers based on behavior, demographics, and purchase patterns.</p>
+                        <p><strong>Skills Covered:</strong> Clustering algorithms, RFM analysis, feature engineering</p>
+                        <p><strong>Tools:</strong> Python (scikit-learn), SQL</p>
+                        <p><strong>Deliverables:</strong> Customer segments, targeting recommendations</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">A/B Testing Analysis</h3>
+                    <div class="card-content">
+                        <p>Analyze experiment results to determine if changes improve key metrics.</p>
+                        <p><strong>Skills Covered:</strong> Statistical testing, hypothesis testing, confidence intervals</p>
+                        <p><strong>Tools:</strong> Python (scipy.stats), R</p>
+                        <p><strong>Deliverables:</strong> Test results report, recommendations</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Predictive Modeling</h3>
+                    <div class="card-content">
+                        <p>Build models to predict customer churn, sales, or other business outcomes.</p>
+                        <p><strong>Skills Covered:</strong> Machine learning, feature selection, model evaluation</p>
+                        <p><strong>Tools:</strong> Python (scikit-learn), SQL</p>
+                        <p><strong>Deliverables:</strong> Predictive model, performance metrics, insights</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Web Analytics Dashboard</h3>
+                    <div class="card-content">
+                        <p>Create a comprehensive dashboard for website traffic and user behavior.</p>
+                        <p><strong>Skills Covered:</strong> Google Analytics, data visualization, KPI tracking</p>
+                        <p><strong>Tools:</strong> Google Analytics, Tableau/Power BI</p>
+                        <p><strong>Deliverables:</strong> Interactive dashboard, traffic insights report</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Financial Data Analysis</h3>
+                    <div class="card-content">
+                        <p>Analyze stock market data, financial statements, or investment portfolios.</p>
+                        <p><strong>Skills Covered:</strong> Time series analysis, financial metrics, risk analysis</p>
+                        <p><strong>Tools:</strong> Python (pandas, yfinance), Excel</p>
+                        <p><strong>Deliverables:</strong> Investment analysis, risk assessment report</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Social Media Analytics</h3>
+                    <div class="card-content">
+                        <p>Analyze social media engagement, sentiment, and campaign performance.</p>
+                        <p><strong>Skills Covered:</strong> API integration, text analysis, sentiment analysis</p>
+                        <p><strong>Tools:</strong> Python (tweepy, nltk), social media APIs</p>
+                        <p><strong>Deliverables:</strong> Engagement report, sentiment analysis dashboard</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Supply Chain Optimization</h3>
+                    <div class="card-content">
+                        <p>Analyze supply chain data to optimize inventory and reduce costs.</p>
+                        <p><strong>Skills Covered:</strong> Inventory analysis, forecasting, optimization</p>
+                        <p><strong>Tools:</strong> Python, SQL, Excel</p>
+                        <p><strong>Deliverables:</strong> Inventory optimization recommendations, cost analysis</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Mahadharsan Ravichandran. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/mahadharsan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/mahadharsan" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=oUNyeYMAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                    <a href="mailto:mahadharsanusa@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
