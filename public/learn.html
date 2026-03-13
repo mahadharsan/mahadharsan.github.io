@@ -205,7 +205,15 @@
             }
 
             .learn-grid {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .learn-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
     </style>
@@ -247,19 +255,118 @@
         </div>
 
         <div class="learn-grid">
-            <!-- Column 1: Interview Preparation -->
+            <!-- Column 1: Data Analytics -->
             <div class="learn-column">
                 <div class="learn-category">
-                    <div class="category-subheading">Interview Preparation</div>
-                    <ul style="padding-left: 1.5rem; margin: 0;">
-                        <li style="margin-bottom: 0.5rem;">
-                            <a href="hiring-manager-interview.html" class="interview-link" target="_blank" rel="noopener noreferrer">Hiring Manager Interview</a>
-                        </li>
-                    </ul>
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Data Analytics</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Learn essential data analytics skills, tools, and methodologies for extracting insights from data.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Column 2: Miscellaneous -->
+            <!-- Column 2: Analytics Engineering -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Analytics Engineering</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Master the art of building robust data pipelines and analytics infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Data Engineering -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Data Engineering</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Explore data engineering concepts, ETL processes, and big data technologies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 4: Data Science/ML/AI -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Data Science/ML/AI</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Dive deep into machine learning algorithms, AI concepts, and data science methodologies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 5: Supply Chain -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Supply Chain</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Learn supply chain management, logistics, and optimization strategies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 6: Process Improvement -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Process Improvement</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <h4 class="item-title">Coming Soon</h4>
+                            <p class="item-description">Discover methodologies for process optimization, Lean, Six Sigma, and continuous improvement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 7: Interview Preparation -->
+            <div class="learn-column">
+                <div class="learn-category">
+                    <div class="category-header" onclick="toggleCategory(this)">
+                        <h3 class="category-title">Interview Preparation</h3>
+                        <span class="category-toggle">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="learn-item">
+                            <a href="hiring-manager-interview.html" class="interview-link" target="_blank" rel="noopener noreferrer">Hiring Manager Interview</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 8: Miscellaneous -->
             <div class="learn-column">
                 <div class="learn-category">
                     <div class="category-header" onclick="toggleCategory(this)">
@@ -275,11 +382,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Column 3: Future content -->
-            <div class="learn-column">
-                <!-- Future categories can be added here -->
             </div>
         </div>
     </main>
