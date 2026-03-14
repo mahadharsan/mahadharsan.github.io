@@ -233,6 +233,116 @@
             color: var(--accent-primary-dark);
         }
 
+        .floating-nav {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav.collapsed {
+            right: -240px;
+        }
+
+        .floating-nav.collapsed .nav-content {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-toggle {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-right: none;
+            border-radius: var(--radius-md) 0 0 var(--radius-md);
+            width: 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .nav-toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-nav.collapsed .nav-toggle-icon {
+            transform: scaleX(-1);
+        }
+
+        .nav-content {
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .floating-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .floating-nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .floating-nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .floating-nav-link:hover,
+        .floating-nav-link.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .nav-section-number {
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .master-title {
                 font-size: 2.5rem;
@@ -248,6 +358,43 @@
 
             .content-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .floating-nav {
+                right: -240px;
+                top: auto;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 300px;
+                width: 90vw;
+            }
+
+            .floating-nav.collapsed {
+                right: auto;
+                left: 50%;
+                transform: translate(-50%, 40px);
+            }
+
+            .nav-toggle {
+                position: relative;
+                left: auto;
+                top: -40px;
+                transform: none;
+                border: 1px solid var(--border-color);
+                border-bottom: none;
+                border-radius: var(--radius-md) var(--radius-md) 0 0;
+                width: 100%;
+                height: 40px;
+                margin-bottom: -1px;
+            }
+
+            .nav-toggle-icon {
+                transform: rotate(90deg);
+            }
+
+            .floating-nav.collapsed .nav-toggle-icon {
+                transform: rotate(90deg) scaleY(-1);
             }
         }
     </style>
@@ -288,66 +435,55 @@
             <p class="master-subtitle">Your comprehensive roadmap to mastering data analytics - from fundamentals to advanced techniques, all in one unified guide.</p>
         </div>
 
-        <!-- Table of Contents -->
-        <div class="toc-container">
-            <h2 class="toc-title">Table of Contents</h2>
-            <div class="toc-grid">
-                <a href="#fundamentals" class="toc-item">
-                    <div class="toc-number">01</div>
-                    <div class="toc-content">
-                        <h4>Fundamentals</h4>
-                        <p>Data analytics concepts & process</p>
-                    </div>
-                </a>
-                <a href="#tools" class="toc-item">
-                    <div class="toc-number">02</div>
-                    <div class="toc-content">
-                        <h4>Tools & Technologies</h4>
-                        <p>Essential and advanced tools</p>
-                    </div>
-                </a>
-                <a href="#sql" class="toc-item">
-                    <div class="toc-number">03</div>
-                    <div class="toc-content">
-                        <h4>SQL Mastery</h4>
-                        <p>Database querying skills</p>
-                    </div>
-                </a>
-                <a href="#python" class="toc-item">
-                    <div class="toc-number">04</div>
-                    <div class="toc-content">
-                        <h4>Python for Data</h4>
-                        <p>Programming for analytics</p>
-                    </div>
-                </a>
-                <a href="#visualization" class="toc-item">
-                    <div class="toc-number">05</div>
-                    <div class="toc-content">
-                        <h4>Data Visualization</h4>
-                        <p>Chart types & best practices</p>
-                    </div>
-                </a>
-                <a href="#statistics" class="toc-item">
-                    <div class="toc-number">06</div>
-                    <div class="toc-content">
-                        <h4>Statistics & Math</h4>
-                        <p>Statistical foundations</p>
-                    </div>
-                </a>
-                <a href="#ml" class="toc-item">
-                    <div class="toc-number">07</div>
-                    <div class="toc-content">
-                        <h4>ML Basics</h4>
-                        <p>Introduction to machine learning</p>
-                    </div>
-                </a>
-                <a href="#projects" class="toc-item">
-                    <div class="toc-number">08</div>
-                    <div class="toc-content">
-                        <h4>Real Projects</h4>
-                        <p>Practical project ideas</p>
-                    </div>
-                </a>
+        <!-- Floating Navigation -->
+        <div class="floating-nav" id="floatingNav">
+            <div class="nav-toggle" onclick="toggleFloatingNav()">
+                <span class="nav-toggle-icon">▶</span>
+            </div>
+            <div class="nav-content">
+                <h3 class="floating-nav-title">Navigate</h3>
+                <ul class="floating-nav-list">
+                    <li class="floating-nav-item">
+                        <a href="#fundamentals" class="floating-nav-link">
+                            <span class="nav-section-number">01</span>Fundamentals
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#tools" class="floating-nav-link">
+                            <span class="nav-section-number">02</span>Tools & Technologies
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#sql" class="floating-nav-link">
+                            <span class="nav-section-number">03</span>SQL Mastery
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#python" class="floating-nav-link">
+                            <span class="nav-section-number">04</span>Python for Data
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#visualization" class="floating-nav-link">
+                            <span class="nav-section-number">05</span>Data Visualization
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#statistics" class="floating-nav-link">
+                            <span class="nav-section-number">06</span>Statistics & Math
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#ml" class="floating-nav-link">
+                            <span class="nav-section-number">07</span>ML Basics
+                        </a>
+                    </li>
+                    <li class="floating-nav-item">
+                        <a href="#projects" class="floating-nav-link">
+                            <span class="nav-section-number">08</span>Real Projects
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
