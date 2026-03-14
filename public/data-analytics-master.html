@@ -244,7 +244,8 @@
             border: 1px solid var(--border-color);
             padding: 1.5rem;
             box-shadow: var(--shadow-lg);
-            max-width: 280px;
+            max-width: 240px;
+            width: 240px;
             transition: all 0.3s ease;
         }
 
@@ -1155,5 +1156,65 @@ R² = Explained variation / Total variation
 
     <!-- Scripts -->
     <script type="module" src="script.js"></script>
+    <script>
+        // Floating Navigation Toggle
+        function toggleFloatingNav() {
+            const nav = document.getElementById('floatingNav');
+            nav.classList.toggle('collapsed');
+        }
+
+        // Active section highlighting
+        function updateActiveSection() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.floating-nav-link');
+
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.floating-nav-link');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+
+                    // Auto-collapse on mobile after navigation
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('floatingNav').classList.add('collapsed');
+                    }
+                });
+            });
+
+            // Update active section on scroll
+            window.addEventListener('scroll', updateActiveSection);
+            updateActiveSection(); // Initial check
+        });
+    </script>
 </body>
 </html>
