@@ -12,6 +12,7 @@ export default defineConfig({
         podcast: resolve(__dirname, 'podcast.html'),
         'business-models': resolve(__dirname, 'business-models.html'),
         'business-models/manufacturing': resolve(__dirname, 'business-models/manufacturing.html'),
+        companies: resolve(__dirname, 'companies.html'),
       },
     },
   },
