@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5MDS4PWZ0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y5MDS4PWZ0');
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>Companies | Mahadharsan Ravichandran</title>
+    <meta name="description" content="Explore companies and organizations featured in my work and research.">
+    <meta name="keywords" content="Companies, Organizations, Business, Technology, Data Science">
+    <meta name="author" content="Mahadharsan Ravichandran">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Companies | Mahadharsan Ravichandran">
+    <meta property="og:description" content="Explore companies and organizations featured in my work and research.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahadharsan.netlify.app/companies">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Companies | Mahadharsan Ravichandran">
+    <meta name="twitter:description" content="Explore companies and organizations featured in my work and research.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .companies-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .companies-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .companies-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .companies-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .company-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .company-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .company-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            text-decoration: none;
+            display: inline-block;
+            transition: color 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-name:hover {
+            color: var(--accent-primary-dark);
+        }
+
+        .company-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .companies-title {
+                font-size: 2rem;
+            }
+
+            .companies-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">MR</div>
+                <a href="/" class="nav-home">Home</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/#experience">Experience</a></li>
+                <li><a href="/#projects">Projects</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/learn" target="_blank" rel="noopener noreferrer">Learn</a></li>
+                <li><a href="/companies" class="active">Companies</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle">My stories <span class="dropdown-arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/publications">Publications</a></li>
+                        <li><a href="/podcast">DDD Podcast</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Companies Content -->
+    <main class="companies-container">
+        <a href="/" class="back-link">
+            ← Back to Portfolio
+        </a>
+
+        <div class="companies-header">
+            <h1 class="companies-title">Companies</h1>
+            <p class="companies-subtitle">Explore companies and organizations I've worked with or researched. Click on any company name to visit their website.</p>
+        </div>
+
+        <div class="companies-grid" id="companies-grid">
+            <!-- Companies will be dynamically loaded from companies.js -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Mahadharsan Ravichandran. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/mahadharsan" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/mahadharsan" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=oUNyeYMAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                    <a href="mailto:mahadharsanusa@gmail.com">Email</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
+    <script type="module" src="companies.js"></script>
+</body>
+</html>
