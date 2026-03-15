@@ -29,7 +29,7 @@ export const companiesData = [
     {
         name: "Amazon",
         url: "https://www.amazon.jobs/content/en/career-programs/university/jobs-for-grads?country%5B%5D=US"
-        
+
     }
 ];
 
@@ -49,8 +49,6 @@ function loadCompanies() {
         companyCard.innerHTML = `
             <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="company-name">
                 ${company.name}
-            </a>
-            <p class="company-description">${company.description}</p>
         `;
 
         companiesGrid.appendChild(companyCard);
