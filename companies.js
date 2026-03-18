@@ -30,6 +30,10 @@ export const companiesData = [
         name: "Amazon New Grad",
         url: "https://www.amazon.jobs/content/en/career-programs/university/jobs-for-grads?country%5B%5D=US"
 
+    },
+    {
+        name:"State Street",
+        url: "https://careers.statestreet.com/global/en/search-results?m=3"
     }
 ];
 
