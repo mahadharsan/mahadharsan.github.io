@@ -14,21 +14,21 @@
     </script>
 
     <!-- SEO Meta Tags -->
-    <title>Companies | Mahadharsan Ravichandran</title>
-    <meta name="description" content="Explore companies and organizations featured in my work and research.">
-    <meta name="keywords" content="Companies, Organizations, Business, Technology, Data Science">
+    <title>Apply | Mahadharsan Ravichandran</title>
+    <meta name="description" content="Explore job portals and companies for data analyst opportunities.">
+    <meta name="keywords" content="Apply, Job Portals, Companies, Careers, Data Analyst">
     <meta name="author" content="Mahadharsan Ravichandran">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Companies | Mahadharsan Ravichandran">
-    <meta property="og:description" content="Explore companies and organizations featured in my work and research.">
+    <meta property="og:title" content="Apply | Mahadharsan Ravichandran">
+    <meta property="og:description" content="Explore job portals and companies for data analyst opportunities.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mahadharsan.netlify.app/companies">
+    <meta property="og:url" content="https://mahadharsan.netlify.app/apply">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Companies | Mahadharsan Ravichandran">
-    <meta name="twitter:description" content="Explore companies and organizations featured in my work and research.">
+    <meta name="twitter:title" content="Apply | Mahadharsan Ravichandran">
+    <meta name="twitter:description" content="Explore job portals and companies for data analyst opportunities.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +67,14 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .company-card {
@@ -142,7 +150,7 @@
                 <li><a href="/#projects">Projects</a></li>
                 <li><a href="/#contact">Contact</a></li>
                 <li><a href="/learn" target="_blank" rel="noopener noreferrer">Learn</a></li>
-                <li><a href="/companies" class="active">Companies</a></li>
+                <li><a href="/apply" class="active">Apply</a></li>
                 <li class="nav-dropdown">
                     <a href="#" class="dropdown-toggle">My stories <span class="dropdown-arrow">▼</span></a>
                     <ul class="dropdown-menu">
@@ -162,10 +170,16 @@
         </a>
 
         <div class="companies-header">
-            <h1 class="companies-title">Companies</h1>
-            <p class="companies-subtitle">Explore companies and organizations I've worked with or researched. Click on any company name to visit their website.</p>
+            <h1 class="companies-title">Apply</h1>
+            <p class="companies-subtitle">Explore job portals and company career pages for data analyst roles.</p>
         </div>
 
+        <h2 class="section-title">Job Portals</h2>
+        <div class="companies-grid" id="job-portals-grid">
+            <!-- Job portals will be dynamically loaded from companies.js -->
+        </div>
+
+        <h2 class="section-title">Companies</h2>
         <div class="companies-grid" id="companies-grid">
             <!-- Companies will be dynamically loaded from companies.js -->
         </div>

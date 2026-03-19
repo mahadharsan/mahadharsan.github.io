@@ -37,10 +37,36 @@ export const companiesData = [
     }
 ];
 
-// Load companies on the companies page
+export const jobPortalsData = [
+    {
+        name: "Dice - Data Analyst Jobs",
+        url: "https://www.dice.com/jobs?filters.postedDate=ONE&location=United+States&q=data+analyst&latitude=38.7945952&longitude=-106.5348379&countryCode=US&locationPrecision=Country",
+    },
+];
+
+// Load job portals and companies on the apply page
 document.addEventListener('DOMContentLoaded', () => {
+    loadJobPortals();
     loadCompanies();
 });
+
+function loadJobPortals() {
+    const jobPortalsGrid = document.getElementById('job-portals-grid');
+    if (!jobPortalsGrid) return;
+
+    jobPortalsData.forEach(portal => {
+        const portalCard = document.createElement('div');
+        portalCard.className = 'company-card fade-in';
+
+        portalCard.innerHTML = `
+            <a href="${portal.url}" target="_blank" rel="noopener noreferrer" class="company-name">
+                ${portal.name}
+            </a>
+        `;
+
+        jobPortalsGrid.appendChild(portalCard);
+    });
+}
 
 function loadCompanies() {
     const companiesGrid = document.getElementById('companies-grid');
@@ -53,6 +79,7 @@ function loadCompanies() {
         companyCard.innerHTML = `
             <a href="${company.url}" target="_blank" rel="noopener noreferrer" class="company-name">
                 ${company.name}
+            </a>
         `;
 
         companiesGrid.appendChild(companyCard);
