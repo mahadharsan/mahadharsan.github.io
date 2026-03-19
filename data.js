@@ -67,6 +67,19 @@ export const experienceData = [
       "Built discrete-event simulation models using Arena to analyze 500K+ return scenarios and optimize international logistics between Germany/USA and India",
       "Performed statistical analysis, goodness-of-fit testing, and distribution analysis on transportation data",
       "Developed process and cost optimization framework, reducing per-container costs by ~$50K",
+      "Read the publication on reverse supply chain optimization for remanufacturing operations <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
+    ]
+  },
+    {
+    title: "Analyst Researcher ",
+    company: "Vellore Institute of Technology",
+    location: "India",
+    period: "Jan 2020 – Jan 2021",
+    tags: ["Supply Chain", "Data Analysis", "Simulation", "Research"],
+    bullets: [
+      "•Developed simulation models incorporating cost, emissions, and multi-echelon trade-offs, informing practical recommendations for process improvements",
+      "Translated research findings into actionable recommendations, supporting implementation of optimized supply chain strategies across multi-step",
+      "Published multiple peer-reviewed studies with 100+ citations in supply chain and process improvement strategies",
       "Read the publication <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
     ]
   }
