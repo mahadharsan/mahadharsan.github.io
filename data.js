@@ -77,10 +77,9 @@ export const experienceData = [
     period: "Jan 2020 – Jan 2021",
     tags: ["Supply Chain", "Data Analysis", "Simulation", "Research"],
     bullets: [
-      "•Developed simulation models incorporating cost, emissions, and multi-echelon trade-offs, informing practical recommendations for process improvements",
+      "Developed simulation models incorporating cost, emissions, and multi-echelon trade-offs, informing practical recommendations for process improvements",
       "Translated research findings into actionable recommendations, supporting implementation of optimized supply chain strategies across multi-step",
-      "Published multiple peer-reviewed studies with 100+ citations in supply chain and process improvement strategies",
-      "Read the publication <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
+      "Published multiple peer-reviewed studies with 100+ citations in supply chain and process improvement strategies. Read the publication on supply chain optimization for remanufacturing operations <a href=\"https://mahadharsan.netlify.app/publications\" target=\"_blank\" rel=\"noopener noreferrer\">here</a>"
     ]
   }
 ];
