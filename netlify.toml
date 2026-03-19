@@ -2,6 +2,20 @@
   command = "npm run build"
   publish = "dist"
 
+# Serve apply route using companies page
+[[redirects]]
+  from = "/apply"
+  to = "/companies.html"
+  status = 200
+  force = false
+
+# Handle trailing slash variant
+[[redirects]]
+  from = "/apply/"
+  to = "/companies.html"
+  status = 200
+  force = false
+
 # Redirect all routes to index.html except static files and success.html
 [[redirects]]
   from = "/*"
