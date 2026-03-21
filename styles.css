@@ -769,32 +769,38 @@ body {
 }
 
 .hero-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-lg);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--spacing-md);
+    row-gap: var(--spacing-md);
+    width: 100%;
+    max-width: 100%;
     margin-top: var(--spacing-xs);
 }
 
-.hero-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
+/* Flatten wrappers so row 1 = CTAs, row 2 = profile links (columns align) */
+.hero-buttons,
+.hero-social-links {
+    display: contents;
+}
+
+.hero-actions .btn.btn-primary {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 /* Hero profile links — outline style, distinct from primary CTAs */
-.hero-social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    align-items: center;
-}
-
 .hero-social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 0.5rem 1rem;
     border-radius: var(--radius-md);
     text-decoration: none;
@@ -2595,17 +2601,34 @@ section {
     }
     
     .hero-actions {
+        display: flex;
+        flex-direction: column;
         align-items: center;
+        gap: var(--spacing-lg);
         width: 100%;
     }
 
     .hero-buttons {
+        display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: var(--spacing-md);
+        width: 100%;
+        max-width: 20rem;
     }
 
     .hero-social-links {
-        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-md);
+        width: 100%;
+        max-width: 20rem;
+    }
+
+    .hero-actions .btn.btn-primary,
+    .hero-actions .hero-social-link {
+        width: 100%;
     }
     
     .section-title {
