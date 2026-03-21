@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSkills();
     loadCertifications();
     setupNavigation();
+    setupPageToc();
     setupFiltering();
     setupScrollAnimations();
     setupContactForm();
@@ -369,10 +370,11 @@ function setupNavigation() {
             if (target) {
                 const offset = 80; // Navbar height
                 const targetPosition = target.offsetTop - offset;
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                 window.scrollTo({
                     top: targetPosition,
-                    behavior: 'smooth'
+                    behavior: reduceMotion ? 'auto' : 'smooth'
                 });
             }
         });
@@ -458,6 +460,117 @@ function setupNavigation() {
 
         lastScroll = currentScroll;
     });
+}
+
+const PAGE_TOC_SECTIONS = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'certifications', 'contact'];
+
+function setupPageToc() {
+    const toc = document.getElementById('pageToc');
+    const toggle = document.getElementById('pageTocToggle');
+    const panel = document.getElementById('pageTocPanel');
+    const links = document.querySelectorAll('.page-toc-link');
+
+    if (!toc || !toggle || !panel || links.length === 0) return;
+
+    const mqMobile = window.matchMedia('(max-width: 768px)');
+
+    function setMobileOpen(open) {
+        toc.classList.toggle('page-toc--open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    function syncMobileState() {
+        if (mqMobile.matches) {
+            setMobileOpen(toc.classList.contains('page-toc--open'));
+        } else {
+            toc.classList.remove('page-toc--open');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    toggle.addEventListener('click', () => {
+        setMobileOpen(!toc.classList.contains('page-toc--open'));
+    });
+
+    mqMobile.addEventListener('change', syncMobileState);
+    syncMobileState();
+
+    links.forEach((link) => {
+        link.addEventListener('click', () => {
+            if (mqMobile.matches) {
+                setMobileOpen(false);
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mqMobile.matches && toc.classList.contains('page-toc--open')) {
+            setMobileOpen(false);
+            toggle.focus();
+        }
+    });
+
+    let ticking = false;
+    function updateActiveToc() {
+        const offset = 80;
+        const scrollY = window.scrollY;
+        const bottom = document.documentElement.scrollHeight - window.innerHeight;
+        let current = PAGE_TOC_SECTIONS[0];
+
+        if (scrollY >= bottom - 4) {
+            current = 'contact';
+        } else {
+            for (const id of PAGE_TOC_SECTIONS) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+                if (scrollY >= el.offsetTop - offset) {
+                    current = id;
+                }
+            }
+        }
+
+        links.forEach((link) => {
+            const sec = link.getAttribute('data-section');
+            const active = sec === current;
+            link.classList.toggle('is-active', active);
+            if (active) {
+                link.setAttribute('aria-current', 'location');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+        ticking = false;
+    }
+
+    function onScrollRequest() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateActiveToc);
+        }
+    }
+
+    window.addEventListener('scroll', onScrollRequest, { passive: true });
+    window.addEventListener('resize', () => {
+        updateActiveToc();
+        syncMobileState();
+    });
+    updateActiveToc();
+
+    if (window.location.hash) {
+        const id = window.location.hash.slice(1);
+        if (PAGE_TOC_SECTIONS.includes(id)) {
+            const target = document.getElementById(id);
+            if (target) {
+                requestAnimationFrame(() => {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'auto'
+                    });
+                    updateActiveToc();
+                });
+            }
+        }
+    }
 }
 
 // Setup Project Filtering

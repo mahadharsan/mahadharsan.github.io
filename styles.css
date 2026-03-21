@@ -411,6 +411,191 @@ body {
     color: var(--accent-primary);
 }
 
+/* In-page section TOC (floating dock — below theme toggle z-index) */
+.page-toc {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+    font-family: ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+    pointer-events: none;
+}
+
+.page-toc > * {
+    pointer-events: auto;
+}
+
+.page-toc-toggle {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: var(--spacing-sm) 0.35rem;
+    min-width: 2.25rem;
+    border: 1px solid var(--border-color);
+    border-right: none;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.page-toc-toggle:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.page-toc-toggle:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.page-toc-toggle-icon {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.page-toc--open .page-toc-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.page-toc-toggle-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.page-toc-panel {
+    width: min(13.5rem, calc(100vw - 3rem));
+    max-height: min(70vh, 28rem);
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-right: none;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(12px);
+    transition: transform 0.25s ease, opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.page-toc-heading {
+    margin: 0 0 var(--spacing-sm);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.page-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-toc-list li {
+    margin: 0;
+}
+
+.page-toc-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.35rem 0.25rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-family: var(--font-family, inherit);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.page-toc-num {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    opacity: 0.55;
+    min-width: 1.1rem;
+}
+
+.page-toc-label {
+    font-family: var(--font-family, inherit);
+    font-weight: 500;
+}
+
+.page-toc-link:hover {
+    background: var(--bg-hover);
+    color: var(--accent-primary);
+}
+
+.page-toc-link:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 1px;
+}
+
+.page-toc-link.is-active {
+    color: var(--accent-primary);
+    background: var(--bg-hover);
+    box-shadow: inset 3px 0 0 var(--accent-primary);
+}
+
+.page-toc-link.is-active .page-toc-num {
+    opacity: 1;
+    color: var(--accent-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-toc-panel,
+    .page-toc-toggle-icon {
+        transition: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-toc-toggle {
+        display: flex;
+    }
+
+    .page-toc:not(.page-toc--open) .page-toc-panel {
+        transform: translateX(calc(100% + 2px));
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .page-toc-toggle {
+        display: none;
+    }
+
+    .page-toc .page-toc-panel {
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;
