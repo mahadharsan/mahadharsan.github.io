@@ -1,0 +1,556 @@
+/* --- App shell (screen only) --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f0f2f5;
+  --surface: #fff;
+  --border: #d8dde4;
+  --text: #1a1d23;
+  --muted: #5c6370;
+  --accent: #1e4d8c;
+  --accent-hover: #163a6b;
+  --danger: #a33;
+  --resume-text: #111;
+  --resume-muted: #333;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.toolbar-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  font: inherit;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #f5f7fa;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-small {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 400px) 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.editor {
+  padding: 16px 20px 32px;
+  border-right: 1px solid var(--border);
+  background: #fafbfc;
+  overflow: auto;
+  max-height: calc(100vh - 56px);
+}
+
+.field-group {
+  margin-bottom: 14px;
+}
+
+.field-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.field-group input[type="text"],
+.field-group textarea,
+.field-group input[type="number"],
+.field-group select {
+  width: 100%;
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.field-group select {
+  resize: none;
+  cursor: pointer;
+}
+
+.layout-panel {
+  margin: 0 0 8px;
+  padding: 12px 14px 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.layout-panel-legend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0 6px;
+}
+
+.layout-panel-hint {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.layout-panel-hint code {
+  font-size: 0.9em;
+}
+
+.layout-grid-margins {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 10px;
+}
+
+.field-compact {
+  margin-bottom: 10px;
+}
+
+.layout-field-hint {
+  margin: -6px 0 10px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.section-editor {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.section-meta {
+  margin-bottom: 12px;
+  padding: 10px 10px 2px;
+  background: #f3f5f8;
+  border-radius: 6px;
+  border: 1px dashed var(--border);
+}
+
+.meta-row {
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+}
+
+.meta-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.meta-row input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.section-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.section-include {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-include input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.entries {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.entry-card {
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.entry-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.entry-card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.btn-remove {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border: none;
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-remove:hover {
+  color: #711;
+}
+
+.preview-wrap {
+  padding: 24px 32px 48px;
+  overflow: auto;
+  max-height: calc(100vh - 56px);
+  background: var(--bg);
+}
+
+/* --- Resume document (screen + print); spacing via CSS vars (set in JS) --- */
+.resume {
+  --resume-font-family: "Times New Roman", Times, "Liberation Serif", serif;
+  --resume-body-size: 11pt;
+  --resume-name-size: 14pt;
+  --resume-contacts-size: 10.5pt;
+  --resume-section-heading-size: 11pt;
+  --resume-entry-subheading-size: 11pt;
+  --resume-bullet-size: 11pt;
+  --resume-line-height: 1.25;
+  --m-top: 0.6in;
+  --m-right: 0.75in;
+  --m-bottom: 0.6in;
+  --m-left: 0.75in;
+  --section-title-text-to-rule-gap: 0.15em;
+  --section-title-gap: 0.45em;
+  --block-header-gap: 0.2em;
+  --bullet-gap: 0.2em;
+  --section-gap: 0.85em;
+  --section-first-gap: 0.4em;
+  --entry-gap: 0.65em;
+
+  max-width: 8.5in;
+  margin: 0 auto;
+  padding: var(--m-top) var(--m-right) var(--m-bottom) var(--m-left);
+  min-height: 11in;
+  background: #fff;
+  color: var(--resume-text);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  font-family: var(--resume-font-family);
+  font-size: var(--resume-bullet-size);
+  line-height: var(--resume-line-height);
+}
+
+/* Do not set font-weight here — .resume h1/h2 beats one-class rules and
+   would override .resume-name / .resume-section-title (font-weight: 700). */
+.resume h1,
+.resume h2 {
+  margin: 0;
+}
+
+/* Preserve multiple spaces; HTML would otherwise collapse them. */
+.resume-name {
+  text-align: center;
+  font-size: var(--resume-name-size);
+  font-weight: 700;
+  margin: 0 0 0.35em;
+  letter-spacing: 0.02em;
+  white-space: pre-wrap;
+}
+
+.resume-name strong {
+  font-weight: 700;
+}
+
+.resume-contacts {
+  text-align: center;
+  font-size: var(--resume-contacts-size);
+  color: var(--resume-muted);
+  margin: 0 0 1.1em;
+  line-height: var(--resume-line-height);
+  white-space: pre-wrap;
+}
+
+.resume-contacts strong {
+  font-weight: 700;
+}
+
+.resume-inline-link {
+  color: #1a4d8c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resume-inline-link:visited {
+  color: #4a2c6b;
+}
+
+.resume-summary-body {
+  font-size: var(--resume-bullet-size);
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  white-space: pre-wrap;
+}
+
+.resume-summary-body p {
+  margin: 0 0 0.45em;
+  white-space: pre-wrap;
+}
+
+.resume-summary-body p:last-child {
+  margin-bottom: 0;
+}
+
+.resume-summary-body strong {
+  font-weight: 700;
+}
+
+.resume-section {
+  margin-top: var(--section-gap);
+}
+
+.resume-section:first-of-type {
+  margin-top: var(--section-first-gap);
+}
+
+.resume-section-title {
+  font-size: var(--resume-section-heading-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid #333;
+  padding-bottom: var(--section-title-text-to-rule-gap);
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Gap under the rule: padding on first block (avoids margin-collapse eating the gap). */
+.resume-section-title + * {
+  padding-top: var(--section-title-gap);
+  margin-top: 0;
+}
+
+.resume-section-title--no-line {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.resume-section-title strong {
+  font-weight: 700;
+}
+
+.resume-block {
+  margin-bottom: var(--entry-gap);
+}
+
+.resume-block:last-child {
+  margin-bottom: 0;
+}
+
+.resume-block-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.65em;
+  margin: 0 0 var(--block-header-gap);
+}
+
+.resume-block-header {
+  font-size: var(--resume-entry-subheading-size);
+  font-weight: 700;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.resume-block-head-row .resume-block-header {
+  margin: 0;
+}
+
+.resume-block-header strong,
+.resume-block-date strong {
+  font-weight: 700;
+}
+
+.resume-block-date {
+  font-size: var(--resume-entry-subheading-size);
+  font-weight: 400;
+  margin: 0;
+  flex: 0 0 1.4in;
+  max-width: 40%;
+  text-align: right;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.resume-block-header--solo {
+  margin: 0 0 var(--block-header-gap);
+}
+
+.resume-block-list {
+  margin: 0;
+  padding-left: 1.15em;
+  font-size: var(--resume-bullet-size);
+}
+
+.resume-block-list li {
+  margin-bottom: var(--bullet-gap);
+  white-space: pre-wrap;
+}
+
+.resume-block-list li:last-child {
+  margin-bottom: 0;
+}
+
+.resume-block-list li strong {
+  font-weight: 700;
+}
+
+.resume-edu-body {
+  font-size: var(--resume-bullet-size);
+}
+
+.resume-edu-line {
+  margin: 0 0 var(--bullet-gap);
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.resume-edu-line:last-child {
+  margin-bottom: 0;
+}
+
+.resume-edu-line strong {
+  font-weight: 700;
+}
+
+.resume-empty-hint {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .preview-wrap {
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+    background: #fff;
+  }
+
+  .resume {
+    box-shadow: none;
+    max-width: none;
+    margin: 0;
+    /* padding: --m-* from inline/CSS vars (user margins) */
+    min-height: auto;
+  }
+}

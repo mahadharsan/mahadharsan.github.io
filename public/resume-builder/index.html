@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume builder</title>
+    <meta name="description" content="Build and print a resume — layout, typography, and PDF export." />
+    <link rel="stylesheet" href="/resume-builder/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="toolbar no-print">
+        <h1 class="toolbar-title">Resume builder</h1>
+        <div class="toolbar-actions">
+          <a href="/" class="btn btn-secondary">Portfolio</a>
+          <button type="button" id="btn-wrap-bold" class="btn" title="Wrap selection in ** for bold">Bold **</button>
+          <button type="button" id="btn-wrap-link" class="btn" title="Turn selected text into a link [text](url)">Link</button>
+          <button type="button" id="btn-export-json" class="btn">Export JSON</button>
+          <label class="btn btn-secondary">
+            Import JSON
+            <input type="file" id="input-import-json" accept="application/json,.json" hidden />
+          </label>
+          <button type="button" id="btn-print" class="btn btn-primary">Print / Save PDF</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="editor no-print" aria-label="Resume content">
+          <div class="field-group">
+            <label for="input-name">Name</label>
+            <input type="text" id="input-name" autocomplete="name" placeholder="Your name (**bold** supported)" />
+          </div>
+          <div class="field-group">
+            <label for="input-contacts">Contacts</label>
+            <textarea id="input-contacts" rows="4" placeholder="One line per contact. Select text and click Link (toolbar) or type [label](url). **Bold** works too."></textarea>
+          </div>
+
+          <div class="section-editor section-editor-summary">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-summary" checked />
+                <span>Summary</span>
+              </label>
+            </div>
+            <div class="field-group">
+              <label for="input-summary">Summary text</label>
+              <textarea id="input-summary" rows="4" placeholder="Optional opening paragraph(s). Blank lines start a new paragraph. Use **bold** for emphasis."></textarea>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-summary-show-heading" /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-summary-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-summary-title">Heading text (optional)</label>
+                <input type="text" id="meta-summary-title" placeholder="Override default Summary heading when heading is on" />
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="layout-panel">
+            <legend class="layout-panel-legend">Layout &amp; typography</legend>
+            <p class="layout-panel-hint">
+              Margins apply to the printed page. Spacing uses <code>em</code> (relative to body text). Use <code>**text**</code> in any field for <strong>bold</strong> — or select text and click <strong>Bold **</strong> above.
+            </p>
+
+            <div class="layout-grid-margins">
+              <div class="field-group field-compact">
+                <label for="layout-margin-top">Top (in)</label>
+                <input type="number" id="layout-margin-top" min="0.25" max="2" step="0.05" value="0.6" />
+              </div>
+              <div class="field-group field-compact">
+                <label for="layout-margin-right">Right (in)</label>
+                <input type="number" id="layout-margin-right" min="0.25" max="2" step="0.05" value="0.75" />
+              </div>
+              <div class="field-group field-compact">
+                <label for="layout-margin-bottom">Bottom (in)</label>
+                <input type="number" id="layout-margin-bottom" min="0.25" max="2" step="0.05" value="0.6" />
+              </div>
+              <div class="field-group field-compact">
+                <label for="layout-margin-left">Left (in)</label>
+                <input type="number" id="layout-margin-left" min="0.25" max="2" step="0.05" value="0.75" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="layout-font-family">Font</label>
+              <select id="layout-font-family">
+                <option value="times" selected>Times New Roman</option>
+                <option value="arial">Arial</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="layout-font-size-name">Name size (pt)</label>
+              <input type="number" id="layout-font-size-name" min="10" max="22" step="0.5" value="14" />
+            </div>
+            <div class="field-group">
+              <label for="layout-font-size-contacts">Contacts size (pt)</label>
+              <input type="number" id="layout-font-size-contacts" min="8" max="16" step="0.5" value="10.5" />
+            </div>
+
+            <div class="field-group">
+              <label for="layout-font-size-section">Section heading size (pt)</label>
+              <input type="number" id="layout-font-size-section" min="8" max="16" step="0.5" value="11" />
+            </div>
+            <div class="field-group">
+              <label for="layout-font-size-entry">Entry line size (pt)</label>
+              <input type="number" id="layout-font-size-entry" min="8" max="16" step="0.5" value="11" />
+            </div>
+            <div class="field-group">
+              <label for="layout-font-size-bullet">Bullet text size (pt)</label>
+              <input type="number" id="layout-font-size-bullet" min="8" max="16" step="0.5" value="11" />
+            </div>
+
+            <div class="field-group">
+              <label for="layout-section-title-text-to-rule-gap">Gap: heading text → line under it (em)</label>
+              <input type="number" id="layout-section-title-text-to-rule-gap" min="0" step="0.05" value="0.15" />
+              <p class="layout-field-hint">Space between the section title (e.g. EXPERIENCE) and the horizontal rule.</p>
+            </div>
+            <div class="field-group">
+              <label for="layout-section-title-gap">Gap: line under heading → first line below (em)</label>
+              <input type="number" id="layout-section-title-gap" min="0" step="0.05" value="0.45" />
+              <p class="layout-field-hint">Space between the rule and the first paragraph, bullet, or entry in that section.</p>
+            </div>
+
+            <div class="field-group">
+              <label for="layout-block-header-gap">Space below entry headline (em)</label>
+              <input type="number" id="layout-block-header-gap" min="0" max="2" step="0.05" value="0.2" />
+            </div>
+
+            <div class="field-group">
+              <label for="layout-bullet-gap">Space between bullet lines (em)</label>
+              <input type="number" id="layout-bullet-gap" min="0" max="1.5" step="0.05" value="0.2" />
+            </div>
+
+            <div class="field-group">
+              <label for="layout-section-gap">Space between sections (em)</label>
+              <input type="number" id="layout-section-gap" min="0" max="3" step="0.05" value="0.85" />
+            </div>
+
+            <div class="field-group">
+              <label for="layout-entry-gap">Space between entries (em)</label>
+              <input type="number" id="layout-entry-gap" min="0" max="3" step="0.05" value="0.65" />
+            </div>
+          </fieldset>
+
+          <div class="section-editor" data-section-key="experience">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-experience" checked />
+                <span>Experience</span>
+              </label>
+              <button type="button" class="btn-small" data-add="experience">+ Add entry</button>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-experience-show-heading" checked /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-experience-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-experience-title">Heading text (optional)</label>
+                <input type="text" id="meta-experience-title" placeholder="Leave blank for default (Experience)" />
+              </div>
+            </div>
+            <div class="entries" id="entries-experience"></div>
+          </div>
+
+          <div class="section-editor" data-section-key="publications">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-publications" checked />
+                <span>Publications</span>
+              </label>
+              <button type="button" class="btn-small" data-add="publications">+ Add entry</button>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-publications-show-heading" checked /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-publications-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-publications-title">Heading text (optional)</label>
+                <input type="text" id="meta-publications-title" placeholder="Leave blank for default (Publications)" />
+              </div>
+            </div>
+            <div class="entries" id="entries-publications"></div>
+          </div>
+
+          <div class="section-editor" data-section-key="projects">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-projects" checked />
+                <span>Projects</span>
+              </label>
+              <button type="button" class="btn-small" data-add="projects">+ Add entry</button>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-projects-show-heading" checked /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-projects-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-projects-title">Heading text (optional)</label>
+                <input type="text" id="meta-projects-title" placeholder="Leave blank for default (Projects)" />
+              </div>
+            </div>
+            <div class="entries" id="entries-projects"></div>
+          </div>
+
+          <div class="section-editor" data-section-key="education">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-education" checked />
+                <span>Education</span>
+              </label>
+              <button type="button" class="btn-small" data-add="education">+ Add entry</button>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-education-show-heading" checked /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-education-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-education-title">Heading text (optional)</label>
+                <input type="text" id="meta-education-title" placeholder="Leave blank for default (Education)" />
+              </div>
+            </div>
+            <div class="entries" id="entries-education"></div>
+          </div>
+        </aside>
+
+        <main class="preview-wrap">
+          <div id="resume-preview" class="resume" aria-live="polite"></div>
+        </main>
+      </div>
+    </div>
+
+    <template id="tpl-entry">
+      <div class="entry-card">
+        <div class="entry-card-head">
+          <span class="entry-card-label">Entry</span>
+          <button type="button" class="btn-remove" data-remove title="Remove entry">Remove</button>
+        </div>
+        <div class="field-group">
+          <label class="label-header">Header line</label>
+          <input type="text" class="input-header" placeholder="Organization · Role · Location" />
+        </div>
+        <div class="field-group">
+          <label class="label-bullets">Bullets (one per line)</label>
+          <textarea class="input-bullets" rows="4" placeholder="Achievement or detail&#10;Another point"></textarea>
+        </div>
+      </div>
+    </template>
+
+    <template id="tpl-entry-dated">
+      <div class="entry-card entry-card--dated">
+        <div class="entry-card-head">
+          <span class="entry-card-label">Entry</span>
+          <button type="button" class="btn-remove" data-remove title="Remove entry">Remove</button>
+        </div>
+        <div class="field-group">
+          <label class="label-header">Header line</label>
+          <input type="text" class="input-header" placeholder="Organization · Title · Location" />
+        </div>
+        <div class="field-group">
+          <label class="label-date">Dates</label>
+          <input type="text" class="input-date" placeholder="e.g. Jan 2020 – Present" />
+        </div>
+        <div class="field-group">
+          <label class="label-bullets">Bullets (one per line)</label>
+          <textarea class="input-bullets" rows="4" placeholder="Achievement or detail&#10;Another point"></textarea>
+        </div>
+      </div>
+    </template>
+
+    <template id="tpl-entry-edu">
+      <div class="entry-card entry-card--dated entry-card--edu">
+        <div class="entry-card-head">
+          <span class="entry-card-label">Entry</span>
+          <button type="button" class="btn-remove" data-remove title="Remove entry">Remove</button>
+        </div>
+        <div class="field-group">
+          <label class="label-header">Header line</label>
+          <input type="text" class="input-header" placeholder="School · Degree · Location" />
+        </div>
+        <div class="field-group">
+          <label class="label-date">Dates</label>
+          <input type="text" class="input-date" placeholder="e.g. 2018 – 2022" />
+        </div>
+        <div class="field-group">
+          <label class="label-bullets">Details (plain text)</label>
+          <textarea class="input-bullets" rows="4" placeholder="One line per line of detail (no bullet symbols).&#10;Use **bold** for emphasis."></textarea>
+        </div>
+      </div>
+    </template>
+
+    <script src="/resume-builder/app.js"></script>
+  </body>
+</html>

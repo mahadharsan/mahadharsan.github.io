@@ -16,13 +16,20 @@
   status = 200
   force = false
 
+# Resume builder (static files in public/resume-builder/)
+[[redirects]]
+  from = "/resume-builder"
+  to = "/resume-builder/"
+  status = 301
+  force = false
+
 # Redirect all routes to index.html except static files and success.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
-  except = ["/success.html", "/blog.html", "/publications.html", "/business-models.html", "/business-models/manufacturing.html", "/h1b-dashboard.html", "/learn.html", "/hiring-manager-interview.html", "/companies.html", "/companies", "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.svg", "/*.ico", "/*.pdf"]
+  except = ["/success.html", "/blog.html", "/publications.html", "/business-models.html", "/business-models/manufacturing.html", "/h1b-dashboard.html", "/learn.html", "/hiring-manager-interview.html", "/companies.html", "/companies", "/resume-builder/", "/resume-builder/index.html", "/resume-builder/styles.css", "/resume-builder/app.js", "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.svg", "/*.ico", "/*.pdf"]
 
 [build.environment]
   NODE_VERSION = "18"
