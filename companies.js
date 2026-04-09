@@ -34,6 +34,10 @@ export const companiesData = [
     {
         name:"State Street",
         url: "https://careers.statestreet.com/global/en/search-results?m=3"
+    },
+    {
+        name:"Sweetwater",
+        url: "https://careers.sweetwater.com/us/en"
     }
 ];
 
