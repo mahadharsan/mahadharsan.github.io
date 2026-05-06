@@ -38,6 +38,10 @@ export const companiesData = [
     {
         name:"Sweetwater",
         url: "https://careers.sweetwater.com/us/en"
+    },
+    {
+        name:"Ultragenyx",
+        url:"https://www.ultragenyx.com/join-our-team/current-opportunities/"
     }
 ];
 

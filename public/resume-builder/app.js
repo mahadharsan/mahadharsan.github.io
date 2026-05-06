@@ -6,13 +6,14 @@
   /** Last field the user typed in (Bold button steals focus from it on click). */
   var lastEditableField = null;
 
-  var SECTIONS = ["experience", "publications", "projects", "education"];
+  var SECTIONS = ["experience", "publications", "projects", "skills", "education"];
 
   var SECTION_META_KEYS = [
     "summary",
     "experience",
     "publications",
     "projects",
+    "skills",
     "education",
   ];
 
@@ -20,6 +21,7 @@
     experience: "Experience",
     publications: "Publications",
     projects: "Projects",
+    skills: "Skills",
     education: "Education",
   };
 
@@ -55,6 +57,7 @@
       experience: { showHeading: true, showLine: true, title: "" },
       publications: { showHeading: true, showLine: true, title: "" },
       projects: { showHeading: true, showLine: true, title: "" },
+      skills: { showHeading: true, showLine: true, title: "" },
       education: { showHeading: true, showLine: true, title: "" },
     };
   }
@@ -130,6 +133,7 @@
         experience: true,
         publications: true,
         projects: true,
+        skills: true,
         education: true,
       },
       sectionMeta: defaultSectionMeta(),
@@ -137,6 +141,7 @@
       experience: [],
       publications: [],
       projects: [],
+      skills: [],
       education: [],
     };
   }
