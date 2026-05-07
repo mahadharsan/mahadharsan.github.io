@@ -52,10 +52,26 @@ export const jobPortalsData = [
     },
 ];
 
+export const linkedinJobsData = [
+    {
+        name: "Educated Solutions Corp",
+        url: "https://www.linkedin.com/jobs/search/?currentJobId=4411248376&f_C=1468533&f_TPR=r86400&geoId=92000000&origin=JOB_SEARCH_PAGE_JOB_FILTER",
+    },
+    {
+        name: "Aquent",
+        url: "https://www.linkedin.com/jobs/search/?currentJobId=4402060856&f_C=4433%2C2468967%2C10496829%2C81910066%2C5929124%2C2217719%2C1314444%2C6473625&f_TPR=r86400&geoId=92000000&origin=JOB_SEARCH_PAGE_JOB_FILTER",
+    },
+    {
+        name: "Dexian",
+        url: "https://www.linkedin.com/jobs/search/?currentJobId=4409980819&f_C=91447303%2C9687%2C103351397%2C69872%2C2097099%2C104801608&f_TPR=r86400&geoId=103644278&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&refresh=true",
+    },
+];
+
 // Load job portals and companies on the apply page
 document.addEventListener('DOMContentLoaded', () => {
     loadJobPortals();
     loadCompanies();
+    loadLinkedinJobs();
 });
 
 function loadJobPortals() {
@@ -91,5 +107,23 @@ function loadCompanies() {
         `;
 
         companiesGrid.appendChild(companyCard);
+    });
+}
+
+function loadLinkedinJobs() {
+    const linkedinJobsGrid = document.getElementById('linkedin-jobs-grid');
+    if (!linkedinJobsGrid) return;
+
+    linkedinJobsData.forEach(job => {
+        const jobCard = document.createElement('div');
+        jobCard.className = 'company-card fade-in';
+
+        jobCard.innerHTML = `
+            <a href="${job.url}" target="_blank" rel="noopener noreferrer" class="company-name">
+                ${job.name}
+            </a>
+        `;
+
+        linkedinJobsGrid.appendChild(jobCard);
     });
 }
