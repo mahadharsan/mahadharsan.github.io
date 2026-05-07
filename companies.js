@@ -65,6 +65,62 @@ export const linkedinJobsData = [
         name: "Dexian",
         url: "https://www.linkedin.com/jobs/search/?currentJobId=4409980819&f_C=91447303%2C9687%2C103351397%2C69872%2C2097099%2C104801608&f_TPR=r86400&geoId=103644278&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&refresh=true",
     },
+    {
+        name:"US Tech Solutions",
+        url:"https://www.linkedin.com/jobs/search/?currentJobId=4409606604&f_C=27292&f_TPR=r86400&geoId=92000000&origin=JOB_SEARCH_PAGE_JOB_FILTER&spellCorrectionEnabled=true"
+    },
+    {
+        name: "Aston Carter",
+        url: "https://www.linkedin.com/jobs/search/?currentJobId=4411447218&f_C=13153&geoId=92000000&origin=COMPANY_PAGE_JOBS_CLUSTER_EXPANSION&originToLandingJobPostings=4411447218%2C4409152744%2C4410757489%2C4406160120%2C4406105808%2C4411403730%2C4409120669%2C4408217625%2C4410949081"
+    },
+    {
+        name:"TEKsystems",
+        url:"https://www.linkedin.com/company/teksystems/jobs/"
+    },
+    {
+        name:"Beacon Hill Staffing Group",
+        url:"https://www.linkedin.com/company/beacon-hill-bhsg/jobs/"
+    },
+    {
+        name: "Harvey Nash",
+        url: "https://www.linkedin.com/company/harvey-nash/jobs/"
+    },
+    {
+        name: "Michael Page",
+        url: "https://www.linkedin.com/company/michaelpage/jobs/"
+    },
+    {
+        name: "Robert Half",
+        url: "https://www.linkedin.com/company/robert-half/jobs/"
+    },
+    {
+        name: "Randstad",
+        url: "https://www.linkedin.com/company/randstad/jobs/"
+    },
+    {
+        name: "Kelly Services",
+        url: "https://www.linkedin.com/company/kellyservices/jobs/"
+    },
+    {
+        name: "Sonexis",
+        url: "https://www.linkedin.com/company/sonexis/jobs/"
+    },
+    {
+        name: "Insight Global",
+        url: "https://www.linkedin.com/company/insightglobal/jobs/"
+    },
+    {
+        name: "The Judge Group",
+        url: "https://www.linkedin.com/company/thejudgegroup/jobs/"
+    },
+    {
+        name: "Adecco",
+        url: "https://www.linkedin.com/company/adecco/jobs/"
+    },
+    {
+        name: "K Force",
+        url: "https://www.linkedin.com/company/kforce/jobs/"
+    }
 ];
 
 // Load job portals and companies on the apply page
