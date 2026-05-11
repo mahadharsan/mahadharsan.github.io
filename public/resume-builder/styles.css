@@ -77,6 +77,34 @@ body {
   border-color: var(--accent);
 }
 
+.paste-resume-panel textarea {
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.paste-resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.paste-resume-status {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  min-height: 1.35em;
+}
+
+.paste-resume-status--ok {
+  color: #1a6b3a;
+}
+
+.paste-resume-status--err {
+  color: var(--danger);
+}
+
 .btn-primary:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);

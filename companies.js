@@ -91,11 +91,11 @@ export const linkedinJobsData = [
     },
     {
         name: "Robert Half",
-        url: "https://www.linkedin.com/company/robert-half/jobs/"
+        url: "https://www.linkedin.com/company/robert-half-international/jobs/"
     },
     {
         name: "Randstad",
-        url: "https://www.linkedin.com/company/randstad/jobs/"
+        url: "https://www.linkedin.com/company/randstadusa/jobs/"
     },
     {
         name: "Kelly Services",
@@ -107,7 +107,7 @@ export const linkedinJobsData = [
     },
     {
         name: "Insight Global",
-        url: "https://www.linkedin.com/company/insightglobal/jobs/"
+        url: "https://www.linkedin.com/company/insight-global/posts/?feedView=all"
     },
     {
         name: "The Judge Group",
@@ -120,6 +120,10 @@ export const linkedinJobsData = [
     {
         name: "K Force",
         url: "https://www.linkedin.com/company/kforce/jobs/"
+    },
+    {
+        name: "24 Seven Talent",
+        url: "https://www.linkedin.com/company/24seventalent/jobs/"
     }
 ];
 

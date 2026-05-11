@@ -26,6 +26,24 @@
 
       <div class="layout">
         <aside class="editor no-print" aria-label="Resume content">
+          <div class="field-group paste-resume-panel">
+            <label for="input-paste-resume">Paste full resume (plain text)</label>
+            <p class="layout-field-hint">
+              Paste an entire resume from elsewhere. Click <strong>Parse into form</strong> to detect section titles (Summary, Experience, Education, and so on) and fill the fields below. Layout and typography settings are kept as they are.
+            </p>
+            <textarea
+              id="input-paste-resume"
+              rows="10"
+              spellcheck="false"
+              placeholder="Paste your full resume text here…"
+            ></textarea>
+            <div class="paste-resume-actions">
+              <button type="button" id="btn-parse-resume" class="btn btn-primary">Parse into form</button>
+              <button type="button" id="btn-clear-paste" class="btn btn-secondary">Clear paste box</button>
+            </div>
+            <p class="paste-resume-status" id="paste-resume-status" role="status" aria-live="polite"></p>
+          </div>
+
           <div class="field-group">
             <label for="input-name">Name</label>
             <input type="text" id="input-name" autocomplete="name" placeholder="Your name (**bold** supported)" />

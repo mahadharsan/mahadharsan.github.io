@@ -769,6 +769,433 @@
     return base;
   }
 
+  /** --- Paste full resume: detect section headings and fill the form --- */
+
+  function normalizeHeadingForMatch(line) {
+    var s = trim(line);
+    if (!s) return "";
+    s = s.replace(/^[#*\s]+/, "");
+    s = s.replace(/\s*:+\s*$/, "");
+    s = s.replace(/\.+$/, "");
+    return s.toLowerCase();
+  }
+
+  function matchSectionFromHeading(line) {
+    var n = normalizeHeadingForMatch(line);
+    if (!n) return null;
+
+    var pairs = [
+      [
+        "summary",
+        [
+          "summary",
+          "professional summary",
+          "profile",
+          "objective",
+          "career objective",
+          "about me",
+          "about",
+          "overview",
+          "executive summary",
+        ],
+      ],
+      [
+        "experience",
+        [
+          "experience",
+          "work experience",
+          "professional experience",
+          "employment",
+          "employment history",
+          "work history",
+          "career history",
+          "relevant experience",
+          "professional background",
+        ],
+      ],
+      [
+        "publications",
+        [
+          "publications",
+          "publication",
+          "papers",
+          "peer-reviewed publications",
+          "research publications",
+        ],
+      ],
+      [
+        "projects",
+        [
+          "projects",
+          "selected projects",
+          "personal projects",
+          "key projects",
+          "project experience",
+        ],
+      ],
+      [
+        "skills",
+        [
+          "skills",
+          "technical skills",
+          "core skills",
+          "core competencies",
+          "technologies",
+          "tech stack",
+          "tools & technologies",
+          "tools and technologies",
+          "areas of expertise",
+          "expertise",
+          "qualifications",
+          "highlights",
+        ],
+      ],
+      [
+        "education",
+        [
+          "education",
+          "academic background",
+          "academic history",
+          "degrees",
+          "training",
+        ],
+      ],
+    ];
+
+    for (var pi = 0; pi < pairs.length; pi++) {
+      var key = pairs[pi][0];
+      var names = pairs[pi][1];
+      for (var ni = 0; ni < names.length; ni++) {
+        var label = names[ni];
+        if (n === label) return key;
+        if (n.indexOf(label + " ") === 0) return key;
+        if (n.indexOf(label + " &") === 0) return key;
+        if (n.indexOf(label + " and ") === 0) return key;
+      }
+    }
+
+    if (n.indexOf("education") === 0) return "education";
+    if (n.indexOf("publications") === 0) return "publications";
+    if (n.indexOf("certifications & education") === 0) return "education";
+
+    return null;
+  }
+
+  function splitResumeDocument(text) {
+    var lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+    var preamble = [];
+    var sectionMap = {};
+    var i = 0;
+    while (i < lines.length) {
+      if (matchSectionFromHeading(lines[i])) break;
+      preamble.push(lines[i]);
+      i++;
+    }
+    var currentKey = null;
+    var currentLines = [];
+    function flush() {
+      if (!currentKey) return;
+      var body = currentLines.join("\n").replace(/^\s*\n+|\n+\s*$/g, "");
+      if (!sectionMap[currentKey]) sectionMap[currentKey] = [];
+      if (trim(body)) sectionMap[currentKey].push(body);
+      currentLines = [];
+    }
+    while (i < lines.length) {
+      var key = matchSectionFromHeading(lines[i]);
+      if (key) {
+        flush();
+        currentKey = key;
+      } else if (currentKey) {
+        currentLines.push(lines[i]);
+      }
+      i++;
+    }
+    flush();
+    return { preamble: preamble, sectionMap: sectionMap };
+  }
+
+  function parsePreambleLines(preambleLines) {
+    var joined = preambleLines.join("\n");
+    joined = trim(joined.replace(/^\s*\n+|\n+\s*$/g, ""));
+    if (!joined) return { name: "", contacts: "" };
+    var plines = joined.split("\n");
+    var name = trim(plines[0] || "");
+    var contacts = trim(plines.slice(1).join("\n"));
+    return { name: name, contacts: contacts };
+  }
+
+  function isBulletLine(line) {
+    var s = trim(line);
+    if (!s) return false;
+    if (/^[\s\u2022\u2023\u25E6\u00B7\-*◦▪]+\s*\S/.test(s)) return true;
+    if (/^\(?[a-zA-Z]\)\s+\S/.test(s)) return true;
+    return false;
+  }
+
+  function stripBullet(line) {
+    var s = trim(line);
+    s = s.replace(/^[\s\u2022\u2023\u25E6\u00B7\-*◦▪]+\s*/, "");
+    s = s.replace(/^\(?[a-zA-Z]\)\s+/, "");
+    return s;
+  }
+
+  function looksLikeDateLine(s) {
+    s = trim(s);
+    if (!s || isBulletLine(s)) return false;
+    if (/^(present|current)$/i.test(s)) return true;
+    if (/\d{4}\s*[–—\-]\s*(present|now|current|\d{4})/i.test(s)) return true;
+    if (/(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)/i.test(s) && /\d/.test(s)) {
+      return true;
+    }
+    if (/(spring|summer|fall|autumn|winter)\s+\d{4}/i.test(s)) return true;
+    return false;
+  }
+
+  function splitHeaderAndDateFromLine(line) {
+    line = trim(line);
+    if (!line) return { header: "", date: "" };
+    var tab = line.indexOf("\t");
+    if (tab > 0) {
+      var left = trim(line.slice(0, tab));
+      var right = trim(line.slice(tab + 1));
+      if (looksLikeDateLine(right)) return { header: left, date: right };
+    }
+    var re =
+      /\s{2,}((?:(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+){1,2}\d{4}(?:\s*[–—\-]\s*(?:(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+){0,2}\d{4}|Present|Now|Current))?)|(?:\d{4}\s*[–—\-]\s*(?:\d{4}|Present|Now|Current))|(?:(?:Spring|Summer|Fall|Autumn|Winter)\s+\d{4}(?:\s*[–—\-]\s*.+)?))$/i;
+    var m = line.match(re);
+    if (m && m.index > 0) {
+      return { header: trim(line.slice(0, m.index)), date: trim(m[1]) };
+    }
+    var re2 = /\s+(\d{4}\s*[–—\-]\s*(?:\d{4}|Present|Now|Current))\s*$/i;
+    var m2 = line.match(re2);
+    if (m2 && m2.index > 5) {
+      return { header: trim(line.slice(0, m2.index)), date: trim(m2[1]) };
+    }
+    return { header: line, date: "" };
+  }
+
+  function parseDatedEntryChunk(rawLines, sectionKey) {
+    var lines = [];
+    for (var i = 0; i < rawLines.length; i++) {
+      if (trim(rawLines[i]) !== "") lines.push(rawLines[i]);
+    }
+    if (lines.length === 0) return null;
+
+    var first = trim(lines[0]);
+    var second = lines.length > 1 ? trim(lines[1]) : "";
+    var header = "";
+    var date = "";
+    var bulletStart = 1;
+
+    if (second && looksLikeDateLine(second) && !isBulletLine(second)) {
+      header = first;
+      date = second;
+      bulletStart = 2;
+    } else {
+      var split = splitHeaderAndDateFromLine(first);
+      header = split.header;
+      date = split.date;
+      bulletStart = 1;
+    }
+
+    var bulletRaw = lines.slice(bulletStart);
+    var bullets = bulletRaw
+      .map(stripBullet)
+      .map(trim)
+      .filter(function (x) {
+        return x.length > 0;
+      })
+      .join("\n");
+
+    return { header: header, date: date, bullets: bullets };
+  }
+
+  function parseUndatedEntryChunk(rawLines) {
+    var lines = [];
+    for (var j = 0; j < rawLines.length; j++) {
+      var L = trim(rawLines[j]);
+      if (L) lines.push(L);
+    }
+    if (lines.length === 0) return null;
+    if (isBulletLine(lines[0])) {
+      return {
+        header: "",
+        date: "",
+        bullets: lines.map(stripBullet).join("\n"),
+      };
+    }
+    return {
+      header: lines[0],
+      date: "",
+      bullets: lines
+        .slice(1)
+        .map(stripBullet)
+        .filter(function (x) {
+          return trim(x).length > 0;
+        })
+        .join("\n"),
+    };
+  }
+
+  function splitBodyIntoParagraphs(body) {
+    return (body || "")
+      .split(/\n\s*\n+/)
+      .map(function (p) {
+        return trim(p);
+      })
+      .filter(function (p) {
+        return p.length > 0;
+      });
+  }
+
+  function parseDatedSectionBody(body, sectionKey) {
+    var paras = splitBodyIntoParagraphs(body);
+    var out = [];
+    for (var i = 0; i < paras.length; i++) {
+      var rawLines = paras[i].split(/\n/);
+      var entry = parseDatedEntryChunk(rawLines, sectionKey);
+      if (entry && !entryIsEmpty(entry, sectionKey)) out.push(entry);
+    }
+    return out;
+  }
+
+  function parseUndatedSectionBody(body) {
+    var paras = splitBodyIntoParagraphs(body);
+    var out = [];
+    for (var i = 0; i < paras.length; i++) {
+      var rawLines = paras[i].split(/\n/);
+      var entry = parseUndatedEntryChunk(rawLines);
+      if (entry && !entryIsEmpty(entry, "projects")) out.push(entry);
+    }
+    return out;
+  }
+
+  function parseSkillsSectionBody(body) {
+    var paras = splitBodyIntoParagraphs(body);
+    if (paras.length === 0) return [];
+    if (paras.length === 1) {
+      var rawLines = paras[0].split(/\n/).filter(function (l) {
+        return trim(l).length > 0;
+      });
+      var allBullets = rawLines.every(function (l) {
+        return isBulletLine(l);
+      });
+      if (allBullets || rawLines.length > 1) {
+        var one = parseUndatedEntryChunk(rawLines);
+        return one && !entryIsEmpty(one, "skills") ? [one] : [];
+      }
+    }
+    return parseUndatedSectionBody(body);
+  }
+
+  function mergeSectionBodies(sectionMap, key) {
+    var parts = sectionMap[key];
+    if (!parts || !parts.length) return "";
+    return parts.join("\n\n");
+  }
+
+  function parseResumePlainText(fullText) {
+    var text = String(fullText || "");
+    if (!trim(text)) {
+      return { error: "Paste some resume text first." };
+    }
+    var doc = splitResumeDocument(text);
+    var hasAnySection = false;
+    var sk = Object.keys(doc.sectionMap);
+    for (var si = 0; si < sk.length; si++) {
+      if (doc.sectionMap[sk[si]] && doc.sectionMap[sk[si]].length) {
+        hasAnySection = true;
+        break;
+      }
+    }
+    if (!hasAnySection) {
+      return {
+        error:
+          "No section headings were recognized. Use lines like Summary, Experience, Projects, Skills, Education, or Publications (a colon at the end is fine).",
+      };
+    }
+
+    var nc = parsePreambleLines(doc.preamble);
+    var summaryBody = trim(mergeSectionBodies(doc.sectionMap, "summary"));
+    var experience = parseDatedSectionBody(
+      mergeSectionBodies(doc.sectionMap, "experience"),
+      "experience"
+    );
+    var education = parseDatedSectionBody(
+      mergeSectionBodies(doc.sectionMap, "education"),
+      "education"
+    );
+    var publications = parseUndatedSectionBody(
+      mergeSectionBodies(doc.sectionMap, "publications")
+    );
+    var projects = parseUndatedSectionBody(
+      mergeSectionBodies(doc.sectionMap, "projects")
+    );
+    var skills = parseSkillsSectionBody(
+      mergeSectionBodies(doc.sectionMap, "skills")
+    );
+
+    var filled = [];
+    if (summaryBody) filled.push("Summary");
+    if (experience.length) filled.push("Experience");
+    if (publications.length) filled.push("Publications");
+    if (projects.length) filled.push("Projects");
+    if (skills.length) filled.push("Skills");
+    if (education.length) filled.push("Education");
+
+    var message =
+      "Parsed into the form" +
+      (filled.length ? ": " + filled.join(", ") : "") +
+      ".";
+    if (trim(nc.name) || trim(nc.contacts)) {
+      message += " Name and contacts were set from the lines above your first section.";
+    }
+
+    return {
+      error: null,
+      name: nc.name,
+      contacts: nc.contacts,
+      summary: summaryBody,
+      experience: experience,
+      publications: publications,
+      projects: projects,
+      skills: skills,
+      education: education,
+      message: message,
+    };
+  }
+
+  function setPasteResumeStatus(message, kind) {
+    var el = document.getElementById("paste-resume-status");
+    if (!el) return;
+    el.textContent = message || "";
+    el.className = "paste-resume-status";
+    if (kind === "ok") el.classList.add("paste-resume-status--ok");
+    if (kind === "err") el.classList.add("paste-resume-status--err");
+  }
+
+  function applyParsedResumeText(fullText) {
+    var parsed = parseResumePlainText(fullText);
+    if (parsed.error) {
+      setPasteResumeStatus(parsed.error, "err");
+      return;
+    }
+    var cur = readStateFromDOM();
+    cur.name = parsed.name;
+    cur.contacts = parsed.contacts;
+    cur.summary = parsed.summary;
+    cur.include.summary = trim(parsed.summary) !== "";
+
+    SECTIONS.forEach(function (k) {
+      cur[k] = Array.isArray(parsed[k]) ? parsed[k].slice() : [];
+      cur.include[k] = sectionHasContent(k, cur);
+    });
+
+    applyStateToEditor(cur);
+    sync();
+    setPasteResumeStatus(parsed.message, "ok");
+  }
+
   function exportJson() {
     var state = readStateFromDOM();
     var blob = new Blob([JSON.stringify(state, null, 2)], {
@@ -994,6 +1421,22 @@
       btnLink.addEventListener("click", function (e) {
         e.preventDefault();
         wrapLinkSelection();
+      });
+    }
+
+    var btnParseResume = document.getElementById("btn-parse-resume");
+    var inputPasteResume = document.getElementById("input-paste-resume");
+    var btnClearPaste = document.getElementById("btn-clear-paste");
+    if (btnParseResume && inputPasteResume) {
+      btnParseResume.addEventListener("click", function () {
+        applyParsedResumeText(inputPasteResume.value);
+      });
+    }
+    if (btnClearPaste && inputPasteResume) {
+      btnClearPaste.addEventListener("click", function () {
+        inputPasteResume.value = "";
+        setPasteResumeStatus("", null);
+        inputPasteResume.focus();
       });
     }
   });
