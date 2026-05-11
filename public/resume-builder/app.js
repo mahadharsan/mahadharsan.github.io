@@ -123,6 +123,35 @@
     };
   }
 
+  function defaultParseLocks() {
+    return {
+      nameContacts: false,
+      summary: false,
+      experienceStructure: false,
+      publications: false,
+      projects: false,
+      skills: false,
+      education: false,
+    };
+  }
+
+  function mergeParseLocks(raw) {
+    var d = defaultParseLocks();
+    if (!raw || typeof raw !== "object") return d;
+    function b(key) {
+      return typeof raw[key] === "boolean" ? raw[key] : d[key];
+    }
+    return {
+      nameContacts: b("nameContacts"),
+      summary: b("summary"),
+      experienceStructure: b("experienceStructure"),
+      publications: b("publications"),
+      projects: b("projects"),
+      skills: b("skills"),
+      education: b("education"),
+    };
+  }
+
   function defaultState() {
     return {
       name: "",
@@ -138,6 +167,7 @@
       },
       sectionMeta: defaultSectionMeta(),
       layout: defaultLayout(),
+      parseLocks: defaultParseLocks(),
       experience: [],
       publications: [],
       projects: [],
@@ -576,7 +606,44 @@
       state[key] = getEntryElements(key).map(readEntryFromCard);
     });
 
+    state.parseLocks = readParseLocksFromDOM();
+
     return state;
+  }
+
+  function readParseLocksFromDOM() {
+    function chk(id, fallback) {
+      var el = document.getElementById(id);
+      return el ? el.checked : fallback;
+    }
+    var d = defaultParseLocks();
+    return {
+      nameContacts: chk("lock-parse-name-contacts", d.nameContacts),
+      summary: chk("lock-parse-summary", d.summary),
+      experienceStructure: chk(
+        "lock-parse-experience-structure",
+        d.experienceStructure
+      ),
+      publications: chk("lock-parse-publications", d.publications),
+      projects: chk("lock-parse-projects", d.projects),
+      skills: chk("lock-parse-skills", d.skills),
+      education: chk("lock-parse-education", d.education),
+    };
+  }
+
+  function applyParseLocksToEditor(locks) {
+    var L = mergeParseLocks(locks);
+    function setChk(id, val) {
+      var el = document.getElementById(id);
+      if (el) el.checked = !!val;
+    }
+    setChk("lock-parse-name-contacts", L.nameContacts);
+    setChk("lock-parse-summary", L.summary);
+    setChk("lock-parse-experience-structure", L.experienceStructure);
+    setChk("lock-parse-publications", L.publications);
+    setChk("lock-parse-projects", L.projects);
+    setChk("lock-parse-skills", L.skills);
+    setChk("lock-parse-education", L.education);
   }
 
   function setIncludeToggles(state) {
@@ -677,6 +744,8 @@
         if (card) container.appendChild(card);
       });
     });
+
+    applyParseLocksToEditor(state.parseLocks);
   }
 
   function addEntry(sectionKey, focus) {
@@ -766,7 +835,39 @@
         });
     });
 
+    base.parseLocks = mergeParseLocks(raw.parseLocks);
+
     return base;
+  }
+
+  function mergeExperienceWithLockedStructure(prevList, parsedList) {
+    var prev = Array.isArray(prevList) ? prevList : [];
+    var parsed = Array.isArray(parsedList) ? parsedList : [];
+    if (prev.length === 0) return parsed.slice();
+    var out = [];
+    var max = Math.max(prev.length, parsed.length);
+    for (var i = 0; i < max; i++) {
+      if (i < parsed.length && i < prev.length) {
+        out.push({
+          header: trim(prev[i].header || ""),
+          date: trim(prev[i].date || ""),
+          bullets: typeof parsed[i].bullets === "string" ? parsed[i].bullets : "",
+        });
+      } else if (i < parsed.length) {
+        out.push({
+          header: parsed[i].header || "",
+          date: parsed[i].date || "",
+          bullets: parsed[i].bullets || "",
+        });
+      } else {
+        out.push({
+          header: prev[i].header || "",
+          date: prev[i].date || "",
+          bullets: prev[i].bullets || "",
+        });
+      }
+    }
+    return out;
   }
 
   /** --- Paste full resume: detect section headings and fill the form --- */
@@ -1147,9 +1248,6 @@
       "Parsed into the form" +
       (filled.length ? ": " + filled.join(", ") : "") +
       ".";
-    if (trim(nc.name) || trim(nc.contacts)) {
-      message += " Name and contacts were set from the lines above your first section.";
-    }
 
     return {
       error: null,
@@ -1181,19 +1279,60 @@
       return;
     }
     var cur = readStateFromDOM();
-    cur.name = parsed.name;
-    cur.contacts = parsed.contacts;
-    cur.summary = parsed.summary;
-    cur.include.summary = trim(parsed.summary) !== "";
+    var locks = mergeParseLocks(cur.parseLocks);
 
-    SECTIONS.forEach(function (k) {
-      cur[k] = Array.isArray(parsed[k]) ? parsed[k].slice() : [];
+    if (!locks.nameContacts) {
+      cur.name = parsed.name;
+      cur.contacts = parsed.contacts;
+    }
+
+    if (!locks.summary) {
+      cur.summary = parsed.summary;
+      cur.include.summary = trim(parsed.summary) !== "";
+    }
+
+    if (locks.experienceStructure) {
+      cur.experience = mergeExperienceWithLockedStructure(
+        cur.experience,
+        parsed.experience
+      );
+    } else {
+      cur.experience = Array.isArray(parsed.experience)
+        ? parsed.experience.slice()
+        : [];
+    }
+    cur.include.experience = sectionHasContent("experience", cur);
+
+    var arrKeys = ["publications", "projects", "skills", "education"];
+    for (var ai = 0; ai < arrKeys.length; ai++) {
+      var k = arrKeys[ai];
+      if (!locks[k]) {
+        cur[k] = Array.isArray(parsed[k]) ? parsed[k].slice() : [];
+      }
       cur.include[k] = sectionHasContent(k, cur);
-    });
+    }
+
+    var msg = parsed.message;
+    var skipped = [];
+    if (locks.nameContacts) skipped.push("name & contacts");
+    if (locks.summary) skipped.push("summary");
+    if (locks.experienceStructure) {
+      skipped.push("experience titles & dates (bullets updated where pasted)");
+    }
+    if (locks.publications) skipped.push("publications");
+    if (locks.projects) skipped.push("projects");
+    if (locks.skills) skipped.push("skills");
+    if (locks.education) skipped.push("education");
+    if (skipped.length) {
+      msg += " Kept from your form (locked): " + skipped.join(", ") + ".";
+    } else if (trim(parsed.name) || trim(parsed.contacts)) {
+      msg +=
+        " Name and contacts were taken from the lines above your first section.";
+    }
 
     applyStateToEditor(cur);
     sync();
-    setPasteResumeStatus(parsed.message, "ok");
+    setPasteResumeStatus(msg, "ok");
   }
 
   function exportJson() {
@@ -1251,6 +1390,10 @@
       return;
     }
     if (t && t.id && /^meta-/.test(t.id)) {
+      sync();
+      return;
+    }
+    if (t && t.id && t.id.indexOf("lock-parse-") === 0) {
       sync();
     }
   }

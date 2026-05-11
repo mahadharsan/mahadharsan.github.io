@@ -29,7 +29,7 @@
           <div class="field-group paste-resume-panel">
             <label for="input-paste-resume">Paste full resume (plain text)</label>
             <p class="layout-field-hint">
-              Paste an entire resume from elsewhere. Click <strong>Parse into form</strong> to detect section titles (Summary, Experience, Education, and so on) and fill the fields below. Layout and typography settings are kept as they are.
+              Paste an entire resume from elsewhere. Click <strong>Parse into form</strong> to detect section titles (Summary, Experience, Education, and so on) and fill the fields below. Use the <strong>Keep when parsing</strong> checkboxes next to each area to leave your current name, contacts, dates, or whole sections unchanged. Layout and typography settings are always kept.
             </p>
             <textarea
               id="input-paste-resume"
@@ -51,6 +51,11 @@
           <div class="field-group">
             <label for="input-contacts">Contacts</label>
             <textarea id="input-contacts" rows="4" placeholder="One line per contact. Select text and click Link (toolbar) or type [label](url). **Bold** works too."></textarea>
+            <div class="parse-lock-row">
+              <label class="parse-lock-label"
+                ><input type="checkbox" id="lock-parse-name-contacts" /> Keep name &amp; contacts when parsing a pasted resume</label
+              >
+            </div>
           </div>
 
           <div class="section-editor section-editor-summary">
@@ -62,6 +67,11 @@
             </div>
             <div class="field-group">
               <label for="input-summary">Summary text</label>
+              <div class="parse-lock-row parse-lock-row--tight">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-summary" /> Keep summary when parsing</label
+                >
+              </div>
               <textarea id="input-summary" rows="4" placeholder="Optional opening paragraph(s). Blank lines start a new paragraph. Use **bold** for emphasis."></textarea>
             </div>
             <div class="section-meta">
@@ -174,6 +184,11 @@
               <button type="button" class="btn-small" data-add="experience">+ Add entry</button>
             </div>
             <div class="section-meta">
+              <div class="parse-lock-row">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-experience-structure" /> Keep job title &amp; dates; only update bullets from the paste</label
+                >
+              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-experience-show-heading" checked /> Show section heading</label>
               </div>
@@ -197,6 +212,11 @@
               <button type="button" class="btn-small" data-add="publications">+ Add entry</button>
             </div>
             <div class="section-meta">
+              <div class="parse-lock-row">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-publications" /> Keep publications when parsing</label
+                >
+              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-publications-show-heading" checked /> Show section heading</label>
               </div>
@@ -220,6 +240,11 @@
               <button type="button" class="btn-small" data-add="projects">+ Add entry</button>
             </div>
             <div class="section-meta">
+              <div class="parse-lock-row">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-projects" /> Keep projects when parsing</label
+                >
+              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-projects-show-heading" checked /> Show section heading</label>
               </div>
@@ -243,6 +268,11 @@
               <button type="button" class="btn-small" data-add="skills">+ Add entry</button>
             </div>
             <div class="section-meta">
+              <div class="parse-lock-row">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-skills" /> Keep skills when parsing</label
+                >
+              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-skills-show-heading" checked /> Show section heading</label>
               </div>
@@ -266,6 +296,11 @@
               <button type="button" class="btn-small" data-add="education">+ Add entry</button>
             </div>
             <div class="section-meta">
+              <div class="parse-lock-row">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-education" /> Keep education when parsing</label
+                >
+              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-education-show-heading" checked /> Show section heading</label>
               </div>
