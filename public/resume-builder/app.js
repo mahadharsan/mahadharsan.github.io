@@ -127,7 +127,6 @@
     return {
       nameContacts: false,
       summary: false,
-      experienceStructure: false,
       publications: false,
       projects: false,
       skills: false,
@@ -144,7 +143,6 @@
     return {
       nameContacts: b("nameContacts"),
       summary: b("summary"),
-      experienceStructure: b("experienceStructure"),
       publications: b("publications"),
       projects: b("projects"),
       skills: b("skills"),
@@ -505,10 +503,12 @@
     var headerInput = card.querySelector(".input-header");
     var bulletsInput = card.querySelector(".input-bullets");
     var dateInput = card.querySelector(".input-date");
+    var lockBtn = card.querySelector(".btn-lock-date");
     return {
       header: headerInput ? headerInput.value : "",
       date: dateInput ? dateInput.value : "",
       bullets: bulletsInput ? bulletsInput.value : "",
+      lockDate: !!(lockBtn && lockBtn.getAttribute("aria-pressed") === "true"),
     };
   }
 
@@ -620,10 +620,6 @@
     return {
       nameContacts: chk("lock-parse-name-contacts", d.nameContacts),
       summary: chk("lock-parse-summary", d.summary),
-      experienceStructure: chk(
-        "lock-parse-experience-structure",
-        d.experienceStructure
-      ),
       publications: chk("lock-parse-publications", d.publications),
       projects: chk("lock-parse-projects", d.projects),
       skills: chk("lock-parse-skills", d.skills),
@@ -639,7 +635,6 @@
     }
     setChk("lock-parse-name-contacts", L.nameContacts);
     setChk("lock-parse-summary", L.summary);
-    setChk("lock-parse-experience-structure", L.experienceStructure);
     setChk("lock-parse-publications", L.publications);
     setChk("lock-parse-projects", L.projects);
     setChk("lock-parse-skills", L.skills);
@@ -687,6 +682,14 @@
     if (headerInput && entry) headerInput.value = entry.header || "";
     if (bulletsInput && entry) bulletsInput.value = entry.bullets || "";
     if (dateInput && entry) dateInput.value = entry.date || "";
+
+    var lockBtn = node.querySelector(".btn-lock-date");
+    if (lockBtn) {
+      var ld = entry && entry.lockDate === true;
+      lockBtn.setAttribute("aria-pressed", ld ? "true" : "false");
+      lockBtn.classList.toggle("is-locked", ld);
+      lockBtn.textContent = ld ? "Locked" : "Lock date";
+    }
 
     return node;
   }
@@ -831,39 +834,64 @@
             header: typeof e.header === "string" ? e.header : "",
             date: typeof e.date === "string" ? e.date : "",
             bullets: typeof e.bullets === "string" ? e.bullets : "",
+            lockDate: e.lockDate === true,
           };
         });
     });
 
     base.parseLocks = mergeParseLocks(raw.parseLocks);
 
+    if (raw.parseLocks && raw.parseLocks.experienceStructure === true) {
+      base.experience.forEach(function (e) {
+        e.lockDate = true;
+      });
+    }
+
     return base;
   }
 
-  function mergeExperienceWithLockedStructure(prevList, parsedList) {
+  function mergeDatedSectionPreservingDateLocks(prevList, parsedList) {
     var prev = Array.isArray(prevList) ? prevList : [];
     var parsed = Array.isArray(parsedList) ? parsedList : [];
-    if (prev.length === 0) return parsed.slice();
+    if (prev.length === 0) {
+      return parsed.map(function (p) {
+        return {
+          header: p.header || "",
+          date: p.date || "",
+          bullets: p.bullets || "",
+          lockDate: false,
+        };
+      });
+    }
     var out = [];
     var max = Math.max(prev.length, parsed.length);
     for (var i = 0; i < max; i++) {
-      if (i < parsed.length && i < prev.length) {
+      var hasP = i < parsed.length;
+      var hasPr = i < prev.length;
+      if (hasP && hasPr) {
+        var usePrevDate = prev[i].lockDate === true;
         out.push({
-          header: trim(prev[i].header || ""),
-          date: trim(prev[i].date || ""),
-          bullets: typeof parsed[i].bullets === "string" ? parsed[i].bullets : "",
+          header: parsed[i].header || "",
+          date: usePrevDate
+            ? trim(prev[i].date || "")
+            : trim(parsed[i].date || ""),
+          bullets:
+            typeof parsed[i].bullets === "string" ? parsed[i].bullets : "",
+          lockDate: prev[i].lockDate === true,
         });
-      } else if (i < parsed.length) {
+      } else if (hasP) {
         out.push({
           header: parsed[i].header || "",
           date: parsed[i].date || "",
           bullets: parsed[i].bullets || "",
+          lockDate: false,
         });
       } else {
         out.push({
           header: prev[i].header || "",
           date: prev[i].date || "",
           bullets: prev[i].bullets || "",
+          lockDate: prev[i].lockDate === true,
         });
       }
     }
@@ -1291,19 +1319,13 @@
       cur.include.summary = trim(parsed.summary) !== "";
     }
 
-    if (locks.experienceStructure) {
-      cur.experience = mergeExperienceWithLockedStructure(
-        cur.experience,
-        parsed.experience
-      );
-    } else {
-      cur.experience = Array.isArray(parsed.experience)
-        ? parsed.experience.slice()
-        : [];
-    }
+    cur.experience = mergeDatedSectionPreservingDateLocks(
+      cur.experience,
+      parsed.experience
+    );
     cur.include.experience = sectionHasContent("experience", cur);
 
-    var arrKeys = ["publications", "projects", "skills", "education"];
+    var arrKeys = ["publications", "projects", "skills"];
     for (var ai = 0; ai < arrKeys.length; ai++) {
       var k = arrKeys[ai];
       if (!locks[k]) {
@@ -1312,13 +1334,18 @@
       cur.include[k] = sectionHasContent(k, cur);
     }
 
+    if (!locks.education) {
+      cur.education = mergeDatedSectionPreservingDateLocks(
+        cur.education,
+        parsed.education
+      );
+    }
+    cur.include.education = sectionHasContent("education", cur);
+
     var msg = parsed.message;
     var skipped = [];
     if (locks.nameContacts) skipped.push("name & contacts");
     if (locks.summary) skipped.push("summary");
-    if (locks.experienceStructure) {
-      skipped.push("experience titles & dates (bullets updated where pasted)");
-    }
     if (locks.publications) skipped.push("publications");
     if (locks.projects) skipped.push("projects");
     if (locks.skills) skipped.push("skills");
@@ -1328,6 +1355,20 @@
     } else if (trim(parsed.name) || trim(parsed.contacts)) {
       msg +=
         " Name and contacts were taken from the lines above your first section.";
+    }
+
+    var lockedDateRows = 0;
+    cur.experience.forEach(function (e) {
+      if (e.lockDate) lockedDateRows++;
+    });
+    cur.education.forEach(function (e) {
+      if (e.lockDate) lockedDateRows++;
+    });
+    if (lockedDateRows) {
+      msg +=
+        " " +
+        lockedDateRows +
+        " row(s) had Lock date on — those dates were kept from your form.";
     }
 
     applyStateToEditor(cur);
@@ -1523,6 +1564,17 @@
       if (removeBtn) {
         var card = removeBtn.closest(".entry-card");
         if (card) removeEntry(card);
+        return;
+      }
+      var lockDateBtn = e.target.closest(".btn-lock-date");
+      if (lockDateBtn) {
+        e.preventDefault();
+        var pressed = lockDateBtn.getAttribute("aria-pressed") === "true";
+        var next = !pressed;
+        lockDateBtn.setAttribute("aria-pressed", next ? "true" : "false");
+        lockDateBtn.classList.toggle("is-locked", next);
+        lockDateBtn.textContent = next ? "Locked" : "Lock date";
+        sync();
       }
     });
 

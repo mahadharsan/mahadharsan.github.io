@@ -128,6 +128,51 @@ body {
   flex-shrink: 0;
 }
 
+.label-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.label-date-row .label-date {
+  margin: 0;
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.field-group--date .input-date {
+  width: 100%;
+}
+
+.btn-lock-date {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-lock-date:hover {
+  background: #f5f7fa;
+  color: var(--text);
+}
+
+.btn-lock-date.is-locked {
+  background: #e8eef8;
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .btn-primary:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);

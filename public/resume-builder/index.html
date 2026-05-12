@@ -29,7 +29,7 @@
           <div class="field-group paste-resume-panel">
             <label for="input-paste-resume">Paste full resume (plain text)</label>
             <p class="layout-field-hint">
-              Paste an entire resume from elsewhere. Click <strong>Parse into form</strong> to detect section titles (Summary, Experience, Education, and so on) and fill the fields below. Use the <strong>Keep when parsing</strong> checkboxes next to each area to leave your current name, contacts, dates, or whole sections unchanged. Layout and typography settings are always kept.
+              Paste an entire resume from elsewhere. Click <strong>Parse into form</strong> to detect section titles (Summary, Experience, Education, and so on) and fill the fields below. Use <strong>Lock date</strong> on each experience or education row to keep that row’s dates when parsing. Other <strong>Keep when parsing</strong> checkboxes control name, summary, or whole sections. Layout and typography settings are always kept.
             </p>
             <textarea
               id="input-paste-resume"
@@ -184,11 +184,6 @@
               <button type="button" class="btn-small" data-add="experience">+ Add entry</button>
             </div>
             <div class="section-meta">
-              <div class="parse-lock-row">
-                <label class="parse-lock-label"
-                  ><input type="checkbox" id="lock-parse-experience-structure" /> Keep job title &amp; dates; only update bullets from the paste</label
-                >
-              </div>
               <div class="meta-row">
                 <label><input type="checkbox" id="meta-experience-show-heading" checked /> Show section heading</label>
               </div>
@@ -349,8 +344,18 @@
           <label class="label-header">Header line</label>
           <input type="text" class="input-header" placeholder="Organization · Title · Location" />
         </div>
-        <div class="field-group">
-          <label class="label-date">Dates</label>
+        <div class="field-group field-group--date">
+          <div class="label-date-row">
+            <span class="label-date">Dates</span>
+            <button
+              type="button"
+              class="btn-lock-date"
+              aria-pressed="false"
+              title="When locked, parsing a pasted resume leaves this date unchanged"
+            >
+              Lock date
+            </button>
+          </div>
           <input type="text" class="input-date" placeholder="e.g. Jan 2020 – Present" />
         </div>
         <div class="field-group">
@@ -370,8 +375,18 @@
           <label class="label-header">Header line</label>
           <input type="text" class="input-header" placeholder="School · Degree · Location" />
         </div>
-        <div class="field-group">
-          <label class="label-date">Dates</label>
+        <div class="field-group field-group--date">
+          <div class="label-date-row">
+            <span class="label-date">Dates</span>
+            <button
+              type="button"
+              class="btn-lock-date"
+              aria-pressed="false"
+              title="When locked, parsing a pasted resume leaves this date unchanged"
+            >
+              Lock date
+            </button>
+          </div>
           <input type="text" class="input-date" placeholder="e.g. 2018 – 2022" />
         </div>
         <div class="field-group">
