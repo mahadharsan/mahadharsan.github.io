@@ -42,6 +42,30 @@ export const companiesData = [
     {
         name:"Ultragenyx",
         url:"https://www.ultragenyx.com/join-our-team/current-opportunities/"
+    },
+    {
+        name: "Ipsen",
+        url: "https://www.ipsen.com/careers"
+    },
+    {
+        name: "sanofi",
+        url: "https://careers.sanofi.com/global/en/search-results"
+    },
+    {
+        name: "Wayfair",
+        url: "https://careers.wayfair.com/global/en/search-results"
+    },
+    {
+        name:"GSK",
+        url: "https://careers.gsk.com/global/en/search-results"
+    },
+    {
+        name:"AstraZeneca",
+        url: "https://careers.astrazeneca.com/search-jobs"
+    },
+    {
+        name: "McKinsey",
+        url: "https://www.mckinsey.com/careers/search-jobs?query=manufacturing&countries=United+States"
     }
 ];
 
@@ -127,11 +151,104 @@ export const linkedinJobsData = [
     }
 ];
 
+export const supplyChainJobsData = [
+    // Big 3 Consulting
+    {
+        name: "McKinsey",
+        url: "https://www.mckinsey.com/careers/search-jobs?query=supply+chain&countries=United+States",
+    },
+    {
+        name: "BCG",
+        url: "https://careers.bcg.com/global/en/search-results?qkeyword=supply+chain&qcountry=United+States",
+    },
+    {
+        name: "Bain",
+        url: "https://www.bain.com/careers/find-a-role/?keyword=supply+chain&location=United+States",
+    },
+
+    // Big 4
+    {
+        name: "Deloitte",
+        url: "https://apply.deloitte.com/careers/SearchJobs/supply%20chain?sort=relevancy&3_200_3=95157",
+    },
+    {
+        name: "Accenture",
+        url: "https://www.accenture.com/us-en/careers/explore-careers/area-of-interest/supply-chain-jobs",
+    },
+    {
+        name: "PwC",
+        url: "https://jobs.us.pwc.com/search-jobs/supply+chain/United+States/932/1/2/6252001/39x76/-98x5/50/2",
+    },
+    {
+        name: "EY",
+        url: "https://careers.ey.com/ey/search/?q=supply+chain&locationsearch=united+states",
+    },
+    {
+        name: "KPMG",
+        url: "https://jobs.kpmg.com/search/?q=supply+chain&locationsearch=United+States",
+    },
+
+    // Ops Consulting Boutiques
+    {
+        name: "Oliver Wyman",
+        url: "https://www.oliverwyman.com/careers/jobs.html#q=supply+chain",
+    },
+    {
+        name: "AT Kearney",
+        url: "https://www.kearney.com/careers/open-positions?keyword=supply+chain",
+    },
+    {
+        name: "Capgemini Invent",
+        url: "https://www.capgemini.com/careers/job-search/?search_term=supply+chain&country=United+States",
+    },
+    {
+        name: "GEP",
+        url: "https://www.gep.com/careers/job-search?keyword=supply+chain&location=United+States",
+    },
+
+    // SC Software / Tech
+    {
+        name: "SAP",
+        url: "https://jobs.sap.com/search/?q=supply+chain&location=United+States",
+    },
+    {
+        name: "Blue Yonder",
+        url: "https://careers.blueyonder.com/search/?q=supply+chain&locationsearch=United+States",
+    },
+    {
+        name: "o9 Solutions",
+        url: "https://jobs.lever.co/o9solutions?commitment=Full-time",
+    },
+    {
+        name: "Kinaxis",
+        url: "https://www.kinaxis.com/en/careers/open-positions?department=&location=&keyword=supply+chain",
+    },
+
+    // Industry / Direct Hire
+    {
+        name: "Amazon (Supply Chain)",
+        url: "https://www.amazon.jobs/en/search?base_query=supply+chain+analyst&loc_query=United+States",
+    },
+    {
+        name: "Apple (Operations)",
+        url: "https://jobs.apple.com/en-us/search?search=supply+chain&sort=newest&location=united-states-USA",
+    },
+    {
+        name: "Honeywell",
+        url: "https://careers.honeywell.com/us/en/search-results?keywords=supply+chain&location=United+States",
+    },
+    {
+        name: "GE Vernova",
+        url: "https://jobs.gevernova.com/careers/jobs?keywords=supply+chain&location=United+States",
+    },
+];
+
 // Load job portals and companies on the apply page
 document.addEventListener('DOMContentLoaded', () => {
     loadJobPortals();
     loadCompanies();
     loadLinkedinJobs();
+    loadSupplyChainJobs();
 });
 
 function loadJobPortals() {
@@ -185,5 +302,23 @@ function loadLinkedinJobs() {
         `;
 
         linkedinJobsGrid.appendChild(jobCard);
+    });
+}
+
+function loadSupplyChainJobs() {
+    const supplyChainJobsGrid = document.getElementById('supply-chain-jobs-grid');
+    if (!supplyChainJobsGrid) return;
+
+    supplyChainJobsData.forEach(job => {
+        const jobCard = document.createElement('div');
+        jobCard.className = 'company-card fade-in';
+
+        jobCard.innerHTML = `
+            <a href="${job.url}" target="_blank" rel="noopener noreferrer" class="company-name">
+                ${job.name}
+            </a>
+        `;
+
+        supplyChainJobsGrid.appendChild(jobCard);
     });
 }
