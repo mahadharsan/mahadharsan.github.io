@@ -327,6 +327,42 @@ body {
   margin-bottom: 10px;
 }
 
+.section-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.section-move-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-section-move {
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn-section-move:hover:not(:disabled) {
+  background: #eef1f5;
+  border-color: #b8c0cc;
+}
+
+.btn-section-move:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .section-include {
   display: flex;
   align-items: center;

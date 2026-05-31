@@ -8,6 +8,8 @@
 
   var SECTIONS = ["experience", "publications", "projects", "skills", "education"];
 
+  var REORDERABLE_SECTIONS = ["summary"].concat(SECTIONS);
+
   var SECTION_META_KEYS = [
     "summary",
     "experience",
@@ -150,6 +152,26 @@
     };
   }
 
+  function defaultSectionOrder() {
+    return REORDERABLE_SECTIONS.slice();
+  }
+
+  function normalizeSectionOrder(raw) {
+    var defaultOrder = defaultSectionOrder();
+    if (!Array.isArray(raw)) return defaultOrder;
+    var seen = {};
+    var order = [];
+    raw.forEach(function (key) {
+      if (defaultOrder.indexOf(key) === -1 || seen[key]) return;
+      seen[key] = true;
+      order.push(key);
+    });
+    defaultOrder.forEach(function (key) {
+      if (!seen[key]) order.push(key);
+    });
+    return order;
+  }
+
   function defaultState() {
     return {
       name: "",
@@ -163,6 +185,7 @@
         skills: true,
         education: true,
       },
+      sectionOrder: defaultSectionOrder(),
       sectionMeta: defaultSectionMeta(),
       layout: defaultLayout(),
       parseLocks: defaultParseLocks(),
@@ -454,18 +477,20 @@
       );
     }
 
-    if (shouldRenderSummary(state)) {
-      parts.push('<section class="resume-section">');
-      parts.push(renderSectionTitleHtml("summary", state));
-      parts.push(
-        '<div class="resume-summary-body">' +
-          summaryToHtml(state.summary) +
-          "</div>"
-      );
-      parts.push("</section>");
-    }
+    normalizeSectionOrder(state.sectionOrder).forEach(function (key) {
+      if (key === "summary") {
+        if (!shouldRenderSummary(state)) return;
+        parts.push('<section class="resume-section">');
+        parts.push(renderSectionTitleHtml("summary", state));
+        parts.push(
+          '<div class="resume-summary-body">' +
+            summaryToHtml(state.summary) +
+            "</div>"
+        );
+        parts.push("</section>");
+        return;
+      }
 
-    SECTIONS.forEach(function (key) {
       if (!shouldRenderSection(key, state)) return;
 
       parts.push('<section class="resume-section">');
@@ -599,6 +624,7 @@
 
     state.sectionMeta = readSectionMetaFromDOM();
     state.layout = readLayoutFromDOM();
+    state.sectionOrder = readSectionOrderFromDOM();
 
     SECTIONS.forEach(function (key) {
       var toggle = document.getElementById("toggle-" + key);
@@ -722,6 +748,70 @@
     if (fontEl) fontEl.value = L.fontFamily === "arial" ? "arial" : "times";
   }
 
+  function readSectionOrderFromDOM() {
+    var container = document.getElementById("section-order-list");
+    if (!container) return defaultSectionOrder();
+    return normalizeSectionOrder(
+      Array.prototype.map.call(
+        container.querySelectorAll("[data-section-key]"),
+        function (node) {
+          return node.getAttribute("data-section-key");
+        }
+      )
+    );
+  }
+
+  function applySectionOrderToEditor(sectionOrder) {
+    var container = document.getElementById("section-order-list");
+    if (!container) return;
+    normalizeSectionOrder(sectionOrder).forEach(function (key) {
+      var el = container.querySelector('[data-section-key="' + key + '"]');
+      if (el) container.appendChild(el);
+    });
+    updateSectionMoveButtons();
+  }
+
+  function updateSectionMoveButtons() {
+    var order = readSectionOrderFromDOM();
+    order.forEach(function (key, index) {
+      var sectionEl = document.querySelector(
+        '[data-section-key="' + key + '"]'
+      );
+      if (!sectionEl) return;
+      var upBtn = sectionEl.querySelector('[data-move-dir="up"]');
+      var downBtn = sectionEl.querySelector('[data-move-dir="down"]');
+      if (upBtn) upBtn.disabled = index === 0;
+      if (downBtn) downBtn.disabled = index === order.length - 1;
+    });
+  }
+
+  function moveSection(sectionKey, direction) {
+    var container = document.getElementById("section-order-list");
+    if (!container) return;
+    var order = readSectionOrderFromDOM();
+    var index = order.indexOf(sectionKey);
+    if (index === -1) return;
+    var targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= order.length) return;
+
+    var currentEl = container.querySelector(
+      '[data-section-key="' + sectionKey + '"]'
+    );
+    var targetEl = container.querySelector(
+      '[data-section-key="' + order[targetIndex] + '"]'
+    );
+    if (!currentEl || !targetEl) return;
+
+    if (direction === "up") {
+      container.insertBefore(currentEl, targetEl);
+    } else {
+      container.insertBefore(targetEl, currentEl);
+    }
+
+    updateSectionMoveButtons();
+    sync();
+  }
+
   function applyStateToEditor(state) {
     var nameEl = document.getElementById("input-name");
     var contactsEl = document.getElementById("input-contacts");
@@ -733,6 +823,7 @@
 
     applySectionMetaToEditor(state.sectionMeta);
     applyLayoutToEditor(state.layout);
+    applySectionOrderToEditor(state.sectionOrder);
     setIncludeToggles(state);
     clearEntriesContainers();
 
@@ -789,6 +880,7 @@
   function sync() {
     var state = readStateFromDOM();
     renderResumePreview(state);
+    updateSectionMoveButtons();
     scheduleSave();
   }
 
@@ -811,6 +903,7 @@
     base.summary = typeof raw.summary === "string" ? raw.summary : "";
     base.sectionMeta = mergeSectionMeta(raw.sectionMeta);
     base.layout = mergeLayoutDefaults(raw.layout);
+    base.sectionOrder = normalizeSectionOrder(raw.sectionOrder);
 
     if (raw.include && typeof raw.include === "object") {
       if (typeof raw.include.summary === "boolean") {
@@ -1575,6 +1668,16 @@
         lockDateBtn.classList.toggle("is-locked", next);
         lockDateBtn.textContent = next ? "Locked" : "Lock date";
         sync();
+        return;
+      }
+      var moveBtn = e.target.closest("[data-move-section]");
+      if (moveBtn) {
+        e.preventDefault();
+        var sectionKey = moveBtn.getAttribute("data-move-section");
+        var moveDir = moveBtn.getAttribute("data-move-dir");
+        if (sectionKey && (moveDir === "up" || moveDir === "down")) {
+          moveSection(sectionKey, moveDir);
+        }
       }
     });
 

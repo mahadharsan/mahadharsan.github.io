@@ -58,36 +58,6 @@
             </div>
           </div>
 
-          <div class="section-editor section-editor-summary">
-            <div class="section-editor-head">
-              <label class="section-include">
-                <input type="checkbox" id="toggle-summary" checked />
-                <span>Summary</span>
-              </label>
-            </div>
-            <div class="field-group">
-              <label for="input-summary">Summary text</label>
-              <div class="parse-lock-row parse-lock-row--tight">
-                <label class="parse-lock-label"
-                  ><input type="checkbox" id="lock-parse-summary" /> Keep summary when parsing</label
-                >
-              </div>
-              <textarea id="input-summary" rows="4" placeholder="Optional opening paragraph(s). Blank lines start a new paragraph. Use **bold** for emphasis."></textarea>
-            </div>
-            <div class="section-meta">
-              <div class="meta-row">
-                <label><input type="checkbox" id="meta-summary-show-heading" /> Show section heading</label>
-              </div>
-              <div class="meta-row">
-                <label><input type="checkbox" id="meta-summary-show-line" checked /> Line under heading</label>
-              </div>
-              <div class="field-group">
-                <label for="meta-summary-title">Heading text (optional)</label>
-                <input type="text" id="meta-summary-title" placeholder="Override default Summary heading when heading is on" />
-              </div>
-            </div>
-          </div>
-
           <fieldset class="layout-panel">
             <legend class="layout-panel-legend">Layout &amp; typography</legend>
             <p class="layout-panel-hint">
@@ -175,13 +145,56 @@
             </div>
           </fieldset>
 
+          <div id="section-order-list">
+          <div class="section-editor section-editor-summary" data-section-key="summary">
+            <div class="section-editor-head">
+              <label class="section-include">
+                <input type="checkbox" id="toggle-summary" checked />
+                <span>Summary</span>
+              </label>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="summary" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="summary" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="input-summary">Summary text</label>
+              <div class="parse-lock-row parse-lock-row--tight">
+                <label class="parse-lock-label"
+                  ><input type="checkbox" id="lock-parse-summary" /> Keep summary when parsing</label
+                >
+              </div>
+              <textarea id="input-summary" rows="4" placeholder="Optional opening paragraph(s). Blank lines start a new paragraph. Use **bold** for emphasis."></textarea>
+            </div>
+            <div class="section-meta">
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-summary-show-heading" /> Show section heading</label>
+              </div>
+              <div class="meta-row">
+                <label><input type="checkbox" id="meta-summary-show-line" checked /> Line under heading</label>
+              </div>
+              <div class="field-group">
+                <label for="meta-summary-title">Heading text (optional)</label>
+                <input type="text" id="meta-summary-title" placeholder="Override default Summary heading when heading is on" />
+              </div>
+            </div>
+          </div>
+
           <div class="section-editor" data-section-key="experience">
             <div class="section-editor-head">
               <label class="section-include">
                 <input type="checkbox" id="toggle-experience" checked />
                 <span>Experience</span>
               </label>
-              <button type="button" class="btn-small" data-add="experience">+ Add entry</button>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="experience" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="experience" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+                <button type="button" class="btn-small" data-add="experience">+ Add entry</button>
+              </div>
             </div>
             <div class="section-meta">
               <div class="meta-row">
@@ -204,7 +217,13 @@
                 <input type="checkbox" id="toggle-publications" checked />
                 <span>Publications</span>
               </label>
-              <button type="button" class="btn-small" data-add="publications">+ Add entry</button>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="publications" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="publications" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+                <button type="button" class="btn-small" data-add="publications">+ Add entry</button>
+              </div>
             </div>
             <div class="section-meta">
               <div class="parse-lock-row">
@@ -232,7 +251,13 @@
                 <input type="checkbox" id="toggle-projects" checked />
                 <span>Projects</span>
               </label>
-              <button type="button" class="btn-small" data-add="projects">+ Add entry</button>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="projects" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="projects" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+                <button type="button" class="btn-small" data-add="projects">+ Add entry</button>
+              </div>
             </div>
             <div class="section-meta">
               <div class="parse-lock-row">
@@ -260,7 +285,13 @@
                 <input type="checkbox" id="toggle-skills" checked />
                 <span>Skills</span>
               </label>
-              <button type="button" class="btn-small" data-add="skills">+ Add entry</button>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="skills" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="skills" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+                <button type="button" class="btn-small" data-add="skills">+ Add entry</button>
+              </div>
             </div>
             <div class="section-meta">
               <div class="parse-lock-row">
@@ -288,7 +319,13 @@
                 <input type="checkbox" id="toggle-education" checked />
                 <span>Education</span>
               </label>
-              <button type="button" class="btn-small" data-add="education">+ Add entry</button>
+              <div class="section-head-actions">
+                <div class="section-move-buttons">
+                  <button type="button" class="btn-section-move" data-move-section="education" data-move-dir="up" title="Move section up" aria-label="Move section up">↑</button>
+                  <button type="button" class="btn-section-move" data-move-section="education" data-move-dir="down" title="Move section down" aria-label="Move section down">↓</button>
+                </div>
+                <button type="button" class="btn-small" data-add="education">+ Add entry</button>
+              </div>
             </div>
             <div class="section-meta">
               <div class="parse-lock-row">
@@ -308,6 +345,7 @@
               </div>
             </div>
             <div class="entries" id="entries-education"></div>
+          </div>
           </div>
         </aside>
 
