@@ -2,6 +2,7 @@
   "use strict";
 
   var STORAGE_KEY = "resume-builder-v1";
+  var PAGE_TITLE = "Resume builder";
 
   /** Last field the user typed in (Bold button steals focus from it on click). */
   var lastEditableField = null;
@@ -884,6 +885,24 @@
     scheduleSave();
   }
 
+  function resumePdfTitle(name) {
+    var t = trim(name).replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ");
+    return t || "Resume";
+  }
+
+  function printResume() {
+    var previousTitle = document.title;
+    document.title = resumePdfTitle(readStateFromDOM().name);
+
+    function restoreTitle() {
+      document.title = previousTitle;
+      window.removeEventListener("afterprint", restoreTitle);
+    }
+
+    window.addEventListener("afterprint", restoreTitle);
+    window.print();
+  }
+
   function loadFromStorage() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
@@ -1696,7 +1715,7 @@
     var btnPrint = document.getElementById("btn-print");
     if (btnPrint) {
       btnPrint.addEventListener("click", function () {
-        window.print();
+        printResume();
       });
     }
 
