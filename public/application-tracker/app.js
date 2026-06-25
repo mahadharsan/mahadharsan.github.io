@@ -27,6 +27,17 @@ function getDateInfo(d = new Date()) {
   return { date, day };
 }
 
+function formatTime(timestamp) {
+  if (!timestamp) return '—';
+  const d = new Date(timestamp);
+  if (Number.isNaN(d.getTime())) return '—';
+  return d.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+}
+
 function getWeekKey(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
   const day = d.getDay();
@@ -315,7 +326,7 @@ function renderRecentActivity() {
       const net =
         l.networkType === 'normal' ? 'Normal' : l.networkType === 'job_post' ? 'Job post' : '—';
       return `<tr>
-        <td>${l.date}</td>
+        <td>${l.date}<br><small>${formatTime(l.timestamp)}</small></td>
         <td>${l.day}</td>
         <td>${labelById(state.roles, l.roleId)}</td>
         <td>${labelById(state.websites, l.websiteId)}</td>
@@ -475,9 +486,10 @@ function exportJSON() {
 }
 
 function exportCSV() {
-  const header = ['Date', 'Day', 'Role', 'Website', 'Count', 'Network Type', 'Notes', 'Week', 'Timestamp'];
+  const header = ['Date', 'Time', 'Day', 'Role', 'Website', 'Count', 'Network Type', 'Notes', 'Week', 'Timestamp'];
   const rows = state.logs.map((l) => [
     l.date,
+    formatTime(l.timestamp),
     l.day,
     labelById(state.roles, l.roleId),
     labelById(state.websites, l.websiteId),
