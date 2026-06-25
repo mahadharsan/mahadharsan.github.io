@@ -254,11 +254,51 @@ function renderQuickRoles() {
 }
 
 function renderLogForm() {
-  const lastRole = state.settings.lastRoleId || state.roles[0]?.id;
-  const lastWeb = state.settings.lastWebsiteId || state.websites[0]?.id;
-  fillSelect(els.roleSelect, state.roles, lastRole);
-  fillSelect(els.websiteSelect, state.websites, lastWeb);
+  const currentRole = els.roleSelect?.value || state.settings.lastRoleId || state.roles[0]?.id;
+  const currentWeb = els.websiteSelect?.value || state.settings.lastWebsiteId || state.websites[0]?.id;
+  fillSelect(els.roleSelect, state.roles, currentRole);
+  fillSelect(els.websiteSelect, state.websites, currentWeb);
   renderQuickRoles();
+}
+
+function addRoleLabel(label, selectInForm = false) {
+  const trimmed = label.trim();
+  if (!trimmed) return null;
+  const existing = state.roles.find((r) => r.label.toLowerCase() === trimmed.toLowerCase());
+  if (existing) {
+    if (selectInForm) {
+      els.roleSelect.value = existing.id;
+      renderQuickRoles();
+    }
+    return existing.id;
+  }
+  const item = { id: uid(), label: trimmed };
+  state.roles.push(item);
+  state.settings.lastRoleId = item.id;
+  saveState(state);
+  fillSelect(els.roleSelect, state.roles, item.id);
+  renderQuickRoles();
+  renderManageList('tracker-roles-list', state.roles, 'role');
+  return item.id;
+}
+
+function addWebsiteLabel(label, selectInForm = false) {
+  const trimmed = label.trim();
+  if (!trimmed) return null;
+  const existing = state.websites.find((w) => w.label.toLowerCase() === trimmed.toLowerCase());
+  if (existing) {
+    if (selectInForm) {
+      els.websiteSelect.value = existing.id;
+    }
+    return existing.id;
+  }
+  const item = { id: uid(), label: trimmed };
+  state.websites.push(item);
+  state.settings.lastWebsiteId = item.id;
+  saveState(state);
+  fillSelect(els.websiteSelect, state.websites, item.id);
+  renderManageList('tracker-websites-list', state.websites, 'website');
+  return item.id;
 }
 
 function renderRecentActivity() {
@@ -501,6 +541,8 @@ function setNetworkType(type) {
 }
 
 function handleLog(count) {
+  const parsed = Number(count);
+  const safeCount = Number.isFinite(parsed) && parsed >= 1 ? Math.min(Math.floor(parsed), 999) : 1;
   const roleId = els.roleSelect.value;
   const websiteId = els.websiteSelect.value;
   if (!roleId || !websiteId) {
@@ -509,12 +551,17 @@ function handleLog(count) {
   }
   const notes = els.notesInput.value;
   const networkType = getNetworkType();
-  addLog({ roleId, websiteId, count, networkType, notes });
+  addLog({ roleId, websiteId, count: safeCount, networkType, notes });
   els.notesInput.value = '';
   renderAll();
   const role = labelById(state.roles, roleId);
   const web = labelById(state.websites, websiteId);
-  showToast(`+${count} ${role} @ ${web}`);
+  showToast(`+${safeCount} ${role} @ ${web}`);
+}
+
+function getLogCount() {
+  const input = $('tracker-count');
+  return input ? input.value : 1;
 }
 
 function initTabs() {
@@ -535,8 +582,9 @@ function init() {
 
   initTabs();
 
-  $('tracker-btn-log').addEventListener('click', () => handleLog(1));
-  $('tracker-btn-log-5').addEventListener('click', () => handleLog(5));
+  els.roleSelect.addEventListener('change', () => renderQuickRoles());
+
+  $('tracker-btn-log').addEventListener('click', () => handleLog(getLogCount()));
 
   document.querySelectorAll('.tracker-network-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -546,23 +594,44 @@ function init() {
   });
 
   $('tracker-add-role').addEventListener('click', () => {
-    const label = $('tracker-new-role').value.trim();
-    if (!label) return;
-    state.roles.push({ id: uid(), label });
-    $('tracker-new-role').value = '';
-    saveState(state);
-    renderAll();
-    showToast('Role added');
+    const label = $('tracker-new-role').value;
+    if (addRoleLabel(label)) {
+      $('tracker-new-role').value = '';
+      showToast('Role added');
+    }
   });
 
   $('tracker-add-website').addEventListener('click', () => {
-    const label = $('tracker-new-website').value.trim();
-    if (!label) return;
-    state.websites.push({ id: uid(), label });
-    $('tracker-new-website').value = '';
-    saveState(state);
-    renderAll();
-    showToast('Website added');
+    const label = $('tracker-new-website').value;
+    if (addWebsiteLabel(label)) {
+      $('tracker-new-website').value = '';
+      showToast('Website added');
+    }
+  });
+
+  $('tracker-inline-add-role').addEventListener('click', () => {
+    const input = $('tracker-inline-new-role');
+    if (addRoleLabel(input.value, true)) {
+      input.value = '';
+      showToast('Role added');
+    }
+  });
+
+  $('tracker-inline-add-website').addEventListener('click', () => {
+    const input = $('tracker-inline-new-website');
+    if (addWebsiteLabel(input.value, true)) {
+      input.value = '';
+      showToast('Website added');
+    }
+  });
+
+  ['tracker-inline-new-role', 'tracker-inline-new-website'].forEach((id) => {
+    $(id).addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        $(id === 'tracker-inline-new-role' ? 'tracker-inline-add-role' : 'tracker-inline-add-website').click();
+      }
+    });
   });
 
   $('tracker-export-json').addEventListener('click', exportJSON);

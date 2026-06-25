@@ -75,9 +75,25 @@
                             Website
                             <select id="tracker-website"></select>
                         </label>
+                        <label class="tracker-inline-add">
+                            <span>Add new website</span>
+                            <div class="tracker-inline-add-row">
+                                <input type="text" id="tracker-inline-new-website" placeholder="e.g. Greenhouse" />
+                                <button type="button" id="tracker-inline-add-website" class="tracker-btn tracker-btn-secondary">Add</button>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="tracker-form-row">
                         <label>
                             Role
                             <select id="tracker-role"></select>
+                        </label>
+                        <label class="tracker-inline-add">
+                            <span>Add new role</span>
+                            <div class="tracker-inline-add-row">
+                                <input type="text" id="tracker-inline-new-role" placeholder="e.g. Senior DA" />
+                                <button type="button" id="tracker-inline-add-role" class="tracker-btn tracker-btn-secondary">Add</button>
+                            </div>
                         </label>
                     </div>
                     <p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.5rem;">Quick pick role:</p>
@@ -94,8 +110,11 @@
                         <button type="button" class="tracker-network-btn" data-network="job_post">Job post network</button>
                     </div>
                     <div class="tracker-actions" style="margin-top:1.25rem;">
-                        <button type="button" id="tracker-btn-log" class="tracker-btn tracker-btn-primary tracker-btn-lg">+1 Application</button>
-                        <button type="button" id="tracker-btn-log-5" class="tracker-btn tracker-btn-secondary">+5</button>
+                        <label class="tracker-count-label">
+                            Count
+                            <input type="number" id="tracker-count" class="tracker-count-input" min="1" max="999" value="1" />
+                        </label>
+                        <button type="button" id="tracker-btn-log" class="tracker-btn tracker-btn-primary tracker-btn-lg">Log Application</button>
                     </div>
                 </div>
                 <div class="tracker-card">

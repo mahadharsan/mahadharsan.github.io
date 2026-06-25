@@ -163,11 +163,63 @@
   color: var(--accent-primary);
 }
 
+.tracker-count-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.tracker-count-input {
+  width: 5rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tracker-inline-add {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 180px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.tracker-inline-add-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tracker-inline-add-row input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9375rem;
+}
+
+.tracker-inline-add-row .tracker-btn {
+  flex-shrink: 0;
+  padding: 0.5rem 0.85rem;
+}
+
 .tracker-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .tracker-btn {
