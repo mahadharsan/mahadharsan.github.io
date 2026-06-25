@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Job Application Tracker</title>
+    <meta name="description" content="Personal job application tracking dashboard">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="application-tracker/styles.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <div class="logo">MR</div>
+                <a href="/" class="nav-home">Home</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="tracker-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <header class="tracker-header">
+            <h1 class="tracker-title">Job Application Tracker</h1>
+            <p class="tracker-subtitle">Log applications in one click — date, role, website, and totals are automatic.</p>
+            <div class="tracker-date-bar">
+                <span>Today: <strong id="tracker-today-date"></strong></span>
+                <span><strong id="tracker-today-day"></strong></span>
+                <span>Today total: <strong id="tracker-stat-today">0</strong></span>
+                <span>Week total: <strong id="tracker-stat-week">0</strong></span>
+                <span>Normal network (week): <strong id="tracker-stat-network">0</strong></span>
+                <span>Job post network (week): <strong id="tracker-stat-job-network">0</strong></span>
+            </div>
+        </header>
+
+        <div class="tracker-stat-grid">
+            <div class="tracker-stat">
+                <div class="tracker-stat-value" id="tracker-stat-today-card">0</div>
+                <div class="tracker-stat-label">Applications Today</div>
+            </div>
+            <div class="tracker-stat">
+                <div class="tracker-stat-value" id="tracker-stat-week-card">0</div>
+                <div class="tracker-stat-label">Applications This Week</div>
+            </div>
+        </div>
+
+        <nav class="tracker-tabs" aria-label="Tracker sections">
+            <button type="button" class="tracker-tab active" data-panel="log">Quick Log</button>
+            <button type="button" class="tracker-tab" data-panel="dashboard">Dashboard</button>
+            <button type="button" class="tracker-tab" data-panel="history">History</button>
+            <button type="button" class="tracker-tab" data-panel="manage">Roles &amp; Websites</button>
+            <button type="button" class="tracker-tab" data-panel="backup">Backup</button>
+        </nav>
+
+        <!-- Quick Log -->
+        <section id="panel-log" class="tracker-panel active">
+            <div class="tracker-grid">
+                <div class="tracker-card">
+                    <h2>Log Application</h2>
+                    <div class="tracker-form-row">
+                        <label>
+                            Website
+                            <select id="tracker-website"></select>
+                        </label>
+                        <label>
+                            Role
+                            <select id="tracker-role"></select>
+                        </label>
+                    </div>
+                    <p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.5rem;">Quick pick role:</p>
+                    <div id="tracker-quick-roles" class="tracker-quick-roles"></div>
+                    <div class="tracker-form-row">
+                        <label style="flex:1 1 100%;">
+                            Network / Comments (optional)
+                            <textarea id="tracker-notes" placeholder="e.g. referred by John, follow-up needed"></textarea>
+                        </label>
+                    </div>
+                    <p style="font-size:0.8125rem;color:var(--text-secondary);margin-bottom:0.5rem;">Network type (optional):</p>
+                    <div class="tracker-network-toggle">
+                        <button type="button" class="tracker-network-btn" data-network="normal">Normal network</button>
+                        <button type="button" class="tracker-network-btn" data-network="job_post">Job post network</button>
+                    </div>
+                    <div class="tracker-actions" style="margin-top:1.25rem;">
+                        <button type="button" id="tracker-btn-log" class="tracker-btn tracker-btn-primary tracker-btn-lg">+1 Application</button>
+                        <button type="button" id="tracker-btn-log-5" class="tracker-btn tracker-btn-secondary">+5</button>
+                    </div>
+                </div>
+                <div class="tracker-card">
+                    <h2>Recent Activity</h2>
+                    <div class="tracker-table-wrap">
+                        <table class="tracker-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Day</th>
+                                    <th>Role</th>
+                                    <th>Website</th>
+                                    <th class="num">#</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tracker-recent-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="panel-dashboard" class="tracker-panel">
+            <div class="tracker-grid">
+                <div class="tracker-card">
+                    <h2>Today by Role</h2>
+                    <div id="tracker-chart-roles-today" class="tracker-bar-chart"></div>
+                </div>
+                <div class="tracker-card">
+                    <h2>Today by Website</h2>
+                    <div id="tracker-chart-websites-today" class="tracker-bar-chart"></div>
+                </div>
+                <div class="tracker-card">
+                    <h2>This Week by Role</h2>
+                    <div id="tracker-chart-roles-week" class="tracker-bar-chart"></div>
+                </div>
+                <div class="tracker-card">
+                    <h2>This Week by Website</h2>
+                    <div id="tracker-chart-websites-week" class="tracker-bar-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History -->
+        <section id="panel-history" class="tracker-panel">
+            <div class="tracker-card" style="margin-bottom:1.5rem;">
+                <h2>Daily Summary</h2>
+                <div class="tracker-table-wrap">
+                    <table class="tracker-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th class="num">Daily Total</th>
+                                <th>Roles</th>
+                                <th>Websites</th>
+                                <th>Network / Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tracker-daily-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tracker-card">
+                <h2>Weekly Totals</h2>
+                <div class="tracker-table-wrap">
+                    <table class="tracker-table">
+                        <thead>
+                            <tr>
+                                <th>Week</th>
+                                <th class="num">Weekly Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tracker-weekly-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manage -->
+        <section id="panel-manage" class="tracker-panel">
+            <div class="tracker-grid">
+                <div class="tracker-card">
+                    <h2>Roles</h2>
+                    <ul id="tracker-roles-list" class="tracker-list"></ul>
+                    <div class="tracker-form-row" style="margin-top:1rem;">
+                        <label style="flex:1;">
+                            Add role
+                            <input type="text" id="tracker-new-role" placeholder="e.g. Senior DA" />
+                        </label>
+                        <button type="button" id="tracker-add-role" class="tracker-btn tracker-btn-secondary" style="align-self:flex-end;">Add</button>
+                    </div>
+                </div>
+                <div class="tracker-card">
+                    <h2>Websites</h2>
+                    <ul id="tracker-websites-list" class="tracker-list"></ul>
+                    <div class="tracker-form-row" style="margin-top:1rem;">
+                        <label style="flex:1;">
+                            Add website
+                            <input type="text" id="tracker-new-website" placeholder="e.g. Greenhouse" />
+                        </label>
+                        <button type="button" id="tracker-add-website" class="tracker-btn tracker-btn-secondary" style="align-self:flex-end;">Add</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backup -->
+        <section id="panel-backup" class="tracker-panel">
+            <div class="tracker-card">
+                <h2>Export &amp; Import</h2>
+                <p style="color:var(--text-secondary);margin-bottom:1rem;font-size:0.9375rem;">
+                    Data is stored in this browser only. Export regularly so you don't lose it.
+                </p>
+                <div class="tracker-backup-row">
+                    <button type="button" id="tracker-export-json" class="tracker-btn tracker-btn-primary">Export JSON (full backup)</button>
+                    <button type="button" id="tracker-export-csv" class="tracker-btn tracker-btn-secondary">Export CSV (Excel-friendly)</button>
+                    <button type="button" id="tracker-import-btn" class="tracker-btn tracker-btn-secondary">Import JSON backup</button>
+                    <input type="file" id="tracker-import-json" accept=".json,application/json" />
+                </div>
+                <hr style="border:none;border-top:1px solid var(--border-color);margin:1.5rem 0;">
+                <button type="button" id="tracker-reset" class="tracker-btn tracker-btn-danger">Reset all data</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Mahadharsan Ravichandran. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle between light and dark mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <div id="tracker-toast" class="tracker-toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="application-tracker/app.js"></script>
+</body>
+</html>
