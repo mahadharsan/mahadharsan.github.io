@@ -432,6 +432,84 @@
   gap: 0.5rem;
 }
 
+.tracker-daily-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.tracker-daily-chart-header h2 {
+  margin-bottom: 0;
+}
+
+.tracker-daily-chart-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tracker-daily-chart-nav .tracker-icon-btn {
+  font-size: 1.125rem;
+  line-height: 1;
+  padding: 0.25rem 0.65rem;
+}
+
+.tracker-daily-chart-nav .tracker-icon-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.tracker-daily-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-behavior: smooth;
+}
+
+.tracker-daily-col {
+  flex: 0 0 auto;
+  width: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tracker-daily-col-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tracker-daily-col-barwrap {
+  height: 160px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.tracker-daily-col-bar {
+  width: 70%;
+  min-height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+}
+
+.tracker-daily-col-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.tracker-daily-col-day {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+}
+
 .tracker-bar-row {
   display: grid;
   grid-template-columns: 100px 1fr 40px;

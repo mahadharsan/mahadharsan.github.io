@@ -22,9 +22,20 @@ function uid() {
 }
 
 function getDateInfo(d = new Date()) {
-  const date = d.toISOString().split('T')[0];
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const dayNum = String(d.getDate()).padStart(2, '0');
+  const date = `${year}-${month}-${dayNum}`;
   const day = d.toLocaleDateString('en-US', { weekday: 'long' });
   return { date, day };
+}
+
+function migrateLogDate(l) {
+  if (l && l.timestamp) {
+    const info = getDateInfo(new Date(l.timestamp));
+    return { ...l, date: info.date, day: info.day };
+  }
+  return l;
 }
 
 function formatTime(timestamp) {
@@ -79,7 +90,7 @@ function loadState() {
       ...parsed,
       roles: Array.isArray(parsed.roles) && parsed.roles.length ? parsed.roles : defaultState().roles,
       websites: Array.isArray(parsed.websites) && parsed.websites.length ? parsed.websites : defaultState().websites,
-      logs: Array.isArray(parsed.logs) ? parsed.logs : [],
+      logs: (Array.isArray(parsed.logs) ? parsed.logs : []).map(migrateLogDate),
       settings: { ...defaultState().settings, ...(parsed.settings || {}) },
     };
   } catch {
@@ -363,6 +374,41 @@ function renderDashboard() {
   renderBarChart($('tracker-chart-websites-today'), aggregateByWebsite(todayLogs), state.websites);
   renderBarChart($('tracker-chart-roles-week'), aggregateByRole(weekLogs), state.roles);
   renderBarChart($('tracker-chart-websites-week'), aggregateByWebsite(weekLogs), state.websites);
+  renderDailyChart();
+}
+
+function renderDailyChart() {
+  const container = $('tracker-daily-chart');
+  if (!container) return;
+
+  const days = [...dailyRollup()].reverse();
+
+  if (!days.length) {
+    container.innerHTML = '<p class="tracker-empty">No data yet</p>';
+    return;
+  }
+
+  const max = Math.max(...days.map((d) => sumCounts(d.logs)), 1);
+
+  container.innerHTML = days
+    .map((d) => {
+      const total = sumCounts(d.logs);
+      const height = Math.round((total / max) * 100);
+      const shortDate = d.date.slice(5);
+      const dayAbbr = d.day ? d.day.slice(0, 3) : '';
+      return `
+      <div class="tracker-daily-col" title="${d.date} (${d.day}): ${total} applications">
+        <span class="tracker-daily-col-value">${total}</span>
+        <div class="tracker-daily-col-barwrap">
+          <div class="tracker-daily-col-bar" style="height:${height}%"></div>
+        </div>
+        <span class="tracker-daily-col-label">${shortDate}</span>
+        <span class="tracker-daily-col-day">${dayAbbr}</span>
+      </div>`;
+    })
+    .join('');
+
+  container.scrollLeft = container.scrollWidth;
 }
 
 function renderDailyTable() {
@@ -527,7 +573,7 @@ function importJSON(file) {
       state = {
         ...defaultState(),
         ...parsed,
-        logs: Array.isArray(parsed.logs) ? parsed.logs : [],
+        logs: (Array.isArray(parsed.logs) ? parsed.logs : []).map(migrateLogDate),
       };
       saveState(state);
       renderAll();
@@ -583,6 +629,7 @@ function initTabs() {
       document.querySelectorAll('.tracker-panel').forEach((p) => p.classList.remove('active'));
       tab.classList.add('active');
       $(`panel-${tab.dataset.panel}`).classList.add('active');
+      if (tab.dataset.panel === 'dashboard') renderDailyChart();
     });
   });
 }
@@ -597,6 +644,14 @@ function init() {
   els.roleSelect.addEventListener('change', () => renderQuickRoles());
 
   $('tracker-btn-log').addEventListener('click', () => handleLog(getLogCount()));
+
+  const dailyChart = $('tracker-daily-chart');
+  $('tracker-daily-scroll-left').addEventListener('click', () =>
+    dailyChart.scrollBy({ left: -260, behavior: 'smooth' })
+  );
+  $('tracker-daily-scroll-right').addEventListener('click', () =>
+    dailyChart.scrollBy({ left: 260, behavior: 'smooth' })
+  );
 
   document.querySelectorAll('.tracker-network-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
