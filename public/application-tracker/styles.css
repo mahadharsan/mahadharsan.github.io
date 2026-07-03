@@ -272,6 +272,65 @@
   margin-bottom: 1.5rem;
 }
 
+.tracker-dashboard-summary {
+  margin-bottom: 1.5rem;
+}
+
+.tracker-stat-highlight {
+  max-width: 220px;
+  border-color: var(--accent-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.tracker-monthly-chart {
+  width: 100%;
+}
+
+.tracker-monthly-chart-scroll {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-behavior: smooth;
+}
+
+.tracker-monthly-svg {
+  display: block;
+}
+
+.tracker-line-grid {
+  stroke: var(--border-color);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.tracker-line-axis {
+  fill: var(--text-secondary);
+  font-size: 11px;
+}
+
+.tracker-line-value {
+  fill: var(--accent-primary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tracker-line-area {
+  fill: rgba(217, 119, 6, 0.18);
+}
+
+.tracker-line-path {
+  fill: none;
+  stroke: var(--accent-primary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tracker-line-dot {
+  fill: var(--accent-primary);
+  stroke: var(--bg-card);
+  stroke-width: 2;
+}
+
 .tracker-stat {
   background: var(--bg-card);
   border: 1px solid var(--border-color);

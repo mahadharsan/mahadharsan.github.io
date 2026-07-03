@@ -202,6 +202,26 @@ function dailyRollup() {
   return Object.values(byDate).sort((a, b) => b.date.localeCompare(a.date));
 }
 
+function getMonthKey(dateStr) {
+  return dateStr.slice(0, 7);
+}
+
+function monthlyRollup() {
+  const byMonth = {};
+  for (const l of state.logs) {
+    const month = getMonthKey(l.date);
+    if (!byMonth[month]) byMonth[month] = { month, total: 0 };
+    byMonth[month].total += l.count || 1;
+  }
+  return Object.values(byMonth).sort((a, b) => a.month.localeCompare(b.month));
+}
+
+function formatMonthLabel(monthKey) {
+  const [year, month] = monthKey.split('-');
+  const d = new Date(Number(year), Number(month) - 1, 1);
+  return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+}
+
 // --- Render helpers ---
 
 function fillSelect(select, items, selectedId) {
@@ -374,7 +394,68 @@ function renderDashboard() {
   renderBarChart($('tracker-chart-websites-today'), aggregateByWebsite(todayLogs), state.websites);
   renderBarChart($('tracker-chart-roles-week'), aggregateByRole(weekLogs), state.roles);
   renderBarChart($('tracker-chart-websites-week'), aggregateByWebsite(weekLogs), state.websites);
+  renderMonthlyLineChart();
   renderDailyChart();
+}
+
+function renderMonthlyLineChart() {
+  const container = $('tracker-monthly-chart');
+  const totalEl = $('tracker-stat-total');
+  const total = sumCounts(state.logs);
+
+  if (totalEl) totalEl.textContent = total;
+  if (!container) return;
+
+  const months = monthlyRollup();
+  if (!months.length) {
+    container.innerHTML = '<p class="tracker-empty">No data yet</p>';
+    return;
+  }
+
+  const width = Math.max(640, months.length * 72 + 80);
+  const height = 240;
+  const pad = { top: 28, right: 24, bottom: 52, left: 44 };
+  const chartW = width - pad.left - pad.right;
+  const chartH = height - pad.top - pad.bottom;
+  const max = Math.max(...months.map((m) => m.total), 1);
+
+  const points = months.map((m, i) => {
+    const x = pad.left + (months.length === 1 ? chartW / 2 : (i / (months.length - 1)) * chartW);
+    const y = pad.top + chartH - (m.total / max) * chartH;
+    return { x, y, ...m };
+  });
+
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const areaPath = `${linePath} L${points[points.length - 1].x.toFixed(1)},${pad.top + chartH} L${points[0].x.toFixed(1)},${pad.top + chartH} Z`;
+  const yTicks = Array.from(new Set([0, Math.round(max / 2), max])).sort((a, b) => a - b);
+
+  container.innerHTML = `
+    <div class="tracker-monthly-chart-scroll">
+      <svg class="tracker-monthly-svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Monthly applications line chart">
+        ${yTicks
+          .map((tick) => {
+            const y = pad.top + chartH - (tick / max) * chartH;
+            return `<line x1="${pad.left}" y1="${y}" x2="${width - pad.right}" y2="${y}" class="tracker-line-grid"/>
+              <text x="${pad.left - 8}" y="${y + 4}" class="tracker-line-axis" text-anchor="end">${tick}</text>`;
+          })
+          .join('')}
+        <path d="${areaPath}" class="tracker-line-area"/>
+        <path d="${linePath}" class="tracker-line-path"/>
+        ${points
+          .map(
+            (p) => `
+          <circle cx="${p.x}" cy="${p.y}" r="4.5" class="tracker-line-dot">
+            <title>${formatMonthLabel(p.month)}: ${p.total} applications</title>
+          </circle>
+          <text x="${p.x}" y="${height - 18}" class="tracker-line-axis" text-anchor="middle">${formatMonthLabel(p.month)}</text>
+          <text x="${p.x}" y="${p.y - 10}" class="tracker-line-value" text-anchor="middle">${p.total}</text>`
+          )
+          .join('')}
+      </svg>
+    </div>`;
+
+  const scroll = container.querySelector('.tracker-monthly-chart-scroll');
+  if (scroll) scroll.scrollLeft = scroll.scrollWidth;
 }
 
 function renderDailyChart() {
@@ -629,7 +710,10 @@ function initTabs() {
       document.querySelectorAll('.tracker-panel').forEach((p) => p.classList.remove('active'));
       tab.classList.add('active');
       $(`panel-${tab.dataset.panel}`).classList.add('active');
-      if (tab.dataset.panel === 'dashboard') renderDailyChart();
+      if (tab.dataset.panel === 'dashboard') {
+        renderMonthlyLineChart();
+        renderDailyChart();
+      }
     });
   });
 }
@@ -646,12 +730,21 @@ function init() {
   $('tracker-btn-log').addEventListener('click', () => handleLog(getLogCount()));
 
   const dailyChart = $('tracker-daily-chart');
+  const monthlyChart = $('tracker-monthly-chart');
   $('tracker-daily-scroll-left').addEventListener('click', () =>
     dailyChart.scrollBy({ left: -260, behavior: 'smooth' })
   );
   $('tracker-daily-scroll-right').addEventListener('click', () =>
     dailyChart.scrollBy({ left: 260, behavior: 'smooth' })
   );
+  $('tracker-monthly-scroll-left').addEventListener('click', () => {
+    const scroll = monthlyChart.querySelector('.tracker-monthly-chart-scroll');
+    if (scroll) scroll.scrollBy({ left: -280, behavior: 'smooth' });
+  });
+  $('tracker-monthly-scroll-right').addEventListener('click', () => {
+    const scroll = monthlyChart.querySelector('.tracker-monthly-chart-scroll');
+    if (scroll) scroll.scrollBy({ left: 280, behavior: 'smooth' });
+  });
 
   document.querySelectorAll('.tracker-network-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
