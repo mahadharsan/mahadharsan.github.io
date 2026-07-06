@@ -15,6 +15,10 @@ const DEFAULT_WEBSITES = [
   'Handshake', 'Dice', 'ZipRecruiter', 'Other',
 ];
 
+const DEFAULT_MEDIUMS = [
+  'LinkedIn', 'Email', 'Phone', 'In-person', 'Event', 'Referral', 'Other',
+];
+
 // --- Utilities ---
 
 function uid() {
@@ -71,11 +75,13 @@ function sumCounts(logs) {
 
 function defaultState() {
   return {
-    version: 1,
+    version: 2,
     roles: DEFAULT_ROLES.map((label) => ({ id: uid(), label })),
     websites: DEFAULT_WEBSITES.map((label) => ({ id: uid(), label })),
+    mediums: DEFAULT_MEDIUMS.map((label) => ({ id: uid(), label })),
     logs: [],
-    settings: { lastRoleId: null, lastWebsiteId: null },
+    networkLogs: [],
+    settings: { lastRoleId: null, lastWebsiteId: null, lastMediumId: null },
   };
 }
 
@@ -90,7 +96,9 @@ function loadState() {
       ...parsed,
       roles: Array.isArray(parsed.roles) && parsed.roles.length ? parsed.roles : defaultState().roles,
       websites: Array.isArray(parsed.websites) && parsed.websites.length ? parsed.websites : defaultState().websites,
+      mediums: Array.isArray(parsed.mediums) && parsed.mediums.length ? parsed.mediums : defaultState().mediums,
       logs: (Array.isArray(parsed.logs) ? parsed.logs : []).map(migrateLogDate),
+      networkLogs: (Array.isArray(parsed.networkLogs) ? parsed.networkLogs : []).map(migrateLogDate),
       settings: { ...defaultState().settings, ...(parsed.settings || {}) },
     };
   } catch {
@@ -155,6 +163,28 @@ function deleteLog(id) {
   saveState(state);
 }
 
+function addNetworkLog({ mediumId, count = 1, notes = '' }) {
+  const { date, day } = getDateInfo();
+  const log = {
+    id: uid(),
+    timestamp: new Date().toISOString(),
+    date,
+    day,
+    mediumId,
+    count,
+    notes: notes.trim(),
+  };
+  state.networkLogs.push(log);
+  state.settings.lastMediumId = mediumId;
+  saveState(state);
+  return log;
+}
+
+function deleteNetworkLog(id) {
+  state.networkLogs = state.networkLogs.filter((l) => l.id !== id);
+  saveState(state);
+}
+
 // --- Aggregations ---
 
 function logsForDate(date) {
@@ -163,6 +193,14 @@ function logsForDate(date) {
 
 function logsForWeek(weekKey) {
   return state.logs.filter((l) => getWeekKey(l.date) === weekKey);
+}
+
+function networkLogsForDate(date) {
+  return state.networkLogs.filter((l) => l.date === date);
+}
+
+function networkLogsForWeek(weekKey) {
+  return state.networkLogs.filter((l) => getWeekKey(l.date) === weekKey);
 }
 
 function aggregateByRole(logs) {
@@ -177,6 +215,14 @@ function aggregateByWebsite(logs) {
   const map = {};
   for (const l of logs) {
     map[l.websiteId] = (map[l.websiteId] || 0) + (l.count || 1);
+  }
+  return map;
+}
+
+function aggregateByMedium(logs) {
+  const map = {};
+  for (const l of logs) {
+    map[l.mediumId] = (map[l.mediumId] || 0) + (l.count || 1);
   }
   return map;
 }
@@ -272,9 +318,15 @@ function renderDateBar() {
   $('tracker-stat-week').textContent = weekTotal;
   $('tracker-stat-today-card').textContent = todayTotal;
   $('tracker-stat-week-card').textContent = weekTotal;
-  const nets = networkCounts(weekLogs);
-  $('tracker-stat-network').textContent = nets.normal;
-  $('tracker-stat-job-network').textContent = nets.jobPost;
+
+  const todayNetwork = sumCounts(networkLogsForDate(date));
+  const weekNetwork = sumCounts(networkLogsForWeek(weekKey));
+  $('tracker-stat-network-today').textContent = todayNetwork;
+  $('tracker-stat-network-week').textContent = weekNetwork;
+  $('tracker-stat-network-today-card').textContent = todayNetwork;
+
+  const networkTotalEl = $('tracker-stat-network-total');
+  if (networkTotalEl) networkTotalEl.textContent = sumCounts(state.networkLogs);
 }
 
 function renderQuickRoles() {
@@ -298,8 +350,10 @@ function renderQuickRoles() {
 function renderLogForm() {
   const currentRole = els.roleSelect?.value || state.settings.lastRoleId || state.roles[0]?.id;
   const currentWeb = els.websiteSelect?.value || state.settings.lastWebsiteId || state.websites[0]?.id;
+  const currentMedium = els.mediumSelect?.value || state.settings.lastMediumId || state.mediums[0]?.id;
   fillSelect(els.roleSelect, state.roles, currentRole);
   fillSelect(els.websiteSelect, state.websites, currentWeb);
+  if (els.mediumSelect) fillSelect(els.mediumSelect, state.mediums, currentMedium);
   renderQuickRoles();
 }
 
@@ -343,6 +397,23 @@ function addWebsiteLabel(label, selectInForm = false) {
   return item.id;
 }
 
+function addMediumLabel(label, selectInForm = false) {
+  const trimmed = label.trim();
+  if (!trimmed) return null;
+  const existing = state.mediums.find((m) => m.label.toLowerCase() === trimmed.toLowerCase());
+  if (existing) {
+    if (selectInForm && els.mediumSelect) els.mediumSelect.value = existing.id;
+    return existing.id;
+  }
+  const item = { id: uid(), label: trimmed };
+  state.mediums.push(item);
+  state.settings.lastMediumId = item.id;
+  saveState(state);
+  if (els.mediumSelect) fillSelect(els.mediumSelect, state.mediums, item.id);
+  renderManageList('tracker-mediums-list', state.mediums, 'medium');
+  return item.id;
+}
+
 function renderRecentActivity() {
   const tbody = $('tracker-recent-body');
   const recent = [...state.logs].sort((a, b) => b.timestamp.localeCompare(a.timestamp)).slice(0, 25);
@@ -378,6 +449,41 @@ function renderRecentActivity() {
   });
 }
 
+function renderRecentNetworking() {
+  const tbody = $('tracker-recent-network-body');
+  if (!tbody) return;
+
+  const recent = [...state.networkLogs]
+    .sort((a, b) => b.timestamp.localeCompare(a.timestamp))
+    .slice(0, 12);
+
+  if (!recent.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="tracker-empty">No networking logged yet</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = recent
+    .map(
+      (l) => `<tr>
+        <td>${l.date}<br><small>${formatTime(l.timestamp)}</small></td>
+        <td>${labelById(state.mediums, l.mediumId)}</td>
+        <td class="num">${l.count || 1}</td>
+        <td>${l.notes ? escapeHtml(l.notes) : '—'}
+          <button type="button" class="tracker-icon-btn" data-delete-network="${l.id}" title="Delete">✕</button>
+        </td>
+      </tr>`
+    )
+    .join('');
+
+  tbody.querySelectorAll('[data-delete-network]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      deleteNetworkLog(btn.dataset.deleteNetwork);
+      renderAll();
+      showToast('Networking entry removed');
+    });
+  });
+}
+
 function escapeHtml(s) {
   const d = document.createElement('div');
   d.textContent = s;
@@ -389,11 +495,13 @@ function renderDashboard() {
   const weekKey = getWeekKey(date);
   const todayLogs = logsForDate(date);
   const weekLogs = logsForWeek(weekKey);
+  const weekNetworkLogs = networkLogsForWeek(weekKey);
 
   renderBarChart($('tracker-chart-roles-today'), aggregateByRole(todayLogs), state.roles);
   renderBarChart($('tracker-chart-websites-today'), aggregateByWebsite(todayLogs), state.websites);
   renderBarChart($('tracker-chart-roles-week'), aggregateByRole(weekLogs), state.roles);
   renderBarChart($('tracker-chart-websites-week'), aggregateByWebsite(weekLogs), state.websites);
+  renderBarChart($('tracker-chart-mediums-week'), aggregateByMedium(weekNetworkLogs), state.mediums);
   renderMonthlyLineChart();
   renderDailyChart();
 }
@@ -570,7 +678,8 @@ function renderManageList(containerId, items, type) {
   ul.querySelectorAll('.tracker-list-item').forEach((li) => {
     const id = li.dataset.id;
     li.querySelector('[data-field="label"]').addEventListener('change', (e) => {
-      const arr = type === 'role' ? state.roles : state.websites;
+      const arr =
+        type === 'role' ? state.roles : type === 'website' ? state.websites : state.mediums;
       const item = arr.find((i) => i.id === id);
       if (item) {
         item.label = e.target.value.trim() || item.label;
@@ -582,8 +691,10 @@ function renderManageList(containerId, items, type) {
     li.querySelector('[data-action="delete"]').addEventListener('click', () => {
       if (type === 'role') {
         state.roles = state.roles.filter((i) => i.id !== id);
-      } else {
+      } else if (type === 'website') {
         state.websites = state.websites.filter((i) => i.id !== id);
+      } else {
+        state.mediums = state.mediums.filter((i) => i.id !== id);
       }
       saveState(state);
       renderLogForm();
@@ -597,11 +708,13 @@ function renderAll() {
   renderDateBar();
   renderLogForm();
   renderRecentActivity();
+  renderRecentNetworking();
   renderDashboard();
   renderDailyTable();
   renderWeeklyTable();
   renderManageList('tracker-roles-list', state.roles, 'role');
   renderManageList('tracker-websites-list', state.websites, 'website');
+  renderManageList('tracker-mediums-list', state.mediums, 'medium');
 }
 
 // --- Export / Import ---
@@ -634,7 +747,30 @@ function exportCSV() {
 
   const blob = new Blob([csv], { type: 'text/csv' });
   downloadBlob(blob, `job-tracker-${getDateInfo().date}.csv`);
-  showToast('CSV exported');
+  showToast('Applications CSV exported');
+}
+
+function exportNetworkCSV() {
+  const header = ['Date', 'Time', 'Day', 'Medium', 'Count', 'Notes', 'Week', 'Timestamp'];
+  const rows = state.networkLogs.map((l) => [
+    l.date,
+    formatTime(l.timestamp),
+    l.day,
+    labelById(state.mediums, l.mediumId),
+    l.count || 1,
+    (l.notes || '').replace(/"/g, '""'),
+    getWeekKey(l.date),
+    l.timestamp,
+  ]);
+
+  const csv =
+    header.join(',') +
+    '\n' +
+    rows.map((r) => r.map((c) => `"${c}"`).join(',')).join('\n');
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  downloadBlob(blob, `networking-tracker-${getDateInfo().date}.csv`);
+  showToast('Networking CSV exported');
 }
 
 function downloadBlob(blob, filename) {
@@ -655,6 +791,7 @@ function importJSON(file) {
         ...defaultState(),
         ...parsed,
         logs: (Array.isArray(parsed.logs) ? parsed.logs : []).map(migrateLogDate),
+        networkLogs: (Array.isArray(parsed.networkLogs) ? parsed.networkLogs : []).map(migrateLogDate),
       };
       saveState(state);
       renderAll();
@@ -703,6 +840,27 @@ function getLogCount() {
   return input ? input.value : 1;
 }
 
+function getNetworkLogCount() {
+  const input = $('tracker-network-count');
+  return input ? input.value : 1;
+}
+
+function handleNetworkLog(count) {
+  const parsed = Number(count);
+  const safeCount = Number.isFinite(parsed) && parsed >= 1 ? Math.min(Math.floor(parsed), 99) : 1;
+  const mediumId = els.mediumSelect.value;
+  if (!mediumId) {
+    showToast('Select a medium');
+    return;
+  }
+  const notes = els.networkNotesInput.value;
+  addNetworkLog({ mediumId, count: safeCount, notes });
+  els.networkNotesInput.value = '';
+  renderAll();
+  const medium = labelById(state.mediums, mediumId);
+  showToast(`+${safeCount} network via ${medium}`);
+}
+
 function initTabs() {
   document.querySelectorAll('.tracker-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -721,13 +879,16 @@ function initTabs() {
 function init() {
   els.roleSelect = $('tracker-role');
   els.websiteSelect = $('tracker-website');
+  els.mediumSelect = $('tracker-medium');
   els.notesInput = $('tracker-notes');
+  els.networkNotesInput = $('tracker-network-notes');
 
   initTabs();
 
   els.roleSelect.addEventListener('change', () => renderQuickRoles());
 
   $('tracker-btn-log').addEventListener('click', () => handleLog(getLogCount()));
+  $('tracker-btn-log-network').addEventListener('click', () => handleNetworkLog(getNetworkLogCount()));
 
   const dailyChart = $('tracker-daily-chart');
   const monthlyChart = $('tracker-monthly-chart');
@@ -785,17 +946,40 @@ function init() {
     }
   });
 
-  ['tracker-inline-new-role', 'tracker-inline-new-website'].forEach((id) => {
+  $('tracker-inline-add-medium').addEventListener('click', () => {
+    const input = $('tracker-inline-new-medium');
+    if (addMediumLabel(input.value, true)) {
+      input.value = '';
+      showToast('Medium added');
+    }
+  });
+
+  $('tracker-add-medium').addEventListener('click', () => {
+    const label = $('tracker-new-medium').value;
+    if (addMediumLabel(label)) {
+      $('tracker-new-medium').value = '';
+      showToast('Medium added');
+    }
+  });
+
+  ['tracker-inline-new-role', 'tracker-inline-new-website', 'tracker-inline-new-medium'].forEach((id) => {
     $(id).addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        $(id === 'tracker-inline-new-role' ? 'tracker-inline-add-role' : 'tracker-inline-add-website').click();
+        const btnId =
+          id === 'tracker-inline-new-role'
+            ? 'tracker-inline-add-role'
+            : id === 'tracker-inline-new-website'
+              ? 'tracker-inline-add-website'
+              : 'tracker-inline-add-medium';
+        $(btnId).click();
       }
     });
   });
 
   $('tracker-export-json').addEventListener('click', exportJSON);
   $('tracker-export-csv').addEventListener('click', exportCSV);
+  $('tracker-export-network-csv').addEventListener('click', exportNetworkCSV);
 
   const importInput = $('tracker-import-json');
   $('tracker-import-btn').addEventListener('click', () => importInput.click());
