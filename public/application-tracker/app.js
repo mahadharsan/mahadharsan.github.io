@@ -53,13 +53,24 @@ function formatTime(timestamp) {
   });
 }
 
+function parseLocalDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d, 12, 0, 0);
+}
+
 function getWeekKey(dateStr) {
-  const d = new Date(dateStr + 'T12:00:00');
+  const d = parseLocalDate(dateStr);
   const day = d.getDay();
   const diff = d.getDate() - day + (day === 0 ? -6 : 1);
   const monday = new Date(d);
   monday.setDate(diff);
-  return monday.toISOString().split('T')[0];
+  return getDateInfo(monday).date;
+}
+
+function addDays(dateStr, days) {
+  const d = parseLocalDate(dateStr);
+  d.setDate(d.getDate() + days);
+  return getDateInfo(d).date;
 }
 
 function labelById(items, id) {
@@ -246,6 +257,55 @@ function dailyRollup() {
     byDate[l.date].logs.push(l);
   }
   return Object.values(byDate).sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function dailySeriesWithZeros() {
+  if (!state.logs.length) return [];
+
+  const byDate = {};
+  for (const l of state.logs) {
+    byDate[l.date] = (byDate[l.date] || 0) + (l.count || 1);
+  }
+
+  const dates = Object.keys(byDate).sort();
+  const start = dates[0];
+  const end = getDateInfo().date;
+  const series = [];
+
+  for (let cur = start; cur <= end; cur = addDays(cur, 1)) {
+    const info = getDateInfo(parseLocalDate(cur));
+    series.push({
+      date: cur,
+      day: info.day,
+      total: byDate[cur] || 0,
+    });
+  }
+
+  return series;
+}
+
+function weeklySeriesWithZeros() {
+  if (!state.logs.length) return [];
+
+  const byWeek = {};
+  for (const l of state.logs) {
+    const week = getWeekKey(l.date);
+    byWeek[week] = (byWeek[week] || 0) + (l.count || 1);
+  }
+
+  const weeks = Object.keys(byWeek).sort();
+  const start = weeks[0];
+  const end = getWeekKey(getDateInfo().date);
+  const series = [];
+
+  for (let cur = start; cur <= end; cur = addDays(cur, 7)) {
+    series.push({
+      week: cur,
+      total: byWeek[cur] || 0,
+    });
+  }
+
+  return series;
 }
 
 function getMonthKey(dateStr) {
@@ -504,6 +564,7 @@ function renderDashboard() {
   renderBarChart($('tracker-chart-mediums-week'), aggregateByMedium(weekNetworkLogs), state.mediums);
   renderMonthlyLineChart();
   renderDailyChart();
+  renderWeeklyChart();
 }
 
 function renderMonthlyLineChart() {
@@ -566,38 +627,49 @@ function renderMonthlyLineChart() {
   if (scroll) scroll.scrollLeft = scroll.scrollWidth;
 }
 
-function renderDailyChart() {
-  const container = $('tracker-daily-chart');
+function renderPeriodBarChart(container, items, opts) {
   if (!container) return;
 
-  const days = [...dailyRollup()].reverse();
-
-  if (!days.length) {
+  if (!items.length) {
     container.innerHTML = '<p class="tracker-empty">No data yet</p>';
     return;
   }
 
-  const max = Math.max(...days.map((d) => sumCounts(d.logs)), 1);
+  const max = Math.max(...items.map((d) => d.total), 1);
 
-  container.innerHTML = days
+  container.innerHTML = items
     .map((d) => {
-      const total = sumCounts(d.logs);
-      const height = Math.round((total / max) * 100);
-      const shortDate = d.date.slice(5);
-      const dayAbbr = d.day ? d.day.slice(0, 3) : '';
+      const height = d.total > 0 ? Math.max(Math.round((d.total / max) * 100), 4) : 2;
+      const zeroClass = d.total === 0 ? ' tracker-daily-col-bar-zero' : '';
       return `
-      <div class="tracker-daily-col" title="${d.date} (${d.day}): ${total} applications">
-        <span class="tracker-daily-col-value">${total}</span>
+      <div class="tracker-daily-col" title="${opts.title(d)}">
+        <span class="tracker-daily-col-value">${d.total}</span>
         <div class="tracker-daily-col-barwrap">
-          <div class="tracker-daily-col-bar" style="height:${height}%"></div>
+          <div class="tracker-daily-col-bar${zeroClass}" style="height:${height}%"></div>
         </div>
-        <span class="tracker-daily-col-label">${shortDate}</span>
-        <span class="tracker-daily-col-day">${dayAbbr}</span>
+        <span class="tracker-daily-col-label">${opts.label(d)}</span>
+        <span class="tracker-daily-col-day">${opts.sublabel(d)}</span>
       </div>`;
     })
     .join('');
 
   container.scrollLeft = container.scrollWidth;
+}
+
+function renderDailyChart() {
+  renderPeriodBarChart($('tracker-daily-chart'), dailySeriesWithZeros(), {
+    title: (d) => `${d.date} (${d.day}): ${d.total} applications`,
+    label: (d) => d.date.slice(5),
+    sublabel: (d) => (d.day ? d.day.slice(0, 3) : ''),
+  });
+}
+
+function renderWeeklyChart() {
+  renderPeriodBarChart($('tracker-weekly-chart'), weeklySeriesWithZeros(), {
+    title: (d) => `Week of ${d.week}: ${d.total} applications`,
+    label: (d) => d.week.slice(5),
+    sublabel: () => 'Wk',
+  });
 }
 
 function renderDailyTable() {
@@ -871,6 +943,7 @@ function initTabs() {
       if (tab.dataset.panel === 'dashboard') {
         renderMonthlyLineChart();
         renderDailyChart();
+        renderWeeklyChart();
       }
     });
   });
@@ -891,12 +964,19 @@ function init() {
   $('tracker-btn-log-network').addEventListener('click', () => handleNetworkLog(getNetworkLogCount()));
 
   const dailyChart = $('tracker-daily-chart');
+  const weeklyChart = $('tracker-weekly-chart');
   const monthlyChart = $('tracker-monthly-chart');
   $('tracker-daily-scroll-left').addEventListener('click', () =>
     dailyChart.scrollBy({ left: -260, behavior: 'smooth' })
   );
   $('tracker-daily-scroll-right').addEventListener('click', () =>
     dailyChart.scrollBy({ left: 260, behavior: 'smooth' })
+  );
+  $('tracker-weekly-scroll-left').addEventListener('click', () =>
+    weeklyChart.scrollBy({ left: -260, behavior: 'smooth' })
+  );
+  $('tracker-weekly-scroll-right').addEventListener('click', () =>
+    weeklyChart.scrollBy({ left: 260, behavior: 'smooth' })
   );
   $('tracker-monthly-scroll-left').addEventListener('click', () => {
     const scroll = monthlyChart.querySelector('.tracker-monthly-chart-scroll');

@@ -602,6 +602,11 @@
   transition: height 0.3s ease;
 }
 
+.tracker-daily-col-bar-zero {
+  background: var(--border-color);
+  opacity: 0.55;
+}
+
 .tracker-daily-col-label {
   font-size: 0.7rem;
   color: var(--text-secondary);
